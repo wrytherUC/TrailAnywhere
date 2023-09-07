@@ -115,8 +115,9 @@ This is what we plan to export to another app.
 
 ## Team Memebers and Roles
 
-UI Specialist:  
-Business Logic/Persistence:  
+UI Specialist: Nate Virgin  
+Business Logic/Persistence: Kenneth Otero  
+Database/Data Engineer, Role Floater: Kayla Neely  
 DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
 ## Milestones
@@ -125,6 +126,6 @@ DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
 ## Standup
 
-[6:30 PM Eastern Wednesdays on Teams - TODO Add Teams Link]()
+[6:30 PM Eastern Thursdays on Teams - TODO Add Teams Link]()
 
 
