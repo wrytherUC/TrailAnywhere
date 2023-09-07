@@ -115,8 +115,9 @@ This is what we plan to export to another app.
 
 ## Team Memebers and Roles
 
-UI Specialist:  
-Business Logic/Persistence:  
+UI Specialist: Nate Virgin  
+Business Logic/Persistence: Kenneth Otero  
+Database/Data Engineer, Role Floater: Kayla Neely  
 DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
 ## Milestones
