@@ -95,7 +95,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ## Class Diagram
 
-![My Trail Anywhere Diagram](https://mailuc-my.sharepoint.com/:u:/g/personal/oterokh_mail_uc_edu/EWVWzCi2ScVNl_gkUfbfb9gBpNXzSorhuGdV_UclySsCHw?e=8GpgNy)
+[My Trail Anywhere Diagram](https://mailuc-my.sharepoint.com/:u:/g/personal/oterokh_mail_uc_edu/EWVWzCi2ScVNl_gkUfbfb9gBpNXzSorhuGdV_UclySsCHw?e=8GpgNy)
 
 ### Class Diagram Description
 
