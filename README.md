@@ -98,21 +98,42 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ## JSON Schema
 
-- TODO - REDO
-This is what we plan to export to another app.
+- This JSON schema is from our Trail class and what we plan to export for another app.
+- The JSON schema generated using this [repo](https://github.com/victools/jsonschema-generator).
 
 
 > {
 >  "type" : "object",
 >  "properties" : {
+>    "address" : {
+>      "type" : "string"
+>    },
+>    "difficulty" : {
+>      "type" : "string"
+>    },
+>    "latitude" : {
+>      "type" : "string"
+>    },
+>    "longtitude" : {
+>      "type" : "string"
+>    },
 >    "name" : {
 >      "type" : "string"
 >    },
->    "age" : {
+>    "terrain" : {
+>      "type" : "string"
+>    },
+>    "trailType" : {
+>      "type" : "string"
+>    },
+>    "trailid" : {
+>      "type" : "integer"
+>    },
+>    "zipCode" : {
 >      "type" : "integer"
 >    }
 >  }
-> }
+>}
 
 ## Team Memebers and Roles
 
