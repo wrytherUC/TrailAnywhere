@@ -86,11 +86,11 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 #### Example
 
-**Given**: UserA is logged in, and trail “French Park” data is available
+**Given**: UserB is logged in, and trail “French Park” data is available
 
 **When**: UserB submits an alert that contains bad language for trail “French Park”
 
-**Then**: The TrailAnywhere app will show an error prompt saying "No profane language is allowed for trail alerts!"
+**Then**: The TrailAnywhere app will show an error prompt saying "No profane language is allowed for trail alerts!," when UserB hits the submit button.
 
 ## Class Diagram
 
@@ -118,7 +118,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 >    "latitude" : {
 >      "type" : "string"
 >    },
->    "longtitude" : {
+>    "longitude" : {
 >      "type" : "string"
 >    },
 >    "name" : {
