@@ -100,6 +100,18 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ### Class Diagram Description
 
+- Enterprise Application - Will start the TrailAnywhere application
+- Controllers - Decides what to render when a user hits a URL/Endpoint
+- Trails Service - Will create, list trails
+- Alerts Service - Will create trail alerts for specific trials
+- Users Service - Users can log in to perform tasks like create a trail or alert
+- Trails DTO - Noun class to represent a trail
+- Alerts DTO - Noun class to represent an alert
+- Users DTO - Noun class to represent an end user
+- Trails DAO - Interface for trail CRUD operations
+- Alerts DAO - Interface for alert CRUD operations
+- Users DAO - Interface for user CRUD operations
+
 ## JSON Schema
 
 - This JSON schema is from our Trail class and what we plan to export for another app.
