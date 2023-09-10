@@ -18,7 +18,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ### 1. Hikers would like the ability to search for information about hiking trails.
 
-#### Example
+### Example
 
 **Given**: Trail data is available and there are 2 trails rated “Difficult”
 
@@ -26,7 +26,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 **Then**: TrailAnywhere returns 2 hiking trails, rated “Difficult”
 
-#### Example
+### Example
 
 **Given**: Trail data is available
 
@@ -34,7 +34,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 **Then**: TrailAnywhere does not return results
 
-#### Example
+### Example
 
 **Given**: Trail data is available and has a "Forrest Park" entry
 
@@ -42,7 +42,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 **Then**: TrailAnywhere returns information/attributes for “Forest Park”
 
-#### Example
+### Example
 
 **Given**: Trail data is available, “Mount Airy” is the only trail in the zip code 45239
 
@@ -50,48 +50,45 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 **Then**: TrailAnywhere returns one trail, “Mount Airy”
 
-### 2.	Hikers would like to know about weather details for .
+### 2.	Hikers would like to know about weather details for trails found based on search parameters.
 
-#### Example
+### Example
 
-**Given**: 
+**Given**: Trail data is available with a zip code attribute
 
-**When**: 
+**When**: User enters in information to find a trail based on zip code, 45239
 
-**Then**:
+**Then**: Weather information is provided below the trail results for area in zip code 45239
 
-#### Example
+### Example
 
-**Given**: 
+**Given**: Trail data is available with a longitude/latitude attribute
 
-**When**: 
+**When**: User enters in information to find a trail based on longitude/latitude 39.19937,-84.57534
 
-**Then**: 
+**Then**: A service will convert the longitude/latitude to a zip code
 
-#### Example
-
-**Given**: 
-
-**When**: 
-
-**Then**:
+**Then**: Weather information will be provided based on the zip code, 45239
 
 ### 3.  Hikers would like to search for and add alerts relating to specific trails.
+
+### Example
+
+**Given**: UserA is logged in, and trail “Sharon Woods” data is available
+
+**When**: UserA submits an alert for “Flooding” along the “Sharon Woods” trail
+
+**Then**: TrailAnywhere adds UserA’s “Flooding” alert to “Sharon Woods”.
+
+**Then**: TrailAnywhere displays “Flooding” alert to other users looking for “Sharon Woods”
+
 #### Example
 
-**Given**: 
+**Given**: UserA is logged in, and trail “French Park” data is available
 
-**When**: 
+**When**: UserB submits an alert that contains bad language for trail “French Park”
 
-**Then**: 
-
-#### Example
-
-**Given**: 
-
-**When**: 
-
-**Then**: 
+**Then**: The TrailAnywhere app will show an error prompt saying "No profane language is allowed for trail alerts!"
 
 ## Class Diagram
 
