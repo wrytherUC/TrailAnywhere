@@ -142,6 +142,10 @@ Business Logic/Persistence: Kenneth Otero
 Database/Data Engineer, Role Floater: Kayla Neely  
 DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
+## GitHub Project
+
+[TrailAnywhere Repository](https://github.com/wrytherUC/TrailAnywhere)
+
 ## Milestones
 
 [Milestone 1 TODO]()
