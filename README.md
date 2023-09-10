@@ -152,7 +152,7 @@ DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
 ## Milestones
 
-[Milestone 1 TODO]()
+[Milestone 1 TODO](https://github.com/wrytherUC/TrailAnywhere/milestone/1)
 
 ## Standup
 
