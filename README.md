@@ -12,7 +12,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ## Storyboard
 
-![TrailAnywhere Invision Storyboard](https://github.com/wrytherUC/TrailAnywhere/blob/8995ce845fea8213f5657a46ba2054047ff073e2/TrailAnywhere-InvisionStoryboard.png)
+![TrailAnywhere Invision Storyboard](src/main/resources/images/TrailAnywhere-InvisionStoryboard.png)
 
 [TrailAnywhere Storyboard in Invision](https://nate965053.invisionapp.com/freehand/TrailAnywhere-BAHo9RwnD)
 
@@ -94,7 +94,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ## Class Diagram
 
-![TrailAnywhere UML Diagram](https://github.com/wrytherUC/TrailAnywhere/blob/8995ce845fea8213f5657a46ba2054047ff073e2/Final%20Project%20-%20Class%20Diagram.png)
+![TrailAnywhere UML Diagram](src/main/resources/images/Class-Diagram.png)
 
 [TrailAnywhere Diagram](https://mailuc-my.sharepoint.com/:u:/g/personal/oterokh_mail_uc_edu/EWVWzCi2ScVNl_gkUfbfb9gBpNXzSorhuGdV_UclySsCHw?e=8GpgNy)
 
@@ -151,7 +151,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 >  }
 >}
 
-## Team Memebers and Roles
+## Team Members and Roles
 
 UI Specialist: Nate Virgin  
 Business Logic/Persistence: Kenneth Otero  
