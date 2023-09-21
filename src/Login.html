@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>TrailAnywhere</h1>
+    <nav>
+        <ul>
+            <li>
+                <form method="GET" action="TrailFinder.html">
+                    <button href="TrailFinder.html">Trails</button>
+                </form>
+            </li>
+            <li>
+                <form method="GET" action="Alerts.html">
+                    <button href="Alerts.html">Alerts</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<h2>Login</h2>
+
+<div class="container">
+    <form action="loginLogic.html" method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+<h3>Create An Account</h3>
+
+<div class="container">
+    <form action="createAccountLogic.html" method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Create New Account">
+    </form>
+</div>
+
+<!-- Make the status indicator a clickable link -->
+<!-- Need to make it so that when the user is not logged in, they see "Login" -->
+<a href="Login.html" id="status-indicator" class="status-indicator">
+    Status: <span id="status-text">Loading...</span>
+    <span id="username-text"></span>
+</a>
+
+<script src="LoginStatus.js"></script>
+</body>
+</html>

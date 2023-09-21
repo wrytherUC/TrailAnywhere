@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrailFinder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>TrailAnywhere</h1>
+    <nav>
+        <ul>
+            <li>
+                <form method="GET" action="Alerts.html">
+                    <button href="Alerts.html">Alerts</button>
+                </form>
+            </li>
+            <li>
+                <form method="GET" action="Favorites.html">
+                    <button href="Favorites.html">Favorites</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<h2>Trail Finder</h2>
+
+<div class="container">
+    <form action="trailFindingLogic.html" method="POST">
+        <input type="text" name="search_query" placeholder="Find trails by zipcode, difficulty, type, or name" required>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!--Hard coded table for now, will be the SQL results from the DB-->
+<table border="5"> <!-- Add a border for visualization -->
+    <tr>
+        <td>Zipcode</td>
+        <td>Name</td>
+        <td>Difficulty</td>
+        <td>Type</td>
+        <td>Address</td>
+    </tr>
+    <tr>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+    </tr>
+    <tr>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+    </tr>
+</table>
+
+<h3>Weather</h3>
+
+<table border="5"> <!-- Add a border for visualization -->
+    <tr>
+        <td>Zipcode</td>
+        <td>Precipitation</td>
+        <td>Temperature</td>
+        <td>Humidity</td>
+        <td>Sunset Time</td>
+    </tr>
+    <tr>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+    </tr>
+    <tr>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+    </tr>
+</table>
+
+<!-- Make the status indicator a clickable link -->
+<!-- Need to make it so that when the user is not logged in, they see "Login" -->
+<a href="Login.html" id="status-indicator" class="status-indicator">
+    Status: <span id="status-text">Loading...</span>
+    <span id="username-text"></span>
+</a>
+
+<script src="LoginStatus.js"></script>
+</body>
+</html>
