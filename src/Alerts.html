@@ -13,12 +13,12 @@
         <ul>
             <li>
                 <form method="GET" action="TrailFinder.html">
-                    <button href="TrailFinder.html">Trails</button>
+                    <button>Trails</button>
                 </form>
             </li>
             <li>
                 <form method="GET" action="Favorites.html">
-                    <button href="Favorites.html">Favorites</button>
+                    <button>Favorites</button>
                 </form>
             </li>
         </ul>
@@ -29,7 +29,9 @@
 
 <div class="container">
     <form action="searchAlertLogic.html" method="POST">
-        <input type="text" name="search_query" placeholder="Enter a trail name for alerts from other hikers" required>
+        <label>
+            <input type="text" name="search_query" placeholder="Enter a trail name for alerts from other hikers" required>
+        </label>
         <input type="submit" value="Submit">
     </form>
 </div>
@@ -54,8 +56,12 @@
 
 <div class="container">
     <form action="addAlertLogic.html" method="POST">
-        <input type="text" name="Trail_Name" placeholder="Trail Name" required>
-        <input type="text" name="Alert" placeholder="Alert" required>
+        <label>
+            <input type="text" name="Trail_Name" placeholder="Trail Name" required>
+        </label>
+        <label>
+            <input type="text" name="Alert" placeholder="Alert" required>
+        </label>
         <input type="submit" value="Submit">
     </form>
 </div>

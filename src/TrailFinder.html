@@ -13,12 +13,12 @@
         <ul>
             <li>
                 <form method="GET" action="Alerts.html">
-                    <button href="Alerts.html">Alerts</button>
+                    <button>Alerts</button>
                 </form>
             </li>
             <li>
                 <form method="GET" action="Favorites.html">
-                    <button href="Favorites.html">Favorites</button>
+                    <button>Favorites</button>
                 </form>
             </li>
         </ul>
@@ -29,7 +29,9 @@
 
 <div class="container">
     <form action="trailFindingLogic.html" method="POST">
-        <input type="text" name="search_query" placeholder="Find trails by zipcode, difficulty, type, or name" required>
+        <label>
+            <input type="text" name="search_query" placeholder="Find trails by zipcode, difficulty, type, or name" required>
+        </label>
         <input type="submit" value="Submit">
     </form>
 </div>
