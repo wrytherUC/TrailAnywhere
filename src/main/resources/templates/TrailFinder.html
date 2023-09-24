@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorites</title>
-    <link rel="stylesheet" href="style.css">
+    <title>TrailFinder</title>
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
 <header>
@@ -12,20 +12,29 @@
     <nav>
         <ul>
             <li>
-                <form method="GET" action="TrailFinder.html">
-                    <button>Trails</button>
+                <form method="GET" action="Alerts.html">
+                    <button>Alerts</button>
                 </form>
             </li>
             <li>
-                <form method="GET" action="Alerts.html">
-                    <button>Alerts</button>
+                <form method="GET" action="Favorites.html">
+                    <button>Favorites</button>
                 </form>
             </li>
         </ul>
     </nav>
 </header>
 
-<h2>Favorites</h2>
+<h2>Trail Finder</h2>
+
+<div class="container">
+    <form action="trailFindingLogic.html" method="POST">
+        <label>
+            <input type="text" name="search_query" placeholder="Find trails by zipcode, difficulty, type, or name" required>
+        </label>
+        <input type="submit" value="Submit">
+    </form>
+</div>
 
 <!--Hard coded table for now, will be the SQL results from the DB-->
 <table border="5"> <!-- Add a border for visualization -->
@@ -52,19 +61,31 @@
     </tr>
 </table>
 
-<h3>Add Favorite Trail</h3>
+<h3>Weather</h3>
 
-<div class="container">
-    <form action="addFavoriteLogic.html" method="POST">
-        <label>
-            <input type="text" name="search_query" placeholder="Enter the name of the trail you want to add" required>
-        </label>
-        <label>
-            <input type="text" name="search_query" placeholder="Enter the zipcode of the trail you want to add" required>
-        </label>
-        <input type="submit" value="Submit">
-    </form>
-</div>
+<table border="5"> <!-- Add a border for visualization -->
+    <tr>
+        <td>Zipcode</td>
+        <td>Precipitation</td>
+        <td>Temperature</td>
+        <td>Humidity</td>
+        <td>Sunset Time</td>
+    </tr>
+    <tr>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+    </tr>
+    <tr>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+        <td>Results</td>
+    </tr>
+</table>
 
 <!-- Make the status indicator a clickable link -->
 <!-- Need to make it so that when the user is not logged in, they see "Login" -->
@@ -73,6 +94,6 @@
     <span id="username-text"></span>
 </a>
 
-<script src="LoginStatus.js"></script>
+<script src="../static/js/LoginStatus.js"></script>
 </body>
 </html>
