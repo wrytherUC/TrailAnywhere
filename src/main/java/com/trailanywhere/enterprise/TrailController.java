@@ -17,4 +17,31 @@ public class TrailController {
     public String index() {
         return "TrailFinder";
     }
+
+    /**
+     * Handle the alerts endpoint and return a page.
+     * @return alerts page
+     */
+    @RequestMapping("/Alerts")
+    public String alerts() {
+        return "Alerts";
+    }
+
+    /**
+     * Handle the favorites endpoint and return a page.
+     * @return favorites page
+     */
+    @RequestMapping("/Favorites")
+    public String favorites() {
+        return "Favorites";
+    }
+
+    /**
+     * Handle the login endpoint and return a page.
+     * @return login page
+     */
+    @RequestMapping("/Login")
+    public String login() {
+        return "Login";
+    }
 }

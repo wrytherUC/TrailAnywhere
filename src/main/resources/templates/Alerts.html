@@ -12,12 +12,12 @@
     <nav>
         <ul>
             <li>
-                <form method="GET" action="TrailFinder.html">
+                <form method="GET" th:action="@{/}">
                     <button>Trails</button>
                 </form>
             </li>
             <li>
-                <form method="GET" action="Favorites.html">
+                <form method="GET" th:action="@{/Favorites}">
                     <button>Favorites</button>
                 </form>
             </li>
@@ -68,7 +68,7 @@
 
 <!-- Make the status indicator a clickable link -->
 <!-- Need to make it so that when the user is not logged in, they see "Login" -->
-<a href="Login.html" id="status-indicator" class="status-indicator">
+<a th:href="@{/Login}" id="status-indicator" class="status-indicator">
     Status: <span id="status-text">Loading...</span>
     <span id="username-text"></span>
 </a>
