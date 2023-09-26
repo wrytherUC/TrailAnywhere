@@ -1,5 +1,6 @@
 package com.trailanywhere.enterprise;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.service.ITrailService;
 import org.junit.jupiter.api.Test;
@@ -115,11 +116,11 @@ class EnterpriseApplicationTests {
     }
 
     private void thenReturnTrailWeatherWithSameZipCode() {
-
+        JsonNode node = trailService.getCurrentWeatherByZipCode("45211");
+        assertEquals("39.13797", node.get("latitude").asText());
+        assertEquals("-84.52533", node.get("longitude").asText());
     }
 
-    // Test for checking weather JSON data with provided coordinates.
-    
     // Test for creating an alert with a provided trail name (user must be logged in).
 
 }
