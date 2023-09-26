@@ -129,4 +129,24 @@ public class TrailServiceStub implements ITrailService {
         }
         return null;
     }
+
+    /**
+     * Return all trails with the same coordinates
+     * @param latitude - provided latitude coordinate
+     * @param longitude - provided longitude coordinate
+     * @return - trails
+     */
+    @Override
+    public ArrayList<Trail> fetchByCoordinates(String latitude, String longitude) {
+        ArrayList<Trail> list = new ArrayList<>();
+        Trail trailOne = new Trail();
+        Trail trailTwo = new Trail();
+        trailOne.setLatitude(latitude);
+        trailOne.setLongitude(longitude);
+        trailTwo.setLatitude(latitude);
+        trailTwo.setLongitude(longitude);
+        list.add(trailOne);
+        list.add(trailTwo);
+        return list;
+    }
 }

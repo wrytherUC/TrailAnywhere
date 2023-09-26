@@ -41,4 +41,12 @@ public interface ITrailService {
      * @return - JSON containing weather information
      */
     JsonNode getCurrentWeather(String latitude, String longitude);
+
+    /**
+     * Fetch all trails with the same coordinates
+     * @param latitude - provided latitude coordinate
+     * @param longitude - provided longitude coordinate
+     * @return - List containing all trails
+     */
+    ArrayList<Trail> fetchByCoordinates(String latitude, String longitude);
 }

@@ -107,7 +107,9 @@ class EnterpriseApplicationTests {
         assertTrue(matchedList);
     }
 
-    // Test for checking weather JSON data with provided zip code (convert zip code to coordinates for API)
+    /**
+     * Test for checking weather JSON data with provided zip code (convert zip code to coordinates for API)
+     */
     @Test
     void fetchTrailWeatherFromZipCode() {
         givenTrailDataIsAvailable();
@@ -117,6 +119,30 @@ class EnterpriseApplicationTests {
 
     private void thenReturnTrailWeatherWithSameZipCode() {
         JsonNode node = trailService.getCurrentWeatherByZipCode("45211");
+
+        // If coordinates are the same then it fetched the weather correctly
+        assertEquals("39.13797", node.get("latitude").asText());
+        assertEquals("-84.52533", node.get("longitude").asText());
+    }
+
+    /**
+     * Test for finding trails with provided coordinates and return weather data
+     */
+    @Test
+    void fetchTrailWeatherWithCoordinates() {
+        givenTrailDataIsAvailable();
+        whenSearchTrailWithCoordinates();
+        thenReturnTrailWeatherWithCoordinates();
+    }
+
+    private void whenSearchTrailWithCoordinates() {
+        trailList = trailService.fetchByCoordinates("39.13797", "-84.52533");
+    }
+
+    private void thenReturnTrailWeatherWithCoordinates() {
+        JsonNode node = trailService.getCurrentWeather(trailList.get(0).getLatitude(), trailList.get(0).getLongitude());
+
+        // If coordinates are the same then it fetched the weather correctly
         assertEquals("39.13797", node.get("latitude").asText());
         assertEquals("-84.52533", node.get("longitude").asText());
     }
