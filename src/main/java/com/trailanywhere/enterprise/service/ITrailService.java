@@ -18,4 +18,11 @@ public interface ITrailService {
      * @return - all trails with the same specified difficulty
      */
     ArrayList<Trail> fetchByDifficulty(String difficulty);
+
+    /**
+     * Fetch all trails with matching zip codes
+     * @param zipCode - zip code selected by user
+     * @return - all trails with the same zip code
+     */
+    ArrayList<Trail> fetchByZipCode(String zipCode);
 }

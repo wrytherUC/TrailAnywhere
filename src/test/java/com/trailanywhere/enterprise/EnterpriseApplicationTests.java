@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Handle all tests for TrailService.
+ */
 @SpringBootTest
 class EnterpriseApplicationTests {
 
@@ -18,10 +21,16 @@ class EnterpriseApplicationTests {
     private Trail trail;
     private ArrayList<Trail> trailList = new ArrayList<>();
 
+    /**
+     * Test if project compiles.
+     */
     @Test
     void contextLoads() {
     }
 
+    /**
+     * Test fetching trail with a specific name.
+     */
     @Test
     void fetchTrailByName_returnTrailID1ForTrailForrestPark() {
         givenTrailDataIsAvailableWithTrailNameForrestPark();
@@ -41,6 +50,9 @@ class EnterpriseApplicationTests {
         assertEquals(1, trailID);
     }
 
+    /**
+     * Test fetching trails with the same difficulty.
+     */
     @Test
     void fetchTrailsByDifficulty() {
         givenTrailDataIsAvailable();
@@ -67,5 +79,37 @@ class EnterpriseApplicationTests {
         }
         assertTrue(matchedList);
     }
+
+    /**
+     * Test for returning trails with the same zip code.
+     */
+    @Test
+    void fetchTrailsWithSameZipCode() {
+        givenTrailDataIsAvailable();
+        whenSearchTrailWithSameZipCode();
+        thenReturnTrailsWithSameZipCode();
+    }
+
+    private void whenSearchTrailWithSameZipCode() {
+        trailList = trailService.fetchByZipCode("45211");
+    }
+
+    private void thenReturnTrailsWithSameZipCode() {
+        boolean matchedList = true;
+        String zipCode = "45211";
+        for (Trail trail : trailList) {
+            if (!trail.getZipCode().equals(zipCode)) {
+                matchedList = false;
+                break;
+            }
+        }
+        assertTrue(matchedList);
+    }
+
+    // Test for checking weather JSON data with provided zip code (reverse geocode)
+    
+    // Test for checking weather JSON data with provided coordinates (convert coordinates to zip code first).
+    
+    // Test for creating an alert with a provided trail name (user must be logged in).
 
 }

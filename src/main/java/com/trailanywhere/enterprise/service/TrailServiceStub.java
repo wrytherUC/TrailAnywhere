@@ -39,4 +39,21 @@ public class TrailServiceStub implements ITrailService {
         list.add(trailTwo);
         return list;
     }
+
+    /**
+     * Fetches all trails with the same zip code
+     * @param zipCode - zip code selected by user
+     * @return - list containing all trails
+     */
+    @Override
+    public ArrayList<Trail> fetchByZipCode(String zipCode) {
+        ArrayList<Trail> list = new ArrayList<>();
+        Trail trailOne = new Trail();
+        Trail trailTwo = new Trail();
+        trailOne.setZipCode("45211");
+        trailTwo.setZipCode("45211");
+        list.add(trailOne);
+        list.add(trailTwo);
+        return list;
+    }
 }
