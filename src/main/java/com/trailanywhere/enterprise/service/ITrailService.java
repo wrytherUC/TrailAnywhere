@@ -14,6 +14,17 @@ public interface ITrailService {
     Trail fetchByTrailName(String trailName);
 
     /**
+     * Add a new trail
+     * @param trail - new trail
+     */
+    void addTrail(Trail trail);
+
+    /**
+     * Fetch all trails
+     */
+    ArrayList<Trail> fetchAlltrails();
+
+    /**
      * Fetch all trails that match difficulty
      * @param difficulty - difficulty selected by user
      * @return - all trails with the same specified difficulty

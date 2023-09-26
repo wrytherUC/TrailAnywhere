@@ -16,6 +16,11 @@ import java.util.ArrayList;
  */
 @Component
 public class TrailServiceStub implements ITrailService {
+    ArrayList<Trail> allTrails = new ArrayList<>();
+    ArrayList<Trail> trailDifficulty = new ArrayList<>();
+    ArrayList<Trail> trailZipCode = new ArrayList<>();
+    ArrayList<Trail> trailCoordinates = new ArrayList<>();
+
     /**
      * Fetches a trail with a specified name.
      * @param trailName - Name of the trail being searched for
@@ -30,20 +35,37 @@ public class TrailServiceStub implements ITrailService {
     }
 
     /**
+     * Add a new trail
+     * @param trail - new trail
+     */
+    @Override
+    public void addTrail(Trail trail) {
+        allTrails.add(trail);
+    }
+
+    /**
+     * Fetch all trails
+     * @return - list of trails
+     */
+    @Override
+    public ArrayList<Trail> fetchAlltrails() {
+        return allTrails;
+    }
+
+    /**
      * Fetches all trails by specified difficulty
      * @param difficulty - difficulty selected by user
      * @return - trails
      */
     @Override
     public ArrayList<Trail> fetchByDifficulty(String difficulty) {
-        ArrayList<Trail> list = new ArrayList<>();
         Trail trailOne = new Trail();
         Trail trailTwo = new Trail();
         trailOne.setDifficulty(difficulty);
         trailTwo.setDifficulty(difficulty);
-        list.add(trailOne);
-        list.add(trailTwo);
-        return list;
+        trailDifficulty.add(trailOne);
+        trailDifficulty.add(trailTwo);
+        return trailDifficulty;
     }
 
     /**
@@ -53,14 +75,13 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public ArrayList<Trail> fetchByZipCode(String zipCode) {
-        ArrayList<Trail> list = new ArrayList<>();
         Trail trailOne = new Trail();
         Trail trailTwo = new Trail();
         trailOne.setZipCode(zipCode);
         trailTwo.setZipCode(zipCode);
-        list.add(trailOne);
-        list.add(trailTwo);
-        return list;
+        trailZipCode.add(trailOne);
+        trailZipCode.add(trailTwo);
+        return trailZipCode;
     }
 
     /**
@@ -138,15 +159,14 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public ArrayList<Trail> fetchByCoordinates(String latitude, String longitude) {
-        ArrayList<Trail> list = new ArrayList<>();
         Trail trailOne = new Trail();
         Trail trailTwo = new Trail();
         trailOne.setLatitude(latitude);
         trailOne.setLongitude(longitude);
         trailTwo.setLatitude(latitude);
         trailTwo.setLongitude(longitude);
-        list.add(trailOne);
-        list.add(trailTwo);
-        return list;
+        trailCoordinates.add(trailOne);
+        trailCoordinates.add(trailTwo);
+        return trailCoordinates;
     }
 }

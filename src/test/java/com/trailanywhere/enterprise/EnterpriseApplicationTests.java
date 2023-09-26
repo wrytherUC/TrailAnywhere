@@ -1,8 +1,12 @@
 package com.trailanywhere.enterprise;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.trailanywhere.enterprise.dto.Alert;
 import com.trailanywhere.enterprise.dto.Trail;
+import com.trailanywhere.enterprise.dto.User;
+import com.trailanywhere.enterprise.service.IAlertService;
 import com.trailanywhere.enterprise.service.ITrailService;
+import com.trailanywhere.enterprise.service.IUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +25,14 @@ class EnterpriseApplicationTests {
     private ITrailService trailService;
     private Trail trail;
     private ArrayList<Trail> trailList = new ArrayList<>();
+
+    @Autowired
+    private IUserService userService;
+    User user = new User();
+    private ArrayList<User> userList = new ArrayList<>();
+
+    @Autowired
+    private IAlertService alertService;
 
     /**
      * Test if project compiles.
@@ -147,6 +159,40 @@ class EnterpriseApplicationTests {
         assertEquals("-84.52533", node.get("longitude").asText());
     }
 
-    // Test for creating an alert with a provided trail name (user must be logged in).
+    /**
+     * Test for creating an alert with a provided trail name (user must be logged in).
+     */
+    @Test
+    void createNewAlert() {
+        givenTrailDataIsAvailable();
+        whenUserIsLoggedIn();
+        thenCreateAlertForTrail();
+    }
+
+    private void whenUserIsLoggedIn() {
+        user.setName("Jacob");
+        userService.addUser(user);
+        userList = userService.fetchLoggedInUsers();
+        assertTrue(userService.loginUser(user));
+    }
+
+    private void thenCreateAlertForTrail() {
+        // Set test trail data
+        Trail testTrail = new Trail();
+        testTrail.setName("Forrest Park");
+        trailService.addTrail(testTrail);
+        trailList = trailService.fetchAlltrails();
+
+        // Set test alert data
+        Alert alert = new Alert();
+        alert.setUser(user);
+        alert.setTrail(testTrail);
+        alertService.addAlert(alert);
+        ArrayList<Alert> alertList = alertService.fetchAllAlerts();
+
+        // Test conditions
+        assertEquals(userList.get(0).getName(), alertList.get(0).getUser().getName());
+        assertEquals(trailList.get(0).getName(), alertList.get(0).getTrail().getName());
+    }
 
 }
