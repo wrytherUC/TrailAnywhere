@@ -106,9 +106,19 @@ class EnterpriseApplicationTests {
         assertTrue(matchedList);
     }
 
-    // Test for checking weather JSON data with provided zip code (reverse geocode)
-    
-    // Test for checking weather JSON data with provided coordinates (convert coordinates to zip code first).
+    // Test for checking weather JSON data with provided zip code (convert zip code to coordinates for API)
+    @Test
+    void fetchTrailWeatherFromZipCode() {
+        givenTrailDataIsAvailable();
+        whenSearchTrailWithSameZipCode();
+        thenReturnTrailWeatherWithSameZipCode();
+    }
+
+    private void thenReturnTrailWeatherWithSameZipCode() {
+
+    }
+
+    // Test for checking weather JSON data with provided coordinates.
     
     // Test for creating an alert with a provided trail name (user must be logged in).
 

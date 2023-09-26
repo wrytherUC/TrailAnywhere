@@ -1,5 +1,6 @@
 package com.trailanywhere.enterprise.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.Trail;
 
 import java.util.ArrayList;
@@ -25,4 +26,19 @@ public interface ITrailService {
      * @return - all trails with the same zip code
      */
     ArrayList<Trail> fetchByZipCode(String zipCode);
+
+    /**
+     * Get current weather data for trails with provided zip code
+     * @param zipCode - zip code selected by user
+     * @return - JSON containing weather information
+     */
+    JsonNode getCurrentWeatherByZipCode(String zipCode);
+
+    /**
+     * Fetch weather data with provided coordinates
+     * @param latitude - provided latitude coordinate
+     * @param longitude - provided longitude coordinate
+     * @return - JSON containing weather information
+     */
+    JsonNode getCurrentWeather(String latitude, String longitude);
 }
