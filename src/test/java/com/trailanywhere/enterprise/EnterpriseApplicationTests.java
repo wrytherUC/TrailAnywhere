@@ -1,15 +1,19 @@
 package com.trailanywhere.enterprise;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.trailanywhere.enterprise.dao.ITrailDAO;
 import com.trailanywhere.enterprise.dto.Alert;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.IAlertService;
 import com.trailanywhere.enterprise.service.ITrailService;
 import com.trailanywhere.enterprise.service.IUserService;
+import com.trailanywhere.enterprise.service.TrailServiceStub;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 
@@ -23,7 +27,11 @@ class EnterpriseApplicationTests {
 
     @Autowired
     private ITrailService trailService;
-    private Trail trail;
+    private Trail trail = new Trail();
+
+    @MockBean
+    private ITrailDAO trailDAO;
+
     private ArrayList<Trail> trailList = new ArrayList<>();
 
     @Autowired
@@ -67,14 +75,15 @@ class EnterpriseApplicationTests {
      * Test fetching trails with the same difficulty.
      */
     @Test
-    void fetchTrailsByDifficulty() {
+    void fetchTrailsByDifficulty() throws Exception {
         givenTrailDataIsAvailable();
         whenSearchTrailWithDifficultyHard();
         thenReturnTrailsWithHardDifficulty();
     }
 
-    private void givenTrailDataIsAvailable() {
-
+    private void givenTrailDataIsAvailable() throws Exception {
+        Mockito.when(trailDAO.save(trail)).thenReturn(trail);
+        trailService = new TrailServiceStub(trailDAO);
     }
 
     private void whenSearchTrailWithDifficultyHard() {
@@ -97,7 +106,7 @@ class EnterpriseApplicationTests {
      * Test for returning trails with the same zip code.
      */
     @Test
-    void fetchTrailsWithSameZipCode() {
+    void fetchTrailsWithSameZipCode() throws Exception {
         givenTrailDataIsAvailable();
         whenSearchTrailWithSameZipCode();
         thenReturnTrailsWithSameZipCode();
@@ -123,7 +132,7 @@ class EnterpriseApplicationTests {
      * Test for checking weather JSON data with provided zip code (convert zip code to coordinates for API)
      */
     @Test
-    void fetchTrailWeatherFromZipCode() {
+    void fetchTrailWeatherFromZipCode() throws Exception {
         givenTrailDataIsAvailable();
         whenSearchTrailWithSameZipCode();
         thenReturnTrailWeatherWithSameZipCode();
@@ -141,7 +150,7 @@ class EnterpriseApplicationTests {
      * Test for finding trails with provided coordinates and return weather data
      */
     @Test
-    void fetchTrailWeatherWithCoordinates() {
+    void fetchTrailWeatherWithCoordinates() throws Exception {
         givenTrailDataIsAvailable();
         whenSearchTrailWithCoordinates();
         thenReturnTrailWeatherWithCoordinates();
@@ -163,7 +172,7 @@ class EnterpriseApplicationTests {
      * Test for creating an alert with a provided trail name (user must be logged in).
      */
     @Test
-    void createNewAlert() {
+    void createNewAlert() throws Exception {
         givenTrailDataIsAvailable();
         whenUserIsLoggedIn();
         thenCreateAlertForTrail();
@@ -193,6 +202,27 @@ class EnterpriseApplicationTests {
         // Test conditions
         assertEquals(userList.get(0).getName(), alertList.get(0).getUser().getName());
         assertEquals(trailList.get(0).getName(), alertList.get(0).getTrail().getName());
+    }
+
+    /**
+     * Test for saving trails
+     */
+
+    void createNewTrail() throws Exception {
+        givenTrailDataIsAvailable();
+        whenUserIsLoggedIn();
+        whenUserEntersNewTrailData();
+        thenCreateNewTrail();
+    }
+
+    private void whenUserEntersNewTrailData() {
+        trail.setName("HiddenTrail");
+        trail.setZipCode("45201");
+    }
+
+    private void thenCreateNewTrail() throws Exception {
+        Trail createdTrail = trailService.save(trail);
+        assertEquals(trail, createdTrail);
     }
 
 }

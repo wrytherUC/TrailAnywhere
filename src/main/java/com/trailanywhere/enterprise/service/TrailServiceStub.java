@@ -2,6 +2,7 @@ package com.trailanywhere.enterprise.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trailanywhere.enterprise.dao.ITrailDAO;
 import com.trailanywhere.enterprise.dto.Trail;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,24 @@ import java.util.ArrayList;
  */
 @Component
 public class TrailServiceStub implements ITrailService {
+
+    private ITrailDAO trailDAO;
+
+    /**
+     * Default constructor for TrailServiceStub
+     */
+    public TrailServiceStub() {
+    }
+
+    /**
+     * Constructor for unit testing with Mockito
+     * @param trailDAO
+     */
+    public TrailServiceStub(ITrailDAO trailDAO) {
+
+        this.trailDAO = trailDAO;
+    }
+
     ArrayList<Trail> allTrails = new ArrayList<>();
     ArrayList<Trail> trailDifficulty = new ArrayList<>();
     ArrayList<Trail> trailZipCode = new ArrayList<>();
@@ -168,5 +187,10 @@ public class TrailServiceStub implements ITrailService {
         trailCoordinates.add(trailOne);
         trailCoordinates.add(trailTwo);
         return trailCoordinates;
+    }
+
+    @Override
+    public Trail save(Trail trail) throws Exception{
+        return trailDAO.save(trail);
     }
 }

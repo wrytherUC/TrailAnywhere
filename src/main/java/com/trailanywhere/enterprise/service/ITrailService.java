@@ -60,4 +60,6 @@ public interface ITrailService {
      * @return - List containing all trails
      */
     ArrayList<Trail> fetchByCoordinates(String latitude, String longitude);
+
+    Trail save(Trail trail) throws Exception;
 }
