@@ -2,13 +2,11 @@ package com.trailanywhere.enterprise;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dao.ITrailDAO;
+import com.trailanywhere.enterprise.dao.IUserDAO;
 import com.trailanywhere.enterprise.dto.Alert;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
-import com.trailanywhere.enterprise.service.IAlertService;
-import com.trailanywhere.enterprise.service.ITrailService;
-import com.trailanywhere.enterprise.service.IUserService;
-import com.trailanywhere.enterprise.service.TrailServiceStub;
+import com.trailanywhere.enterprise.service.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,9 @@ class EnterpriseApplicationTests {
 
     @Autowired
     private IUserService userService;
-    User user = new User();
+    @MockBean
+    private IUserDAO userDAO;
+    private User user = new User();
     private ArrayList<User> userList = new ArrayList<>();
 
     @Autowired
@@ -207,7 +207,7 @@ class EnterpriseApplicationTests {
     /**
      * Test for saving trails
      */
-
+    @Test
     void createNewTrail() throws Exception {
         givenTrailDataIsAvailable();
         whenUserIsLoggedIn();
@@ -223,6 +223,31 @@ class EnterpriseApplicationTests {
     private void thenCreateNewTrail() throws Exception {
         Trail createdTrail = trailService.save(trail);
         assertEquals(trail, createdTrail);
+    }
+
+    /**
+     * Test creating a new user
+     * @throws Exception - handle errors
+     */
+    @Test
+    void createUser() throws Exception {
+        givenUserDataIsAvailable();
+        whenUserDataIsCreated();
+        thenCreateNewUser();
+    }
+
+    private void givenUserDataIsAvailable() throws Exception {
+        Mockito.when(userDAO.save(user)).thenReturn(user);
+        userService = new UserServiceStub(userDAO);
+    }
+
+    private void whenUserDataIsCreated() {
+        user.setName("Sam");
+    }
+
+    private void thenCreateNewUser() throws Exception {
+        User newUser = userService.save(user);
+        assertEquals(user, newUser);
     }
 
 }

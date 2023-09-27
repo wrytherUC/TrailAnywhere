@@ -1,5 +1,6 @@
 package com.trailanywhere.enterprise.service;
 
+import com.trailanywhere.enterprise.dao.IUserDAO;
 import com.trailanywhere.enterprise.dto.User;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +13,23 @@ import java.util.ArrayList;
 public class UserServiceStub implements IUserService {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<User> loggedInUsers = new ArrayList<>();
+    private IUserDAO userDAO;
 
     /**
-     * Fetch all logged in users
+     * Default constructor
+     */
+    public UserServiceStub() {}
+
+    /**
+     * Constructor using DAO
+     * @param userDAO - Handle CRUD operations
+     */
+    public UserServiceStub(IUserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    /**
+     * Fetch all logged-in users
      * @return all logged in users
      */
     @Override
@@ -40,5 +55,16 @@ public class UserServiceStub implements IUserService {
     public void addUser(User user) {
         users.add(user);
         loggedInUsers.add(user);
+    }
+
+    /**
+     * Save a user
+     * @param user - new user object
+     * @return - newly created user
+     * @throws Exception - handle errors
+     */
+    @Override
+    public User save(User user) throws Exception {
+        return userDAO.save(user);
     }
 }

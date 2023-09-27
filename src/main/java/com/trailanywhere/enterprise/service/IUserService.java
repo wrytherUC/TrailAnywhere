@@ -21,4 +21,6 @@ public interface IUserService {
      * @param user - new user
      */
     void addUser(User user);
+
+    User save(User user) throws Exception;
 }
