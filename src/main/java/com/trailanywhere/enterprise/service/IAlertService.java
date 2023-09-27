@@ -17,4 +17,12 @@ public interface IAlertService {
      * @param alert - new alert
      */
     void addAlert(Alert alert);
+
+    /**
+     * Create a new alert
+     * @param alert - alert data
+     * @return - new alert
+     * @throws Exception - handle errors
+     */
+    Alert save(Alert alert) throws Exception;
 }

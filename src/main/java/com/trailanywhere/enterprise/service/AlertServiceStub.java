@@ -1,5 +1,6 @@
 package com.trailanywhere.enterprise.service;
 
+import com.trailanywhere.enterprise.dao.IAlertDAO;
 import com.trailanywhere.enterprise.dto.Alert;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,22 @@ import java.util.ArrayList;
 @Component
 public class AlertServiceStub implements IAlertService {
     ArrayList<Alert> allAlerts = new ArrayList<>();
+    private IAlertDAO alertDAO;
+
+    /**
+     * Default constructor
+     */
+    public AlertServiceStub() {
+
+    }
+
+    /**
+     * Constructor using DAO
+     * @param alertDAO - DAO
+     */
+    public AlertServiceStub(IAlertDAO alertDAO) {
+        this.alertDAO = alertDAO;
+    }
 
     /**
      * Fetch all alerts
@@ -28,5 +45,16 @@ public class AlertServiceStub implements IAlertService {
     @Override
     public void addAlert(Alert alert) {
         allAlerts.add(alert);
+    }
+
+    /**
+     * Create a new alert
+     * @param alert - alert data
+     * @return - alert
+     * @throws Exception - handle errors
+     */
+    @Override
+    public Alert save(Alert alert) throws Exception {
+        return alertDAO.save(alert);
     }
 }

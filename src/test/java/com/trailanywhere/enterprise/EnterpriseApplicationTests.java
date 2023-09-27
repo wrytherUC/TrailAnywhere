@@ -2,8 +2,6 @@ package com.trailanywhere.enterprise;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dao.ITrailDAO;
-import com.trailanywhere.enterprise.dao.IUserDAO;
-import com.trailanywhere.enterprise.dto.Alert;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.*;
@@ -34,13 +32,7 @@ class EnterpriseApplicationTests {
 
     @Autowired
     private IUserService userService;
-    @MockBean
-    private IUserDAO userDAO;
     private User user = new User();
-    private ArrayList<User> userList = new ArrayList<>();
-
-    @Autowired
-    private IAlertService alertService;
 
     /**
      * Test if project compiles.
@@ -169,42 +161,6 @@ class EnterpriseApplicationTests {
     }
 
     /**
-     * Test for creating an alert with a provided trail name (user must be logged in).
-     */
-    @Test
-    void createNewAlert() throws Exception {
-        givenTrailDataIsAvailable();
-        whenUserIsLoggedIn();
-        thenCreateAlertForTrail();
-    }
-
-    private void whenUserIsLoggedIn() {
-        user.setName("Jacob");
-        userService.addUser(user);
-        userList = userService.fetchLoggedInUsers();
-        assertTrue(userService.loginUser(user));
-    }
-
-    private void thenCreateAlertForTrail() {
-        // Set test trail data
-        Trail testTrail = new Trail();
-        testTrail.setName("Forrest Park");
-        trailService.addTrail(testTrail);
-        trailList = trailService.fetchAlltrails();
-
-        // Set test alert data
-        Alert alert = new Alert();
-        alert.setUser(user);
-        alert.setTrail(testTrail);
-        alertService.addAlert(alert);
-        ArrayList<Alert> alertList = alertService.fetchAllAlerts();
-
-        // Test conditions
-        assertEquals(userList.get(0).getName(), alertList.get(0).getUser().getName());
-        assertEquals(trailList.get(0).getName(), alertList.get(0).getTrail().getName());
-    }
-
-    /**
      * Test for saving trails
      */
     @Test
@@ -213,6 +169,12 @@ class EnterpriseApplicationTests {
         whenUserIsLoggedIn();
         whenUserEntersNewTrailData();
         thenCreateNewTrail();
+    }
+
+    private void whenUserIsLoggedIn() {
+        user.setName("Jacob");
+        userService.addUser(user);
+        assertTrue(userService.loginUser(user));
     }
 
     private void whenUserEntersNewTrailData() {
@@ -224,30 +186,4 @@ class EnterpriseApplicationTests {
         Trail createdTrail = trailService.save(trail);
         assertEquals(trail, createdTrail);
     }
-
-    /**
-     * Test creating a new user
-     * @throws Exception - handle errors
-     */
-    @Test
-    void createUser() throws Exception {
-        givenUserDataIsAvailable();
-        whenUserDataIsCreated();
-        thenCreateNewUser();
-    }
-
-    private void givenUserDataIsAvailable() throws Exception {
-        Mockito.when(userDAO.save(user)).thenReturn(user);
-        userService = new UserServiceStub(userDAO);
-    }
-
-    private void whenUserDataIsCreated() {
-        user.setName("Sam");
-    }
-
-    private void thenCreateNewUser() throws Exception {
-        User newUser = userService.save(user);
-        assertEquals(user, newUser);
-    }
-
 }

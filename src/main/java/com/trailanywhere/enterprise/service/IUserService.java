@@ -22,5 +22,11 @@ public interface IUserService {
      */
     void addUser(User user);
 
+    /**
+     * Create a new user
+     * @param user - new user data
+     * @return - new user
+     * @throws Exception - handle errors
+     */
     User save(User user) throws Exception;
 }
