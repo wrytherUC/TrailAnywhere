@@ -29,4 +29,11 @@ public interface IUserService {
      * @throws Exception - handle errors
      */
     User save(User user) throws Exception;
+
+    /**
+     * Delete a user
+     * @param user - user to be deleted
+     * @throws Exception - handle errors
+     */
+    void delete(User user) throws Exception;
 }

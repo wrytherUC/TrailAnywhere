@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.atLeastOnce;
 
 /**
  * Handle all tests related to alerts
@@ -42,7 +44,7 @@ public class AlertTests {
      * @throws Exception - handle errors
      */
     @Test
-    void createAlert() throws Exception {
+    void saveAlert() throws Exception {
         givenAlertDataIsAvailable();
         whenAlertDataIsGiven();
         thenCreateAlert();
@@ -71,7 +73,7 @@ public class AlertTests {
      * Test for creating an alert with a provided trail name (user must be logged in).
      */
     @Test
-    void createNewAlert() {
+    void createAlertForTrail() {
         givenTrailDataIsAvailable();
         whenUserIsLoggedIn();
         thenCreateAlertForTrail();
@@ -105,6 +107,22 @@ public class AlertTests {
         // Test conditions
         assertEquals(userList.get(0).getName(), alertList.get(0).getUser().getName());
         assertEquals(trailList.get(0).getName(), alertList.get(0).getTrail().getName());
+    }
+
+    /**
+     * Delete an alert
+     * @throws Exception - handle errors
+     */
+    @Test
+    void deleteAlert() throws Exception {
+        givenAlertDataIsAvailable();
+        whenAlertDataIsGiven();
+        thenDeleteAlert();
+    }
+
+    private void thenDeleteAlert() throws Exception {
+        alertService.delete(alert);
+        verify(alertDAO, atLeastOnce()).delete(alert);
     }
 
 }

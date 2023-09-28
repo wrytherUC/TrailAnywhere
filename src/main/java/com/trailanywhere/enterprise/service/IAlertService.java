@@ -2,7 +2,6 @@ package com.trailanywhere.enterprise.service;
 
 import com.trailanywhere.enterprise.dto.Alert;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public interface IAlertService {
@@ -25,4 +24,11 @@ public interface IAlertService {
      * @throws Exception - handle errors
      */
     Alert save(Alert alert) throws Exception;
+
+    /**
+     * Delete an alert
+     * @param alert - alert to be deleted
+     * @throws Exception - handle errors
+     */
+    void delete(Alert alert) throws Exception;
 }

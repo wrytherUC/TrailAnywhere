@@ -57,4 +57,14 @@ public class AlertServiceStub implements IAlertService {
     public Alert save(Alert alert) throws Exception {
         return alertDAO.save(alert);
     }
+
+    /**
+     * Delete an alert
+     * @param alert - alert to be deleted
+     * @throws Exception - handle errors
+     */
+    @Override
+    public void delete(Alert alert) throws Exception {
+        alertDAO.delete(alert);
+    }
 }

@@ -61,5 +61,18 @@ public interface ITrailService {
      */
     ArrayList<Trail> fetchByCoordinates(String latitude, String longitude);
 
+    /**
+     * Saves a trail
+     * @param trail - trail to be saved
+     * @return - new trail
+     * @throws Exception - handle errors
+     */
     Trail save(Trail trail) throws Exception;
+
+    /**
+     * Deletes a trail
+     * @param trail - trail to be deleted
+     * @throws Exception - handle errors
+     */
+    void delete(Trail trail) throws Exception;
 }

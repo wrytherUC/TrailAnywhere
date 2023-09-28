@@ -67,4 +67,14 @@ public class UserServiceStub implements IUserService {
     public User save(User user) throws Exception {
         return userDAO.save(user);
     }
+
+    /**
+     * Delete a user
+     * @param user - user to be deleted
+     * @throws Exception - handle errors
+     */
+    @Override
+    public void delete(User user) throws Exception {
+        userDAO.delete(user);
+    }
 }

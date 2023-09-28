@@ -14,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 /**
  * Handle all tests for TrailService.
@@ -185,5 +187,21 @@ class EnterpriseApplicationTests {
     private void thenCreateNewTrail() throws Exception {
         Trail createdTrail = trailService.save(trail);
         assertEquals(trail, createdTrail);
+    }
+
+    /**
+     * Test deleting a trail
+     * @throws Exception - handle errors
+     */
+    @Test
+    void deleteTrail() throws Exception {
+        givenTrailDataIsAvailable();
+        whenUserEntersNewTrailData();
+        thenDeleteTrail();
+    }
+
+    private void thenDeleteTrail() throws Exception {
+        trailDAO.delete(trail);
+        verify(trailDAO, atLeastOnce()).delete(trail);
     }
 }

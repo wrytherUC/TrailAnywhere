@@ -189,8 +189,24 @@ public class TrailServiceStub implements ITrailService {
         return trailCoordinates;
     }
 
+    /**
+     * Saves a trail
+     * @param trail - trail to be saved
+     * @return - new trail
+     * @throws Exception - handle errors
+     */
     @Override
     public Trail save(Trail trail) throws Exception{
         return trailDAO.save(trail);
+    }
+
+    /**
+     * Deletes a trail
+     * @param trail - trail to be deleted
+     * @throws Exception - handle errors
+     */
+    @Override
+    public void delete(Trail trail) throws Exception {
+        trailDAO.delete(trail);
     }
 }
