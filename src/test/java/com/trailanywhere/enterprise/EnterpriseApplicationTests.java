@@ -7,6 +7,8 @@ import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,8 +16,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
 
 /**
  * Handle all tests for TrailService.
@@ -47,13 +47,10 @@ class EnterpriseApplicationTests {
      * Test fetching trail with a specific name.
      */
     @Test
-    void fetchTrailByName_returnTrailID1ForTrailForrestPark() {
-        givenTrailDataIsAvailableWithTrailNameForrestPark();
+    void fetchTrailByName_returnTrailID1ForTrailForrestPark() throws Exception {
+        givenTrailDataIsAvailable();
         whenSearchTrailWithNameForrestPark();
         thenReturnTrailID1TrailForForrestPark();
-    }
-
-    private void givenTrailDataIsAvailableWithTrailNameForrestPark() {
     }
 
     private void whenSearchTrailWithNameForrestPark() {
@@ -162,21 +159,21 @@ class EnterpriseApplicationTests {
         assertEquals("-84.52533", node.get("longitude").asText());
     }
 
-    /**
-     * Test for saving trails
-     */
-    @Test
-    void createNewTrail() throws Exception {
-        givenTrailDataIsAvailable();
-        whenUserIsLoggedIn();
-        whenUserEntersNewTrailData();
-        thenCreateNewTrail();
-    }
-
     private void whenUserIsLoggedIn() {
         user.setName("Jacob");
         userService.addUser(user);
         assertTrue(userService.loginUser(user));
+    }
+
+    /**
+     * Test for saving trails, use Mockito to mock trail DAO and verify it was used atleast once
+     */
+    @Test
+    void createNewTrailAndValidateTheReturnDataFromTrailService() throws Exception {
+        givenTrailDataIsAvailable();
+        whenUserIsLoggedIn();
+        whenUserEntersNewTrailData();
+        thenCreateNewTrailAndReturnItFromService();
     }
 
     private void whenUserEntersNewTrailData() {
@@ -184,9 +181,10 @@ class EnterpriseApplicationTests {
         trail.setZipCode("45201");
     }
 
-    private void thenCreateNewTrail() throws Exception {
+    private void thenCreateNewTrailAndReturnItFromService() throws Exception {
         Trail createdTrail = trailService.save(trail);
         assertEquals(trail, createdTrail);
+        verify(trailDAO, atLeastOnce()).save(trail);
     }
 
     /**
