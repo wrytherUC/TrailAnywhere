@@ -17,6 +17,12 @@ public interface IUserService {
     boolean loginUser(User user);
 
     /**
+     * logout a user
+     * @param user - user to be logged out
+     */
+    void logoutUser(User user);
+
+    /**
      * Add a user
      * @param user - new user
      */

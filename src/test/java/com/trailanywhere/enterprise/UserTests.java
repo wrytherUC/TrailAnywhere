@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.atLeastOnce;
 
@@ -45,6 +48,29 @@ public class UserTests {
     private void thenCreateNewUser() throws Exception {
         User newUser = userService.save(user);
         assertEquals(user, newUser);
+    }
+
+    /**
+     * Test logging out a user
+     */
+    @Test
+    void logoutUser() throws Exception {
+        givenUserDataIsAvailable();
+        whenUserDataIsCreated();
+        thenLogoutUser();
+    }
+
+    private void thenLogoutUser() {
+        // Add user to the logged in list
+        userService.addUser(user);
+        userService.logoutUser(user);
+        ArrayList<User> userList;
+        userList = userService.fetchLoggedInUsers();
+        for (User value : userList) {
+            if (Objects.equals(value.getName(), user.getName())) {
+                fail("User has not been logged out");
+            }
+        }
     }
 
     /**

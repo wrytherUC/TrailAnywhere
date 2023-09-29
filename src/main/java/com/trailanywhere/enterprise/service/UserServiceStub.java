@@ -5,6 +5,7 @@ import com.trailanywhere.enterprise.dto.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Contain mock data for IUserService
@@ -45,6 +46,20 @@ public class UserServiceStub implements IUserService {
     @Override
     public boolean loginUser(User user) {
         return true;
+    }
+
+    /**
+     * Logout a user
+     * @param user - user to be logged out
+     */
+    @Override
+    public void logoutUser(User user) {
+        for (int i = 0; i < loggedInUsers.size(); i++) {
+            if (Objects.equals(loggedInUsers.get(i).getName(), user.getName())) {
+                loggedInUsers.remove(i);
+                break;
+            }
+        }
     }
 
     /**
