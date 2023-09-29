@@ -17,3 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
         usernameText.textContent = ""; // Clear the username when not logged in
     }
 });
+
+/* Still need to make a logout button - only showing when the user is currently logged in - when clicked will switch boolean or kill cookie/session */
+/* Also need to make favorites page only accessible if isLoggedIn is true or other logic proves the user is logged in via SQL database connection string */

@@ -5,6 +5,7 @@ header {
     left: 0;
     width: 100%;
     background-color: #04c1fd; /*#3399FF*/
+
     color: white;
     text-align: center;
     padding: 10px;
@@ -57,7 +58,7 @@ h1 {
 h2 {
     font-size: 40px;
     color: black;
-    margin-top: 200px;
+    margin-top: 180px;/*200*/
     text-align: center;
     font-style: italic;
 }
@@ -84,11 +85,21 @@ h3 {
     text-decoration: none;
 }
 
-
+.status-indicator {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: #FF0000; /* Default red color */
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+}
 
 /* Container for everything */
 .container {
-    width: 300px;
+    width: 450px;/*300*/
     margin: 10px auto 0; /*10px is margin top*/
     text-align: center;
 }
@@ -140,7 +151,32 @@ h3 {
 /* Style for tables */
 table  {
     margin: 20px auto 0; /*20px is margin top*/
+    width: 1px;
     color: black; /*#3398fd*/
+}
+
+/* Increases font size for bolded text */
+b {
+    font-size: 22px;
+}
+
+/* Gives cells same paddings as previously had before bootstrap */
+.table-hover th,
+.table-hover td,
+.table-bordered th,
+.table-bordered td {
+    padding: 20px 40px;
+}
+
+/* Centers any tables with this class */
+.center-table {
+    margin: 0 auto;
+    width: 80%;
+}
+
+/* Height for header cells inside tables */
+th {
+    height: 50px;
 }
 
 /* Style for td cells inside tables */
