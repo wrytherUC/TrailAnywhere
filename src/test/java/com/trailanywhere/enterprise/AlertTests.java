@@ -1,13 +1,11 @@
 package com.trailanywhere.enterprise;
 
 import com.trailanywhere.enterprise.dao.IAlertDAO;
+import com.trailanywhere.enterprise.dao.ITrailDAO;
 import com.trailanywhere.enterprise.dto.Alert;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
-import com.trailanywhere.enterprise.service.AlertServiceStub;
-import com.trailanywhere.enterprise.service.IAlertService;
-import com.trailanywhere.enterprise.service.ITrailService;
-import com.trailanywhere.enterprise.service.IUserService;
+import com.trailanywhere.enterprise.service.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,9 @@ public class AlertTests {
     ArrayList<User> userList = new ArrayList<>();
     @Autowired
     private ITrailService trailService;
+    @MockBean
+    private ITrailDAO trailDAO;
+    private Trail trail = new Trail();
     ArrayList<Trail> trailList = new ArrayList<>();
 
     /**
@@ -73,14 +74,15 @@ public class AlertTests {
      * Test for creating an alert with a provided trail name (user must be logged in).
      */
     @Test
-    void createAlertForTrail() {
+    void createAlertForTrail() throws Exception {
         givenTrailDataIsAvailable();
         whenUserIsLoggedIn();
         thenCreateAlertForTrail();
     }
 
-    private void givenTrailDataIsAvailable() {
-
+    private void givenTrailDataIsAvailable() throws Exception {
+        Mockito.when(trailDAO.save(trail)).thenReturn(trail);
+        trailService = new TrailServiceStub(trailDAO);
     }
 
     private void whenUserIsLoggedIn() {
