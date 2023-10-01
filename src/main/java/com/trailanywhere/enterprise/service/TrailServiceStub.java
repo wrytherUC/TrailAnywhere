@@ -62,8 +62,8 @@ public class TrailServiceStub implements ITrailService {
      * @param trail - new trail
      */
     @Override
-    public void addTrail(Trail trail) {
-        allTrails.add(trail);
+    public void addTrail(Trail trail) throws Exception {
+        trailDAO.save(trail);
     }
 
     /**
