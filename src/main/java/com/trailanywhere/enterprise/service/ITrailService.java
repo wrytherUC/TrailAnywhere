@@ -18,7 +18,7 @@ public interface ITrailService {
      * Add a new trail
      * @param trail - new trail
      */
-    void addTrail(Trail trail);
+    void addTrail(Trail trail) throws Exception;
 
     /**
      * Fetch all trails
