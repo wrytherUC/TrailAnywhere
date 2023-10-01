@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.Trail;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ITrailService {
     /**
@@ -22,7 +23,7 @@ public interface ITrailService {
     /**
      * Fetch all trails
      */
-    ArrayList<Trail> fetchAlltrails();
+    List<Trail> fetchAllTrails();
 
     /**
      * Fetch all trails that match difficulty

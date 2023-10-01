@@ -2,6 +2,9 @@ package com.trailanywhere.enterprise.dao;
 
 import com.trailanywhere.enterprise.dto.Trail;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Contains CRUD methods for trails
  */
@@ -20,4 +23,6 @@ public interface ITrailDAO {
      * @throws Exception - handle errors
      */
     void delete(Trail trail) throws Exception;
+
+    List<Trail> fetchAll();
 }

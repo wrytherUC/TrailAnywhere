@@ -4,20 +4,24 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trailanywhere.enterprise.dao.ITrailDAO;
 import com.trailanywhere.enterprise.dto.Trail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contains hardcoded data for unit testing.
  */
-@Component
+@Service
 public class TrailServiceStub implements ITrailService {
 
+    @Autowired
     private ITrailDAO trailDAO;
 
     /**
@@ -67,8 +71,8 @@ public class TrailServiceStub implements ITrailService {
      * @return - list of trails
      */
     @Override
-    public ArrayList<Trail> fetchAlltrails() {
-        return allTrails;
+    public List<Trail> fetchAllTrails() {
+        return trailDAO.fetchAll();
     }
 
     /**

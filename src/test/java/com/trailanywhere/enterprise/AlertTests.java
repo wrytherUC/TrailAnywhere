@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,7 +39,7 @@ public class AlertTests {
     @MockBean
     private ITrailDAO trailDAO;
     private Trail trail = new Trail();
-    ArrayList<Trail> trailList = new ArrayList<>();
+    List<Trail> trailList = new ArrayList<>();
 
     /**
      * Test creating a new alert
@@ -97,7 +98,7 @@ public class AlertTests {
         Trail testTrail = new Trail();
         testTrail.setName("Forrest Park");
         trailService.addTrail(testTrail);
-        trailList = trailService.fetchAlltrails();
+        trailList = trailService.fetchAllTrails();
 
         // Set test alert data
         Alert alert = new Alert();
