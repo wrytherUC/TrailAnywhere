@@ -39,7 +39,7 @@ public class AlertTests {
     @MockBean
     private ITrailDAO trailDAO;
     private Trail trail = new Trail();
-    List<Trail> trailList = new ArrayList<>();
+    List<Trail> trailList = new ArrayList<Trail>();
 
     /**
      * Test creating a new alert
