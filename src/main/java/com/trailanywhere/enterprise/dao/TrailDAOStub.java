@@ -13,7 +13,8 @@ public class TrailDAOStub implements ITrailDAO{
 
     @Override
     public Trail save(Trail trail) throws Exception {
-        return null;
+        allTrails.add(trail);
+        return trail;
     }
 
     @Override
