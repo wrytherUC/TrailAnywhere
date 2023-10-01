@@ -1,8 +1,12 @@
 package com.trailanywhere.enterprise;
 
+import com.trailanywhere.enterprise.dao.ITrailDAO;
 import com.trailanywhere.enterprise.dao.IUserDAO;
+import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
+import com.trailanywhere.enterprise.service.ITrailService;
 import com.trailanywhere.enterprise.service.IUserService;
+import com.trailanywhere.enterprise.service.TrailServiceStub;
 import com.trailanywhere.enterprise.service.UserServiceStub;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -24,6 +28,11 @@ public class UserTests {
     @MockBean
     private IUserDAO userDAO;
     private User user = new User();
+    @Autowired
+    private ITrailService trailService;
+    @MockBean
+    private ITrailDAO trailDAO;
+    private Trail trail = new Trail();
 
     /**
      * Test creating a new user
@@ -87,5 +96,31 @@ public class UserTests {
     private void thenDeleteUser() throws Exception {
         userDAO.delete(user);
         verify(userDAO, atLeastOnce()).delete(user);
+    }
+
+    @Test
+    void addingAFavoriteTrailForAUser() throws Exception {
+        givenUserDataIsAvailable();
+        givenTrailDataIsAvailable();
+        whenUserDataIsCreated();
+        whenTrailDataIsCreated();
+        thenAddTrailToFavoritesList();
+    }
+
+    private void givenTrailDataIsAvailable() throws Exception {
+        Mockito.when(trailDAO.save(trail)).thenReturn(trail);
+        trailService = new TrailServiceStub(trailDAO);
+    }
+
+    private void whenTrailDataIsCreated() {
+        trail.setName("Forrest Park");
+    }
+
+    private void thenAddTrailToFavoritesList() {
+        userService.addFavoriteTrail(user, trail);
+        ArrayList<Trail> favorites = userService.fetchFavoriteTrails(user);
+        if (favorites.isEmpty()) {
+            fail("No favorite trails exist for this user.");
+        }
     }
 }

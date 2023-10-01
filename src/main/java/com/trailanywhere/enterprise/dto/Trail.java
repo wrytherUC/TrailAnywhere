@@ -13,4 +13,5 @@ class Trail {
     private String latitude;
     private String longitude;
     private String zipCode;
+    private User user;
 }

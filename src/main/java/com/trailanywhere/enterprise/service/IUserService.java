@@ -1,5 +1,6 @@
 package com.trailanywhere.enterprise.service;
 
+import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 
 import java.util.ArrayList;
@@ -10,6 +11,19 @@ public interface IUserService {
      * @return - list of users
      */
     ArrayList<User> fetchLoggedInUsers();
+
+    /**
+     * Fetch a user's favorite trails
+     * @return - list of trails
+     */
+    ArrayList<Trail> fetchFavoriteTrails(User user);
+
+    /**
+     * Add a favorite trail
+     * @param user - user who's adding the trail
+     * @param trail - trail to be added
+     */
+    void addFavoriteTrail(User user, Trail trail);
 
     /**
      * login a user
