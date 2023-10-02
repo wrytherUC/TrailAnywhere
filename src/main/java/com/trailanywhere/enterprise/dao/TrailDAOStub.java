@@ -4,16 +4,19 @@ import com.trailanywhere.enterprise.dto.Trail;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TrailDAOStub implements ITrailDAO{
 
-    List<Trail> allTrails = new ArrayList<Trail>();
+    Map<Integer, Trail> allTrails = new HashMap<>();
 
     @Override
     public Trail save(Trail trail) throws Exception {
-        allTrails.add(trail);
+        Integer trailID = trail.getTrailID();
+        allTrails.put(trailID, trail);
         return trail;
     }
 
@@ -24,7 +27,8 @@ public class TrailDAOStub implements ITrailDAO{
 
     @Override
     public List<Trail> fetchAll() {
-        return allTrails;
+        List<Trail> returnTrails = new ArrayList<>(allTrails.values());
+        return returnTrails;
     }
 
     @Override
