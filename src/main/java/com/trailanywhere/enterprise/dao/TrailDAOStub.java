@@ -26,4 +26,9 @@ public class TrailDAOStub implements ITrailDAO{
     public List<Trail> fetchAll() {
         return allTrails;
     }
+
+    @Override
+    public Trail fetchByTrail(String trailName) {
+        return null;
+    }
 }

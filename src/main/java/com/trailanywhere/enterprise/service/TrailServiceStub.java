@@ -51,10 +51,8 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public Trail fetchByTrailName(String trailName) {
-        Trail trail = new Trail();
-        trail.setTrailID(1);
-        trail.setName("Forrest Park");
-        return trail;
+        Trail foundTrailByName = trailDAO.fetchByTrail(trailName);
+        return foundTrailByName;
     }
 
     /**

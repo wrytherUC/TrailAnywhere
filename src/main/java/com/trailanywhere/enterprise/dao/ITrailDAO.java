@@ -25,4 +25,6 @@ public interface ITrailDAO {
     void delete(Trail trail) throws Exception;
 
     List<Trail> fetchAll();
+
+    Trail fetchByTrail(String trailName);
 }
