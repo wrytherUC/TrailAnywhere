@@ -1,0 +1,192 @@
+/* Style for header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #04c1fd; /*#3399FF*/
+
+    color: white;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Change to a column layout */
+    align-items: center;
+}
+
+/* Style for nav list inside header */
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+/* Style for nav list inside header */
+nav ul li {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+/* Style for nav buttons inside header */
+nav ul li button {
+    font-size: 30px;
+    padding: 5px 10px;
+    background-color: grey;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-bottom: 5px; /* Add margin to separate buttons */
+    margin-right: 50px;
+    margin-left: 50px;
+    font-weight: bold;
+}
+
+/* Style for nav list inside header */
+.logout-button {
+    background-color: #FF0000;
+}
+
+/* H1 for header.php */
+h1 {
+    font-size: 50px;
+    margin: 0;
+    color: black;
+}
+
+/* Style for h2 */
+h2 {
+    font-size: 40px;
+    color: black;
+    margin-top: 180px;/*200*/
+    text-align: center;
+    font-style: italic;
+}
+
+/* Style for h3 */
+h3 {
+    font-size: 40px;
+    color: black;
+    margin-top: 30px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Style for status indicator */
+.status-indicator {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: #FF0000; /* Default red color */
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.status-indicator {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: #FF0000; /* Default red color */
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* Container for everything */
+.container {
+    width: 450px;/*300*/
+    margin: 10px auto 0; /*10px is margin top*/
+    text-align: center;
+}
+
+/* Container form input text and password for everything */
+.container form input[type="text"],
+.container form input[type="email"],
+.container form input[type="number"],
+.container form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Style for submit buttons */
+.container form input[type="submit"] {
+    width: 45%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Container button for everything */
+.container .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Container h2 for everything */
+.container h2 {
+    text-align: center;
+}
+
+/* Container form label for all*/
+.container form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Style for tables */
+table  {
+    margin: 20px auto 0; /*20px is margin top*/
+    width: 1px;
+    color: black; /*#3398fd*/
+}
+
+/* Increases font size for bolded text */
+b {
+    font-size: 22px;
+}
+
+/* Gives cells same paddings as previously had before bootstrap */
+.table-hover th,
+.table-hover td,
+.table-bordered th,
+.table-bordered td {
+    padding: 20px 40px;
+}
+
+/* Centers any tables with this class */
+.center-table {
+    margin: 0 auto;
+    width: 80%;
+}
+
+/* Height for header cells inside tables */
+th {
+    height: 50px;
+}
+
+/* Style for td cells inside tables */
+td {
+    /*was 20px || 20px is top/bottom 40px is left and right*/
+    padding: 20px 40px;
+
+}
+
+/* Style for tr rows inside tables */
+tr {
+    text-align: center;
+}
