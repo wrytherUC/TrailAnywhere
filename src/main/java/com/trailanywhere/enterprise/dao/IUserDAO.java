@@ -28,7 +28,7 @@ public interface IUserDAO {
      * Fetch a user's favorite trails
      * @return - list of trails
      */
-    ArrayList<Trail> fetchFavoriteTrails(User user);
+    <T> ArrayList<T> fetchFavoriteTrails(User user);
 
     /**
      * Add a favorite trail

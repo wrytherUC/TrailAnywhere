@@ -49,7 +49,7 @@ public class UserServiceStub implements IUserService {
     public ArrayList<Trail> fetchFavoriteTrails(User user) {
         ArrayList<Trail> userFavorites = new ArrayList<>();
         for (Trail trail : favoriteTrails) {
-            if (Objects.equals(trail.getUser().getName(), user.getName())) {
+            if (Objects.equals(trail.getUsers().get(0).getName(), user.getName())) {
                 userFavorites.add(trail);
             }
         }
@@ -62,7 +62,9 @@ public class UserServiceStub implements IUserService {
      */
     @Override
     public void addFavoriteTrail(User user, Trail trail) {
-        trail.setUser(user);
+        ArrayList<User> testUser = new ArrayList<>();
+        testUser.add(user);
+        trail.setUsers(testUser);
         favoriteTrails.add(trail);
     }
 

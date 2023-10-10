@@ -15,7 +15,12 @@ class User {
     private String name;
     private String email;
     private String password;
-    @OneToMany(mappedBy = "user")
+    @ManyToMany
+    @JoinTable(
+            name = "UserFavoriteTrails",
+            joinColumns = {@JoinColumn(name = "userID")},
+            inverseJoinColumns = {@JoinColumn(name = "trailID")}
+    )
     private ArrayList<Trail> trails;
     @OneToMany(mappedBy = "user")
     private ArrayList<Alert> alerts;

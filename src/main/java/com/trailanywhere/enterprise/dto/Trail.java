@@ -19,9 +19,8 @@ class Trail {
     private String latitude;
     private String longitude;
     private String zipCode;
-    @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "userID")
-    private User user;
+    @ManyToMany(mappedBy = "trails")
+    private ArrayList<User> users;
     @OneToMany(mappedBy = "trail")
     private ArrayList<Alert> alerts;
 }
