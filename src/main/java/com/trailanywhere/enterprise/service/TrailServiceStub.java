@@ -75,7 +75,7 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public List<Trail> fetchAllTrails() {
-        return trailDAO.fetchAll();
+        return trailDAO.fetchAllTrails();
     }
 
     /**
