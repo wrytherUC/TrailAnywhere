@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestData {
 
-    // @Autowired
-    private TrailRepository trailRepo;
+    @Autowired
+    private ITrailDAO trailDAO;
 
     /**
      * Insert user test data
@@ -32,7 +32,7 @@ public class TestData {
      * Insert trail test data
      * @throws Exception - handle errors
      */
-    // @EventListener(ApplicationReadyEvent.class)
+    @EventListener(ApplicationReadyEvent.class)
     public void addTrailData() throws Exception {
         Trail trailOne = new Trail();
         trailOne.setName("Bender Mountain Loop Trail");
@@ -43,7 +43,7 @@ public class TestData {
         trailOne.setLatitude("39.15838");
         trailOne.setLongitude("-84.59775");
         trailOne.setZipCode("45211");
-        trailRepo.save(trailOne);
+        trailDAO.save(trailOne);
 
         Trail trailTwo = new Trail();
         trailTwo.setName("Beechwood, Furnas, Ponderosa, and Red Oak Trail");
@@ -54,7 +54,7 @@ public class TestData {
         trailTwo.setLatitude("39.16372");
         trailTwo.setLongitude("-84.45241");
         trailTwo.setZipCode("45212");
-        trailRepo.save(trailTwo);
+        trailDAO.save(trailTwo);
 
         Trail trailThree = new Trail();
         trailThree.setName("French Park");
@@ -65,7 +65,7 @@ public class TestData {
         trailThree.setLatitude("39.18001");
         trailThree.setLongitude("-84.42146");
         trailThree.setZipCode("45213");
-        trailRepo.save(trailThree);
+        trailDAO.save(trailThree);
 
         Trail trailFour = new Trail();
         trailFour.setName("Ault Forest Loop Trail");
@@ -76,7 +76,7 @@ public class TestData {
         trailFour.setLatitude("39.12040");
         trailFour.setLongitude("-84.54868");
         trailFour.setZipCode("45214");
-        trailRepo.save(trailFour);
+        trailDAO.save(trailFour);
 
         Trail trailFive = new Trail();
         trailFive.setName("Stone Steps Loop");
@@ -87,7 +87,7 @@ public class TestData {
         trailFive.setLatitude("39.23810");
         trailFive.setLongitude("-84.45970");
         trailFive.setZipCode("45215");
-        trailRepo.save(trailFive);
+        trailDAO.save(trailFive);
     }
 
     /**
