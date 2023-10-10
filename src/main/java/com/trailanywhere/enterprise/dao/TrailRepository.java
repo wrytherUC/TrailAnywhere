@@ -56,8 +56,9 @@ public class TrailRepository implements ITrailDAO {
     @Override
     @Transactional
     public void delete(Trail trail) throws Exception {
-        em.remove(trail);
-        em.flush();
+        TypedQuery<Trail> query = em.createQuery("DELETE FROM Trail t WHERE t.trailID = :TRAIL", Trail.class);
+        query.setParameter("TRAIL", trail.getTrailID());
+        query.executeUpdate();
     }
 
     /**
