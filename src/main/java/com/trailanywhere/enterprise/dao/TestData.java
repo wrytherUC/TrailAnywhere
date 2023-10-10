@@ -105,9 +105,12 @@ public class TestData {
         Alert alert = new Alert();
         Trail trail = new Trail();
         User user = new User();
+
+        user.setName("Jacob");
+        trail.setName("Forrest Park");
+        alert.setUser(user);
         alert.setTrail(trail);
         alert.setAlertText("Flooding");
-        alert.setUser(user);
         alertDAO.save(alert);
     }
 }

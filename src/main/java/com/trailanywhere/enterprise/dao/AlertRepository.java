@@ -41,6 +41,8 @@ public class AlertRepository implements IAlertDAO {
     @Override
     @Transactional
     public Alert save(Alert alert) throws Exception {
+        em.persist(alert.getUser());
+        em.persist(alert.getTrail());
         em.persist(alert);
         em.flush();
         return alert;
