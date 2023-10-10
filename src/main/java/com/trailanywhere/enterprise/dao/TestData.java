@@ -16,16 +16,22 @@ public class TestData {
 
     @Autowired
     private ITrailDAO trailDAO;
+    @Autowired
+    private IUserDAO userDAO;
+    @Autowired
+    private IAlertDAO alertDAO;
 
     /**
      * Insert user test data
+     * @throws Exception - handle errors
      */
-    // @EventListener(ApplicationReadyEvent.class)
-    public void addUserData() {
+    @EventListener(ApplicationReadyEvent.class)
+    public void addUserData() throws Exception {
         User user = new User();
         user.setName("Ken");
         user.setEmail("test@gmail.com");
         user.setPassword("password");
+        userDAO.save(user);
     }
 
     /**
@@ -92,14 +98,16 @@ public class TestData {
 
     /**
      * Insert alert test data
+     * @throws Exception - handle errors
      */
-    // @EventListener(ApplicationReadyEvent.class)
-    public void addAlertData() {
+    @EventListener(ApplicationReadyEvent.class)
+    public void addAlertData() throws Exception {
         Alert alert = new Alert();
         Trail trail = new Trail();
         User user = new User();
         alert.setTrail(trail);
         alert.setAlertText("Flooding");
         alert.setUser(user);
+        alertDAO.save(alert);
     }
 }
