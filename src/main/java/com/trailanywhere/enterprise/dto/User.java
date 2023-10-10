@@ -3,6 +3,8 @@ package com.trailanywhere.enterprise.dto;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Entity
 @Table(name="Users") // "user" is a reserved keyword in SQL
 public @Data
@@ -13,8 +15,8 @@ class User {
     private String name;
     private String email;
     private String password;
-    @OneToOne(mappedBy = "user")
-    private Trail trail;
-    @OneToOne(mappedBy = "user")
-    private Alert alert;
+    @OneToMany(mappedBy = "user")
+    private ArrayList<Trail> trails;
+    @OneToMany(mappedBy = "user")
+    private ArrayList<Alert> alerts;
 }

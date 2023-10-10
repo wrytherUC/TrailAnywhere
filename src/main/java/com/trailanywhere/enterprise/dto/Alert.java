@@ -9,11 +9,11 @@ class Alert {
     @Id
     @GeneratedValue
     private int alertID;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "trailID", referencedColumnName = "trailID")
     private Trail trail;
     private String alertText;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
 }

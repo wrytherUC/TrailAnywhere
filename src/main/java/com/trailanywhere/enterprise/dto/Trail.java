@@ -3,6 +3,8 @@ package com.trailanywhere.enterprise.dto;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Entity
 public @Data
 class Trail {
@@ -17,9 +19,9 @@ class Trail {
     private String latitude;
     private String longitude;
     private String zipCode;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
-    @OneToOne(mappedBy = "trail")
-    private Alert alert;
+    @OneToMany(mappedBy = "trail")
+    private ArrayList<Alert> alerts;
 }
