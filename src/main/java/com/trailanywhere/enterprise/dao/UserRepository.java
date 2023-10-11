@@ -2,14 +2,11 @@ package com.trailanywhere.enterprise.dao;
 
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handle CRUD operations for users
@@ -61,14 +58,15 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Fetch a user's favorite trails
+     *
      * @param user - user
      * @return - list of trails
      */
     @Override
-    public <T> ArrayList<T> fetchFavoriteTrails(User user) {
-        Query query = em.createNativeQuery("SELECT * FROM USERFAVORITETRAILS t WHERE t.USERID = ?1");
-        query.setParameter(1, user.getUserID());
-        return (ArrayList<T>) query.getResultList();
+    public List<Trail> fetchFavoriteTrails(User user) {
+        TypedQuery<Trail> query = em.createQuery("SELECT t FROM UserFavoriteTrails ut JOIN Trail t ON ut.trail.trailID = t.trailID WHERE ut.user.userID = :USER", Trail.class);
+        query.setParameter("USER", user.getUserID());
+        return query.getResultList();
     }
 
     /**
@@ -79,7 +77,7 @@ public class UserRepository implements IUserDAO {
     @Override
     @Transactional
     public void addFavoriteTrail(User user, Trail trail) {
-        Query query = em.createNativeQuery("INSERT INTO USERFAVORITETRAILS (TRAILID, USERID) VALUES (?, ?)");
+        Query query = em.createNativeQuery("INSERT INTO USER_FAVORITE_TRAILS (TRAILID, USERID) SELECT t.TRAILID, u.USERID FROM TRAIL t, USERS u WHERE t.TRAILID = ?1 AND u.USERID = ?2");// "
         query.setParameter(1, trail.getTrailID());
         query.setParameter(2, user.getUserID());
         query.executeUpdate();

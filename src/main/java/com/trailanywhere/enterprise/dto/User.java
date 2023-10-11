@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="Users") // "user" is a reserved keyword in SQL
@@ -15,13 +16,8 @@ class User {
     private String name;
     private String email;
     private String password;
-    @ManyToMany
-    @JoinTable(
-            name = "UserFavoriteTrails",
-            joinColumns = {@JoinColumn(name = "userID")},
-            inverseJoinColumns = {@JoinColumn(name = "trailID")}
-    )
-    private ArrayList<Trail> trails;
     @OneToMany(mappedBy = "user")
-    private ArrayList<Alert> alerts;
+    private List<UserFavoriteTrails> userFavoriteTrails;
+    @OneToMany(mappedBy = "user")
+    private List<Alert> alerts;
 }

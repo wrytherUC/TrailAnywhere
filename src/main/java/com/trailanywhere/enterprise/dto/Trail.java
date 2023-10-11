@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public @Data
@@ -19,8 +20,8 @@ class Trail {
     private String latitude;
     private String longitude;
     private String zipCode;
-    @ManyToMany(mappedBy = "trails")
-    private ArrayList<User> users;
     @OneToMany(mappedBy = "trail")
-    private ArrayList<Alert> alerts;
+    private List<UserFavoriteTrails> userFavoriteTrails;
+    @OneToMany(mappedBy = "trail")
+    private List<Alert> alerts;
 }

@@ -8,7 +8,7 @@ import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles CRUD operations for trails
@@ -66,9 +66,9 @@ public class TrailRepository implements ITrailDAO {
      * @return - list of trails
      */
     @Override
-    public ArrayList<Trail> fetchAllTrails() {
-        Query query = em.createQuery("SELECT t FROM Trail t");
-        return (ArrayList<Trail>) query.getResultList();
+    public List<Trail> fetchAllTrails() {
+        TypedQuery<Trail> query = em.createQuery("SELECT t FROM Trail t", Trail.class);
+        return query.getResultList();
     }
 
     /**
@@ -89,10 +89,10 @@ public class TrailRepository implements ITrailDAO {
      * @return - list of trails
      */
     @Override
-    public ArrayList<Trail> fetchByDifficulty(String difficulty) {
+    public List<Trail> fetchByDifficulty(String difficulty) {
         Query query = em.createQuery("SELECT t FROM Trail t WHERE t.difficulty = :DIFFICULTY");
         query.setParameter("DIFFICULTY", difficulty);
-        return (ArrayList<Trail>) query.getResultList();
+        return query.getResultList();
     }
 
     /**
@@ -101,10 +101,10 @@ public class TrailRepository implements ITrailDAO {
      * @return - list of trails
      */
     @Override
-    public ArrayList<Trail> fetchByZipCode(String zipCode) {
+    public List<Trail> fetchByZipCode(String zipCode) {
         Query query = em.createQuery("SELECT t FROM Trail t WHERE t.zipCode = :ZIP_CODE");
         query.setParameter("ZIP_CODE", zipCode);
-        return (ArrayList<Trail>) query.getResultList();
+        return query.getResultList();
     }
 
     /**
@@ -114,10 +114,10 @@ public class TrailRepository implements ITrailDAO {
      * @return - list of trails
      */
     @Override
-    public ArrayList<Trail> fetchByCoordinates(String latitude, String longitude) {
+    public List<Trail> fetchByCoordinates(String latitude, String longitude) {
         Query query = em.createQuery("SELECT t FROM Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE");
         query.setParameter("LATITUDE", latitude);
         query.setParameter("LONGITUDE", longitude);
-        return (ArrayList<Trail>) query.getResultList();
+        return query.getResultList();
     }
 }

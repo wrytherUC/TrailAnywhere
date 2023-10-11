@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handle alert CRUD operations
@@ -66,8 +67,8 @@ public class AlertRepository implements IAlertDAO {
      * @return - list of alerts
      */
     @Override
-    public ArrayList<Alert> fetchAllAlerts() {
-        Query query = em.createQuery("SELECT a FROM Alert a");
-        return (ArrayList<Alert>) query.getResultList();
+    public List<Alert> fetchAllAlerts() {
+        TypedQuery<Alert> query = em.createQuery("SELECT a FROM Alert a", Alert.class);
+        return query.getResultList();
     }
 }

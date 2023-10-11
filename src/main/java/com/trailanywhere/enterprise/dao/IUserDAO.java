@@ -3,7 +3,7 @@ package com.trailanywhere.enterprise.dao;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface for CRUD operations related to users
@@ -26,9 +26,10 @@ public interface IUserDAO {
 
     /**
      * Fetch a user's favorite trails
+     *
      * @return - list of trails
      */
-    <T> ArrayList<T> fetchFavoriteTrails(User user);
+    List<Trail> fetchFavoriteTrails(User user);
 
     /**
      * Add a favorite trail

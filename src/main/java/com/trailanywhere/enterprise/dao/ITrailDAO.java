@@ -40,14 +40,14 @@ public interface ITrailDAO {
      * @param difficulty - difficulty selected by user
      * @return - all trails with the same specified difficulty
      */
-    ArrayList<Trail> fetchByDifficulty(String difficulty);
+    List<Trail> fetchByDifficulty(String difficulty);
 
     /**
      * Fetch all trails with matching zip codes
      * @param zipCode - zip code selected by user
      * @return - all trails with the same zip code
      */
-    ArrayList<Trail> fetchByZipCode(String zipCode);
+    List<Trail> fetchByZipCode(String zipCode);
 
     /**
      * Fetch all trails with the same coordinates
@@ -55,5 +55,5 @@ public interface ITrailDAO {
      * @param longitude - provided longitude coordinate
      * @return - List containing all trails
      */
-    ArrayList<Trail> fetchByCoordinates(String latitude, String longitude);
+    List<Trail> fetchByCoordinates(String latitude, String longitude);
 }
