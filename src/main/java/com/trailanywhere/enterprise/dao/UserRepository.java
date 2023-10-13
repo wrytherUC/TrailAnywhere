@@ -82,4 +82,32 @@ public class UserRepository implements IUserDAO {
         query.setParameter(2, user.getUserID());
         query.executeUpdate();
     }
+
+    /**
+     * Delete a favorite trail
+     * @param user - User
+     * @param trail - Trail to be unfavorited
+     */
+    @Override
+    @Transactional
+    public void deleteFavoriteTrail(User user, Trail trail) {
+        Query query = em.createNativeQuery("DELETE FROM USER_FAVORITE_TRAILS ut WHERE ut.USERID = ?1 AND ut.TRAILID = ?2");
+        query.setParameter(1, user.getUserID());
+        query.setParameter(2, trail.getTrailID());
+        query.executeUpdate();
+    }
+
+    /**
+     * Find a user based on their credentials
+     * @param email - email address
+     * @param password - user password
+     * @return - User
+     */
+    @Override
+    public User findUser(String email, String password) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :EMAIL AND u.password = :PASSWORD", User.class);
+        query.setParameter("EMAIL", email);
+        query.setParameter("PASSWORD", password);
+        return query.getSingleResult();
+    }
 }

@@ -37,4 +37,18 @@ public interface IUserDAO {
      * @param trail - trail to be added
      */
     void addFavoriteTrail(User user, Trail trail);
+
+    /**
+     * Remove a favorite trail
+     * @param user - User
+     * @param trail - Trail to be unfavorited
+     */
+    void deleteFavoriteTrail(User user, Trail trail);
+
+    /**
+     * Find a user based on their credentials
+     * @param email - email address
+     * @param password - user password
+     */
+    User findUser(String email, String password);
 }
