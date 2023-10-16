@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +31,7 @@ class EnterpriseApplicationTests {
     @MockBean
     private ITrailDAO trailDAO;
 
-    private ArrayList<Trail> trailList = new ArrayList<>();
+    private List<Trail> trailList = new ArrayList<>();
 
     @Autowired
     private IUserService userService;

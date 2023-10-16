@@ -39,10 +39,10 @@ public class TrailServiceStub implements ITrailService {
         this.trailDAO = trailDAO;
     }
 
-    ArrayList<Trail> allTrails = new ArrayList<>();
+/*    ArrayList<Trail> allTrails = new ArrayList<>();
     ArrayList<Trail> trailDifficulty = new ArrayList<>();
     ArrayList<Trail> trailZipCode = new ArrayList<>();
-    ArrayList<Trail> trailCoordinates = new ArrayList<>();
+    ArrayList<Trail> trailCoordinates = new ArrayList<>();*/
 
     /**
      * Fetches a trail with a specified name.
@@ -86,11 +86,11 @@ public class TrailServiceStub implements ITrailService {
      * @return - trails
      */
     @Override
-    public ArrayList<Trail> fetchByDifficulty(String difficulty) {
+    public List<Trail> fetchByDifficulty(String difficulty) {
 
-        trailDAO.fetchByDifficulty(difficulty);
+        List<Trail> foundTrailByDifficulty = trailDAO.fetchByDifficulty(difficulty);
 
-        return trailDifficulty;
+        return foundTrailByDifficulty;
     }
 
     /**
@@ -99,11 +99,11 @@ public class TrailServiceStub implements ITrailService {
      * @return - list containing all trails
      */
     @Override
-    public ArrayList<Trail> fetchByZipCode(String zipCode) {
+    public List<Trail> fetchByZipCode(String zipCode) {
 
-        trailDAO.fetchByZipCode(zipCode);
+        List<Trail> foundTrailByZipCode = trailDAO.fetchByZipCode(zipCode);
 
-        return trailZipCode;
+        return foundTrailByZipCode;
     }
 
     /**
@@ -180,7 +180,7 @@ public class TrailServiceStub implements ITrailService {
      * @return - trails
      */
     @Override
-    public ArrayList<Trail> fetchByCoordinates(String latitude, String longitude) {
+    public List<Trail> fetchByCoordinates(String latitude, String longitude) {
 /*        Trail trailOne = new Trail();
         Trail trailTwo = new Trail();
         trailOne.setLatitude(latitude);
@@ -190,9 +190,9 @@ public class TrailServiceStub implements ITrailService {
         trailCoordinates.add(trailOne);
         trailCoordinates.add(trailTwo);*/
 
-        trailDAO.fetchByCoordinates(latitude, longitude);
+        List<Trail> foundTrailByCoordinates = trailDAO.fetchByCoordinates(latitude, longitude);
 
-        return trailCoordinates;
+        return foundTrailByCoordinates;
     }
 
     /**
