@@ -51,13 +51,15 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public Trail fetchByTrailName(String trailName) {
+/*
         Trail trail = new Trail();
         trail.setTrailID(1);
         trail.setName("Forrest Park");
         return trail;
+*/
 
-/*        Trail foundTrailByName = trailDAO.fetchByTrail(trailName);
-        return foundTrailByName;*/
+        Trail foundTrailByName = trailDAO.fetchByTrail(trailName);
+        return foundTrailByName;
     }
 
     /**
@@ -85,12 +87,9 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public ArrayList<Trail> fetchByDifficulty(String difficulty) {
-        Trail trailOne = new Trail();
-        Trail trailTwo = new Trail();
-        trailOne.setDifficulty(difficulty);
-        trailTwo.setDifficulty(difficulty);
-        trailDifficulty.add(trailOne);
-        trailDifficulty.add(trailTwo);
+
+        trailDAO.fetchByDifficulty(difficulty);
+
         return trailDifficulty;
     }
 
@@ -101,12 +100,9 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public ArrayList<Trail> fetchByZipCode(String zipCode) {
-        Trail trailOne = new Trail();
-        Trail trailTwo = new Trail();
-        trailOne.setZipCode(zipCode);
-        trailTwo.setZipCode(zipCode);
-        trailZipCode.add(trailOne);
-        trailZipCode.add(trailTwo);
+
+        trailDAO.fetchByZipCode(zipCode);
+
         return trailZipCode;
     }
 
@@ -185,14 +181,17 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public ArrayList<Trail> fetchByCoordinates(String latitude, String longitude) {
-        Trail trailOne = new Trail();
+/*        Trail trailOne = new Trail();
         Trail trailTwo = new Trail();
         trailOne.setLatitude(latitude);
         trailOne.setLongitude(longitude);
         trailTwo.setLatitude(latitude);
         trailTwo.setLongitude(longitude);
         trailCoordinates.add(trailOne);
-        trailCoordinates.add(trailTwo);
+        trailCoordinates.add(trailTwo);*/
+
+        trailDAO.fetchByCoordinates(latitude, longitude);
+
         return trailCoordinates;
     }
 
