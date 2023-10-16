@@ -50,8 +50,16 @@ class EnterpriseApplicationTests {
     @Test
     void fetchTrailByName_returnTrailID1ForTrailForrestPark() throws Exception {
         givenTrailDataIsAvailable();
+        whenTrailForrestParkIsAdded();
         whenSearchTrailWithNameForrestPark();
         thenReturnTrailID1TrailForForrestPark();
+    }
+
+    private void whenTrailForrestParkIsAdded() {
+        Trail forrestpark = new Trail();
+        forrestpark.setName("Forrest Park");
+        forrestpark.setTrailID(1);
+        Mockito.when(trailDAO.fetchByTrail("Forrest Park")).thenReturn(forrestpark);
     }
 
     private void whenSearchTrailWithNameForrestPark() {
