@@ -2,6 +2,9 @@ package com.trailanywhere.enterprise.dao;
 
 import com.trailanywhere.enterprise.dto.Alert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface IAlertDAO {
     /**
      * Create an alert.
@@ -16,4 +19,10 @@ public interface IAlertDAO {
      * @throws Exception - handle errors
      */
     void delete(Alert alert) throws Exception;
+
+    /**
+     * Fetch all alerts
+     * @return - list of alerts
+     */
+    List<Alert> fetchAllAlerts();
 }

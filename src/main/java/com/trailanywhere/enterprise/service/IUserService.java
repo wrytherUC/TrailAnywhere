@@ -4,6 +4,7 @@ import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IUserService {
     /**
@@ -14,9 +15,10 @@ public interface IUserService {
 
     /**
      * Fetch a user's favorite trails
+     *
      * @return - list of trails
      */
-    ArrayList<Trail> fetchFavoriteTrails(User user);
+    List<Trail> fetchFavoriteTrails(User user);
 
     /**
      * Add a favorite trail
