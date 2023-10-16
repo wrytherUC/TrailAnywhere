@@ -154,8 +154,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 ## Team Members and Roles
 
 UI Specialist: Nate Virgin  
-Business Logic/Persistence: Kenneth Otero  
-Database/Data Engineer, Role Floater: Kayla Neely  
+Business Logic/Persistence: Kenneth Otero
 DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
 ## GitHub Project
