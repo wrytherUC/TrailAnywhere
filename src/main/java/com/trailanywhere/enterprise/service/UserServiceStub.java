@@ -5,7 +5,7 @@ import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.dto.UserFavoriteTrails;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Contain mock data for IUserService
  */
-@Component
+@Service
 @NoArgsConstructor
 public class UserServiceStub implements IUserService {
     ArrayList<User> users = new ArrayList<>();
