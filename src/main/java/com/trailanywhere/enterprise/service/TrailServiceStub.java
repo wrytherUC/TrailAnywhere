@@ -180,7 +180,7 @@ public class TrailServiceStub implements ITrailService {
      * @return - trails
      */
     @Override
-    public List<Trail> fetchByCoordinates(String latitude, String longitude) {
+    public Trail fetchByCoordinates(String latitude, String longitude) {
 /*        Trail trailOne = new Trail();
         Trail trailTwo = new Trail();
         trailOne.setLatitude(latitude);
@@ -190,7 +190,7 @@ public class TrailServiceStub implements ITrailService {
         trailCoordinates.add(trailOne);
         trailCoordinates.add(trailTwo);*/
 
-        List<Trail> foundTrailByCoordinates = trailDAO.fetchByCoordinates(latitude, longitude);
+        Trail foundTrailByCoordinates = trailDAO.fetchByCoordinates(latitude, longitude);
 
         return foundTrailByCoordinates;
     }

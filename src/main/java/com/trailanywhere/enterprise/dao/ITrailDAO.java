@@ -55,5 +55,5 @@ public interface ITrailDAO {
      * @param longitude - provided longitude coordinate
      * @return - List containing all trails
      */
-    List<Trail> fetchByCoordinates(String latitude, String longitude);
+    Trail fetchByCoordinates(String latitude, String longitude);
 }
