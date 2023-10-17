@@ -114,10 +114,10 @@ public class TrailRepository implements ITrailDAO {
      * @return - list of trails
      */
     @Override
-    public List<Trail> fetchByCoordinates(String latitude, String longitude) {
-        Query query = em.createQuery("SELECT t FROM Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE");
+    public Trail fetchByCoordinates(String latitude, String longitude) {
+        TypedQuery<Trail> query = em.createQuery("SELECT t from Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE", Trail.class);
         query.setParameter("LATITUDE", latitude);
         query.setParameter("LONGITUDE", longitude);
-        return query.getResultList();
+        return query.getSingleResult();
     }
 }

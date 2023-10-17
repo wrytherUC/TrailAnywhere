@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,11 +27,12 @@ class EnterpriseApplicationTests {
     @Autowired
     private ITrailService trailService;
     private Trail trail = new Trail();
+    private Trail trailWithCoordinates = new Trail();
 
     @MockBean
     private ITrailDAO trailDAO;
 
-    private ArrayList<Trail> trailList = new ArrayList<>();
+    private List<Trail> trailList = new ArrayList<>();
 
     @Autowired
     private IUserService userService;
@@ -49,8 +51,16 @@ class EnterpriseApplicationTests {
     @Test
     void fetchTrailByName_returnTrailID1ForTrailForrestPark() throws Exception {
         givenTrailDataIsAvailable();
+        whenTrailForrestParkIsAdded();
         whenSearchTrailWithNameForrestPark();
         thenReturnTrailID1TrailForForrestPark();
+    }
+
+    private void whenTrailForrestParkIsAdded() {
+        Trail forrestpark = new Trail();
+        forrestpark.setName("Forrest Park");
+        forrestpark.setTrailID(1);
+        Mockito.when(trailDAO.fetchByTrail("Forrest Park")).thenReturn(forrestpark);
     }
 
     private void whenSearchTrailWithNameForrestPark() {
@@ -143,16 +153,25 @@ class EnterpriseApplicationTests {
     @Test
     void fetchTrailWeatherWithCoordinates() throws Exception {
         givenTrailDataIsAvailable();
+        whenTrailWithCoordinatesIsAdded();
         whenSearchTrailWithCoordinates();
         thenReturnTrailWeatherWithCoordinates();
     }
 
+    private void whenTrailWithCoordinatesIsAdded() {
+        Trail coordinatesTrail = new Trail();
+        coordinatesTrail.setTrailID(2);
+        coordinatesTrail.setLatitude("39.13797");
+        coordinatesTrail.setLongitude("-84.52533");
+        Mockito.when(trailDAO.fetchByCoordinates("39.13797","-84.52533")).thenReturn(coordinatesTrail);
+    }
+
     private void whenSearchTrailWithCoordinates() {
-        trailList = trailService.fetchByCoordinates("39.13797", "-84.52533");
+        trailWithCoordinates = trailService.fetchByCoordinates("39.13797", "-84.52533");
     }
 
     private void thenReturnTrailWeatherWithCoordinates() {
-        JsonNode node = trailService.getCurrentWeather(trailList.get(0).getLatitude(), trailList.get(0).getLongitude());
+        JsonNode node = trailService.getCurrentWeather(trailWithCoordinates.getLatitude(), trailWithCoordinates.getLongitude());
 
         // If coordinates are the same then it fetched the weather correctly
         assertEquals("39.13797", node.get("latitude").asText());

@@ -39,10 +39,10 @@ public class TrailServiceStub implements ITrailService {
         this.trailDAO = trailDAO;
     }
 
-    ArrayList<Trail> allTrails = new ArrayList<>();
+/*    ArrayList<Trail> allTrails = new ArrayList<>();
     ArrayList<Trail> trailDifficulty = new ArrayList<>();
     ArrayList<Trail> trailZipCode = new ArrayList<>();
-    ArrayList<Trail> trailCoordinates = new ArrayList<>();
+    ArrayList<Trail> trailCoordinates = new ArrayList<>();*/
 
     /**
      * Fetches a trail with a specified name.
@@ -51,13 +51,15 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public Trail fetchByTrailName(String trailName) {
+/*
         Trail trail = new Trail();
         trail.setTrailID(1);
         trail.setName("Forrest Park");
         return trail;
+*/
 
-/*        Trail foundTrailByName = trailDAO.fetchByTrail(trailName);
-        return foundTrailByName;*/
+        Trail foundTrailByName = trailDAO.fetchByTrail(trailName);
+        return foundTrailByName;
     }
 
     /**
@@ -84,14 +86,11 @@ public class TrailServiceStub implements ITrailService {
      * @return - trails
      */
     @Override
-    public ArrayList<Trail> fetchByDifficulty(String difficulty) {
-        Trail trailOne = new Trail();
-        Trail trailTwo = new Trail();
-        trailOne.setDifficulty(difficulty);
-        trailTwo.setDifficulty(difficulty);
-        trailDifficulty.add(trailOne);
-        trailDifficulty.add(trailTwo);
-        return trailDifficulty;
+    public List<Trail> fetchByDifficulty(String difficulty) {
+
+        List<Trail> foundTrailByDifficulty = trailDAO.fetchByDifficulty(difficulty);
+
+        return foundTrailByDifficulty;
     }
 
     /**
@@ -100,14 +99,11 @@ public class TrailServiceStub implements ITrailService {
      * @return - list containing all trails
      */
     @Override
-    public ArrayList<Trail> fetchByZipCode(String zipCode) {
-        Trail trailOne = new Trail();
-        Trail trailTwo = new Trail();
-        trailOne.setZipCode(zipCode);
-        trailTwo.setZipCode(zipCode);
-        trailZipCode.add(trailOne);
-        trailZipCode.add(trailTwo);
-        return trailZipCode;
+    public List<Trail> fetchByZipCode(String zipCode) {
+
+        List<Trail> foundTrailByZipCode = trailDAO.fetchByZipCode(zipCode);
+
+        return foundTrailByZipCode;
     }
 
     /**
@@ -184,16 +180,19 @@ public class TrailServiceStub implements ITrailService {
      * @return - trails
      */
     @Override
-    public ArrayList<Trail> fetchByCoordinates(String latitude, String longitude) {
-        Trail trailOne = new Trail();
+    public Trail fetchByCoordinates(String latitude, String longitude) {
+/*        Trail trailOne = new Trail();
         Trail trailTwo = new Trail();
         trailOne.setLatitude(latitude);
         trailOne.setLongitude(longitude);
         trailTwo.setLatitude(latitude);
         trailTwo.setLongitude(longitude);
         trailCoordinates.add(trailOne);
-        trailCoordinates.add(trailTwo);
-        return trailCoordinates;
+        trailCoordinates.add(trailTwo);*/
+
+        Trail foundTrailByCoordinates = trailDAO.fetchByCoordinates(latitude, longitude);
+
+        return foundTrailByCoordinates;
     }
 
     /**
