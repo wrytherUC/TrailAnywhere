@@ -218,3 +218,32 @@ tr {
     width: 800px;
     height: 300px;
 }
+
+/* Style for Login form container*/
+.login {
+    padding-right: 50px;
+    width: 50%;
+    float: left;
+}
+
+/* Style for Create Account form container*/
+.create {
+    padding-left: 50px;
+    width: 50%;
+    float: right;
+}
+
+/* Style for Login and Create Account forms container*/
+.login-forms {
+    width: 1000px;
+    height: 600px;
+}
+
+/* Style for teh H2s in Login Page*/
+.login-H2 {
+    font-size: 40px;
+    color: black;
+    margin-top: 250px;/*200*/
+    text-align: center;
+    font-style: italic;
+}

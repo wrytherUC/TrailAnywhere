@@ -19,6 +19,16 @@
                 </form>
             </li>
             <li>
+                <form method="GET" th:action="@{/Alerts}">
+                    <button class="btn btn-light btn-lg">Alerts</button>
+                </form>
+            </li>
+            <li>
+                <form method="GET" th:action="@{/CreateTrail}">
+                    <button class="btn btn-light btn-lg">Create</button>
+                </form>
+            </li>
+            <li>
                 <form method="GET" th:action="@{/Favorites}">
                     <button class="btn btn-light btn-lg">Favorites</button>
                 </form>
@@ -46,7 +56,7 @@
             <tr>
                 <td class="table-primary"><b>User</b></td>
                 <td class="table-primary"><b>Alert</b></td>
-                <td class="table-primary"><b>Date & Time</b></td>
+                <td class="table-primary"><b>Trail Name</b></td>
             </tr>
         </thead>
         <tbody class="table-group-divider">

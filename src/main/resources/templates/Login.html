@@ -22,48 +22,59 @@
                     <button class="btn btn-light btn-lg">Alerts</button>
                 </form>
             </li>
+            <li>
+                <form method="GET" th:action="@{/CreateTrail}">
+                    <button class="btn btn-light btn-lg">Create</button>
+                </form>
+            </li>
+            <li>
+                <form method="GET" th:action="@{/Favorites}">
+                    <button class="btn btn-light btn-lg">Favorites</button>
+                </form>
+            </li>
         </ul>
     </nav>
 </header>
 
-<h2>Login</h2>
 
-<div class="container">
-    <form action="loginLogic.html" method="POST">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput1" name="name" placeholder="x" required>
-            <label for="floatingInput1">Name</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput2" name="email" placeholder="x" required>
-            <label for="floatingInput2">Email</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingInput3" name="password" placeholder="x" required>
-            <label for="floatingInput3">Password</label>
-            <input type="submit" class="btn btn-success" value="Login">
-        </div>
-    </form>
-</div>
 
-<h3>Create An Account</h3>
-
-<div class="container">
-    <form action="createAccountLogic.html" method="POST">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput4" name="name" placeholder="x" required>
-            <label for="floatingInput4">Name</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput5" name="email" placeholder="x" required>
-            <label for="floatingInput5">Email</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingInput6" name="password" placeholder="x" required>
-            <label for="floatingInput6">Password</label>
-            <input type="submit" class="btn btn-success" value="Create New Account">
-        </div>
-    </form>
+<div class="container login-forms">
+    <div class="login">
+        <h2 class="login-H2">Login</h2>
+            <form action="loginLogic.html" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput1" name="name" placeholder="x" required>
+                    <label for="floatingInput1">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput2" name="email" placeholder="x" required>
+                    <label for="floatingInput2">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingInput3" name="password" placeholder="x" required>
+                    <label for="floatingInput3">Password</label>
+                    <input type="submit" class="btn btn-success" value="Login">
+                </div>
+            </form>
+    </div>
+    <div class="create">
+        <h2 class="login-H2">Create An Account</h2>
+            <form action="createAccountLogic.html" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput4" name="name" placeholder="x" required>
+                    <label for="floatingInput4">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput5" name="email" placeholder="x" required>
+                    <label for="floatingInput5">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingInput6" name="password" placeholder="x" required>
+                    <label for="floatingInput6">Password</label>
+                    <input type="submit" class="btn btn-success" value="Create New Account">
+                </div>
+            </form>
+    </div>
 </div>
 
 <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
