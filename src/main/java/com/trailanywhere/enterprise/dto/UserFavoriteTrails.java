@@ -1,10 +1,16 @@
 package com.trailanywhere.enterprise.dto;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 @Entity
-public @Data
+public @Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 class UserFavoriteTrails {
     @EmbeddedId
     UserFavoriteTrailsKey id;
@@ -18,4 +24,17 @@ class UserFavoriteTrails {
     @MapsId("trailID")
     @JoinColumn(name = "trailID")
     Trail trail;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        UserFavoriteTrails that = (UserFavoriteTrails) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
