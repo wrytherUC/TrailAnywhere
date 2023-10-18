@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -118,7 +119,7 @@ public class UserTests {
 
     private void thenAddTrailToFavoritesList() {
         userService.addFavoriteTrail(user, trail);
-        ArrayList<Trail> favorites = userService.fetchFavoriteTrails(user);
+        List<Trail> favorites = userService.fetchFavoriteTrails(user);
         if (favorites.isEmpty()) {
             fail("No favorite trails exist for this user.");
         }

@@ -3,9 +3,11 @@ package com.trailanywhere.enterprise.service;
 import com.trailanywhere.enterprise.dao.IUserDAO;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
+import com.trailanywhere.enterprise.dto.UserFavoriteTrails;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,7 +17,7 @@ import java.util.Objects;
 public class UserServiceStub implements IUserService {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<User> loggedInUsers = new ArrayList<>();
-    ArrayList<Trail> favoriteTrails = new ArrayList<>();
+    ArrayList<UserFavoriteTrails> favoriteTrails = new ArrayList<>();
     private IUserDAO userDAO;
 
     /**
@@ -42,15 +44,18 @@ public class UserServiceStub implements IUserService {
 
     /**
      * Fetch a user's favorite trails
+     *
      * @param user - user
      * @return - list of trails
      */
     @Override
-    public ArrayList<Trail> fetchFavoriteTrails(User user) {
+    public List<Trail> fetchFavoriteTrails(User user) {
         ArrayList<Trail> userFavorites = new ArrayList<>();
-        for (Trail trail : favoriteTrails) {
-            if (Objects.equals(trail.getUser().getName(), user.getName())) {
-                userFavorites.add(trail);
+        UserFavoriteTrails favs = new UserFavoriteTrails();
+        favs.setUser(user);
+        for (UserFavoriteTrails favoriteTrail : favoriteTrails) {
+            if (Objects.equals(favoriteTrail.getUser().getName(), user.getName())) {
+                userFavorites.add(favoriteTrail.getTrail());
             }
         }
         return userFavorites;
@@ -62,8 +67,10 @@ public class UserServiceStub implements IUserService {
      */
     @Override
     public void addFavoriteTrail(User user, Trail trail) {
-        trail.setUser(user);
-        favoriteTrails.add(trail);
+        UserFavoriteTrails favs = new UserFavoriteTrails();
+        favs.setUser(user);
+        favs.setTrail(trail);
+        favoriteTrails.add(favs);
     }
 
     /**
