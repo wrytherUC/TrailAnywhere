@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name="Users") // "user" is a reserved keyword in SQL
-public @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-class User {
+@Getter
+public class User {
     @Id
     @GeneratedValue
     private int userID;

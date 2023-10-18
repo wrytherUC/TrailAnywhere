@@ -7,11 +7,11 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Entity
-public @Getter
+@Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-class UserFavoriteTrails {
+public class UserFavoriteTrails {
     @EmbeddedId
     UserFavoriteTrailsKey id;
 
