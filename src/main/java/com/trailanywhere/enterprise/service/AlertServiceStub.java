@@ -2,14 +2,14 @@ package com.trailanywhere.enterprise.service;
 
 import com.trailanywhere.enterprise.dao.IAlertDAO;
 import com.trailanywhere.enterprise.dto.Alert;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 /**
  * Contain mock data for IAlertService
  */
-@Component
+@Service
 public class AlertServiceStub implements IAlertService {
     ArrayList<Alert> allAlerts = new ArrayList<>();
     private IAlertDAO alertDAO;
