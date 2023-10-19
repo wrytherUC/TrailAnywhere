@@ -47,8 +47,7 @@ public class TrailServiceStub implements ITrailService {
     public Trail fetchByTrailName(String trailName) {
 
 
-        Trail foundTrailByName = trailDAO.fetchByTrail(trailName);
-        return foundTrailByName;
+        return trailDAO.fetchByTrail(trailName);
     }
 
     /**
@@ -77,9 +76,7 @@ public class TrailServiceStub implements ITrailService {
     @Override
     public List<Trail> fetchByDifficulty(String difficulty) {
 
-        List<Trail> foundTrailByDifficulty = trailDAO.fetchByDifficulty(difficulty);
-
-        return foundTrailByDifficulty;
+        return trailDAO.fetchByDifficulty(difficulty);
     }
 
     /**
@@ -90,9 +87,7 @@ public class TrailServiceStub implements ITrailService {
     @Override
     public List<Trail> fetchByZipCode(String zipCode) {
 
-        List<Trail> foundTrailByZipCode = trailDAO.fetchByZipCode(zipCode);
-
-        return foundTrailByZipCode;
+        return trailDAO.fetchByZipCode(zipCode);
     }
 
     /**
@@ -171,9 +166,7 @@ public class TrailServiceStub implements ITrailService {
     @Override
     public Trail fetchByCoordinates(String latitude, String longitude) {
 
-        Trail foundTrailByCoordinates = trailDAO.fetchByCoordinates(latitude, longitude);
-
-        return foundTrailByCoordinates;
+        return trailDAO.fetchByCoordinates(latitude, longitude);
     }
 
     /**
