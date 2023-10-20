@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trailanywhere.enterprise.dao.ITrailDAO;
 import com.trailanywhere.enterprise.dto.Trail;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +18,17 @@ import java.util.List;
  * Contains hardcoded data for unit testing.
  */
 @Service
+@NoArgsConstructor
 public class TrailServiceStub implements ITrailService {
 
     @Autowired
     private ITrailDAO trailDAO;
 
     /**
-     * Default constructor for TrailServiceStub
-     */
-    public TrailServiceStub() {
-    }
-
-    /**
      * Constructor for unit testing with Mockito
      * @param trailDAO
      */
     public TrailServiceStub(ITrailDAO trailDAO) {
-
         this.trailDAO = trailDAO;
     }
 

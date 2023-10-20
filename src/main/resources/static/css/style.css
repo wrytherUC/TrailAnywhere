@@ -1,6 +1,7 @@
 /* Style for header */
 header {
-    position: fixed;
+    z-index: 5;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
@@ -74,6 +75,7 @@ h3 {
 
 /* Style for status indicator */
 .status-indicator {
+    z-index: 10;
     position: fixed;
     top: 10px;
     right: 10px;

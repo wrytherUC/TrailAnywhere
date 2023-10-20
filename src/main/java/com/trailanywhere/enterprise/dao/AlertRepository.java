@@ -18,7 +18,7 @@ import java.util.List;
 public class AlertRepository implements IAlertDAO {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     /**
      * Default constructor
@@ -27,10 +27,10 @@ public class AlertRepository implements IAlertDAO {
 
     /**
      * Initialize EntityManager for CRUD operations
-     * @param em - EntityManager object
+     * @param entityManager - EntityManager object
      */
-    public AlertRepository(EntityManager em) {
-        this.em = em;
+    public AlertRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     /**
@@ -42,10 +42,10 @@ public class AlertRepository implements IAlertDAO {
     @Override
     @Transactional
     public Alert save(Alert alert) throws Exception {
-        em.persist(alert.getUser());
-        em.persist(alert.getTrail());
-        em.persist(alert);
-        em.flush();
+        entityManager.persist(alert.getUser());
+        entityManager.persist(alert.getTrail());
+        entityManager.persist(alert);
+        entityManager.flush();
         return alert;
     }
 
@@ -57,7 +57,7 @@ public class AlertRepository implements IAlertDAO {
     @Override
     @Transactional
     public void delete(Alert alert) throws Exception {
-        TypedQuery<Alert> query = em.createQuery("DELETE FROM Alert a WHERE a.alertID = :ALERT", Alert.class);
+        TypedQuery<Alert> query = entityManager.createQuery("DELETE FROM Alert a WHERE a.alertID = :ALERT", Alert.class);
         query.setParameter("ALERT", alert.getAlertID());
         query.executeUpdate();
     }
@@ -68,7 +68,7 @@ public class AlertRepository implements IAlertDAO {
      */
     @Override
     public List<Alert> fetchAllAlerts() {
-        TypedQuery<Alert> query = em.createQuery("SELECT a FROM Alert a", Alert.class);
+        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a", Alert.class);
         return query.getResultList();
     }
 }
