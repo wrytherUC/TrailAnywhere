@@ -17,7 +17,7 @@ import java.util.List;
 public class TrailRepository implements ITrailDAO {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     /**
      * Default constructor
@@ -28,10 +28,10 @@ public class TrailRepository implements ITrailDAO {
 
     /**
      * Initialize EntityManager for CRUD operations
-     * @param em - EntityManager object
+     * @param entityManager - EntityManager object
      */
-    public TrailRepository(EntityManager em) {
-        this.em = em;
+    public TrailRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     /**
@@ -43,8 +43,8 @@ public class TrailRepository implements ITrailDAO {
     @Override
     @Transactional
     public Trail save(Trail trail) throws Exception {
-        em.persist(trail);
-        em.flush();
+        entityManager.persist(trail);
+        entityManager.flush();
         return trail;
     }
 
@@ -56,7 +56,7 @@ public class TrailRepository implements ITrailDAO {
     @Override
     @Transactional
     public void delete(Trail trail) throws Exception {
-        TypedQuery<Trail> query = em.createQuery("DELETE FROM Trail t WHERE t.trailID = :TRAIL", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("DELETE FROM Trail t WHERE t.trailID = :TRAIL", Trail.class);
         query.setParameter("TRAIL", trail.getTrailID());
         query.executeUpdate();
     }
@@ -67,7 +67,7 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public List<Trail> fetchAllTrails() {
-        TypedQuery<Trail> query = em.createQuery("SELECT t FROM Trail t", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM Trail t", Trail.class);
         return query.getResultList();
     }
 
@@ -78,7 +78,7 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public Trail fetchByTrail(String trailName) {
-        TypedQuery<Trail> query = em.createQuery("SELECT t from Trail t WHERE t.name = :NAME", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.name = :NAME", Trail.class);
         query.setParameter("NAME", trailName);
         return query.getSingleResult();
     }
@@ -115,7 +115,7 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public Trail fetchByCoordinates(String latitude, String longitude) {
-        TypedQuery<Trail> query = em.createQuery("SELECT t from Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE", Trail.class);
         query.setParameter("LATITUDE", latitude);
         query.setParameter("LONGITUDE", longitude);
         return query.getSingleResult();

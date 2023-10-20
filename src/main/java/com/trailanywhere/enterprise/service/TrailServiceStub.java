@@ -4,45 +4,34 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trailanywhere.enterprise.dao.ITrailDAO;
 import com.trailanywhere.enterprise.dto.Trail;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Contains hardcoded data for unit testing.
  */
 @Service
+@NoArgsConstructor
 public class TrailServiceStub implements ITrailService {
 
     @Autowired
     private ITrailDAO trailDAO;
 
     /**
-     * Default constructor for TrailServiceStub
-     */
-    public TrailServiceStub() {
-    }
-
-    /**
      * Constructor for unit testing with Mockito
      * @param trailDAO
      */
     public TrailServiceStub(ITrailDAO trailDAO) {
-
         this.trailDAO = trailDAO;
     }
 
-/*    ArrayList<Trail> allTrails = new ArrayList<>();
-    ArrayList<Trail> trailDifficulty = new ArrayList<>();
-    ArrayList<Trail> trailZipCode = new ArrayList<>();
-    ArrayList<Trail> trailCoordinates = new ArrayList<>();*/
 
     /**
      * Fetches a trail with a specified name.
@@ -51,15 +40,9 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public Trail fetchByTrailName(String trailName) {
-/*
-        Trail trail = new Trail();
-        trail.setTrailID(1);
-        trail.setName("Forrest Park");
-        return trail;
-*/
 
-        Trail foundTrailByName = trailDAO.fetchByTrail(trailName);
-        return foundTrailByName;
+
+        return trailDAO.fetchByTrail(trailName);
     }
 
     /**
@@ -88,9 +71,7 @@ public class TrailServiceStub implements ITrailService {
     @Override
     public List<Trail> fetchByDifficulty(String difficulty) {
 
-        List<Trail> foundTrailByDifficulty = trailDAO.fetchByDifficulty(difficulty);
-
-        return foundTrailByDifficulty;
+        return trailDAO.fetchByDifficulty(difficulty);
     }
 
     /**
@@ -101,9 +82,7 @@ public class TrailServiceStub implements ITrailService {
     @Override
     public List<Trail> fetchByZipCode(String zipCode) {
 
-        List<Trail> foundTrailByZipCode = trailDAO.fetchByZipCode(zipCode);
-
-        return foundTrailByZipCode;
+        return trailDAO.fetchByZipCode(zipCode);
     }
 
     /**
@@ -181,18 +160,8 @@ public class TrailServiceStub implements ITrailService {
      */
     @Override
     public Trail fetchByCoordinates(String latitude, String longitude) {
-/*        Trail trailOne = new Trail();
-        Trail trailTwo = new Trail();
-        trailOne.setLatitude(latitude);
-        trailOne.setLongitude(longitude);
-        trailTwo.setLatitude(latitude);
-        trailTwo.setLongitude(longitude);
-        trailCoordinates.add(trailOne);
-        trailCoordinates.add(trailTwo);*/
 
-        Trail foundTrailByCoordinates = trailDAO.fetchByCoordinates(latitude, longitude);
-
-        return foundTrailByCoordinates;
+        return trailDAO.fetchByCoordinates(latitude, longitude);
     }
 
     /**

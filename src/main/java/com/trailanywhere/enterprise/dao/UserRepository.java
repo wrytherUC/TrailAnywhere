@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class UserRepository implements IUserDAO {
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     /**
      * Default constructor
@@ -23,10 +23,10 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Initialize EntityManager for CRUD operations
-     * @param em - EntityManager object
+     * @param entityManager - EntityManager object
      */
-    public UserRepository(EntityManager em) {
-        this.em = em;
+    public UserRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     /**
@@ -38,8 +38,8 @@ public class UserRepository implements IUserDAO {
     @Override
     @Transactional
     public User save(User user) throws Exception {
-        em.persist(user);
-        em.flush();
+        entityManager.persist(user);
+        entityManager.flush();
         return user;
     }
 
@@ -51,7 +51,7 @@ public class UserRepository implements IUserDAO {
     @Override
     @Transactional
     public void delete(User user) throws Exception {
-        TypedQuery<User> query = em.createQuery("DELETE FROM User u WHERE u.userID = :USER", User.class);
+        TypedQuery<User> query = entityManager.createQuery("DELETE FROM User u WHERE u.userID = :USER", User.class);
         query.setParameter("USER", user.getUserID());
         query.executeUpdate();
     }
@@ -64,7 +64,7 @@ public class UserRepository implements IUserDAO {
      */
     @Override
     public List<Trail> fetchFavoriteTrails(User user) {
-        TypedQuery<Trail> query = em.createQuery("SELECT t FROM UserFavoriteTrails ut JOIN Trail t ON ut.trail.trailID = t.trailID WHERE ut.user.userID = :USER", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM UserFavoriteTrails ut JOIN Trail t ON ut.trail.trailID = t.trailID WHERE ut.user.userID = :USER", Trail.class);
         query.setParameter("USER", user.getUserID());
         return query.getResultList();
     }
@@ -77,7 +77,7 @@ public class UserRepository implements IUserDAO {
     @Override
     @Transactional
     public void addFavoriteTrail(User user, Trail trail) {
-        Query query = em.createNativeQuery("INSERT INTO USER_FAVORITE_TRAILS (TRAILID, USERID) SELECT t.TRAILID, u.USERID FROM TRAIL t, USERS u WHERE t.TRAILID = ?1 AND u.USERID = ?2");// "
+        Query query = entityManager.createNativeQuery("INSERT INTO USER_FAVORITE_TRAILS (TRAILID, USERID) SELECT t.TRAILID, u.USERID FROM TRAIL t, USERS u WHERE t.TRAILID = ?1 AND u.USERID = ?2");// "
         query.setParameter(1, trail.getTrailID());
         query.setParameter(2, user.getUserID());
         query.executeUpdate();
@@ -91,7 +91,7 @@ public class UserRepository implements IUserDAO {
     @Override
     @Transactional
     public void deleteFavoriteTrail(User user, Trail trail) {
-        Query query = em.createNativeQuery("DELETE FROM USER_FAVORITE_TRAILS ut WHERE ut.USERID = ?1 AND ut.TRAILID = ?2");
+        Query query = entityManager.createNativeQuery("DELETE FROM USER_FAVORITE_TRAILS ut WHERE ut.USERID = ?1 AND ut.TRAILID = ?2");
         query.setParameter(1, user.getUserID());
         query.setParameter(2, trail.getTrailID());
         query.executeUpdate();
@@ -105,7 +105,7 @@ public class UserRepository implements IUserDAO {
      */
     @Override
     public User findUser(String email, String password) {
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :EMAIL AND u.password = :PASSWORD", User.class);
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :EMAIL AND u.password = :PASSWORD", User.class);
         query.setParameter("EMAIL", email);
         query.setParameter("PASSWORD", password);
         return query.getSingleResult();

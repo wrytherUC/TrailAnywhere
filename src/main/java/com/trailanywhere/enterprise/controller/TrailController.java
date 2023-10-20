@@ -1,4 +1,4 @@
-package com.trailanywhere.enterprise;
+package com.trailanywhere.enterprise.controller;
 
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.service.ITrailService;
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.logging.Logger;
+
 
 /**
  * This controller will handle all Trail endpoints.
@@ -18,6 +20,8 @@ public class TrailController {
     @Autowired
     ITrailService trailService;
 
+    private static final Logger logger = Logger.getLogger(TrailController.class.getName());
+
     /**
      * Handle the root endpoint and return the homepage.
      * @return homepage
@@ -27,6 +31,11 @@ public class TrailController {
         return "TrailFinder";
     }
 
+    /**
+     * API POST endpoint for creating trails
+     * @param trail the trail to be created
+     * @return created trail in JSON format
+     */
     @PostMapping(value="/trail", consumes="application/json", produces="application/json")
     @ResponseBody
     public Trail createTrail(@RequestBody Trail trail) {
@@ -34,7 +43,7 @@ public class TrailController {
         try {
             newTrail = trailService.save(trail);
         } catch (Exception e) {
-            // TODO add logging
+            logger.severe("Error creating Trail: " + e.getMessage());
         }
         return newTrail;
     }
@@ -64,5 +73,14 @@ public class TrailController {
     @RequestMapping("/Login")
     public String login() {
         return "Login";
+    }
+
+    /**
+     * Handle the create endpoint and return a page.
+     * @return create page
+     */
+    @RequestMapping("/CreateTrail")
+    public String create() {
+        return "CreateTrail";
     }
 }
