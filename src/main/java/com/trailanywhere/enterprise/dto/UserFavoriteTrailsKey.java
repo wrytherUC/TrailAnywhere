@@ -7,8 +7,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Embeddable
-public @Data
-class UserFavoriteTrailsKey implements Serializable {
+@Data
+public class UserFavoriteTrailsKey implements Serializable {
     @Column(name = "userID")
     int userID;
 

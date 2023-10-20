@@ -90,7 +90,7 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public List<Trail> fetchByDifficulty(String difficulty) {
-        Query query = entityManager.createQuery("SELECT t FROM Trail t WHERE t.difficulty = :DIFFICULTY");
+        TypedQuery<Trail> query = em.createQuery("SELECT t FROM Trail t WHERE t.difficulty = :DIFFICULTY", Trail.class);
         query.setParameter("DIFFICULTY", difficulty);
         return query.getResultList();
     }
@@ -102,7 +102,7 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public List<Trail> fetchByZipCode(String zipCode) {
-        Query query = entityManager.createQuery("SELECT t FROM Trail t WHERE t.zipCode = :ZIP_CODE");
+        TypedQuery<Trail> query = em.createQuery("SELECT t FROM Trail t WHERE t.zipCode = :ZIP_CODE", Trail.class);
         query.setParameter("ZIP_CODE", zipCode);
         return query.getResultList();
     }

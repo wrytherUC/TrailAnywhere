@@ -1,11 +1,17 @@
 package com.trailanywhere.enterprise.dto;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 @Entity
-public @Data
-class Alert {
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+public class Alert {
     @Id
     @GeneratedValue
     private int alertID;
@@ -16,4 +22,17 @@ class Alert {
     @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     private User user;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Alert alert = (Alert) o;
+        return alertID == alert.alertID;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
