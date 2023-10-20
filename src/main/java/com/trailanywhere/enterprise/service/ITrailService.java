@@ -30,14 +30,14 @@ public interface ITrailService {
      * @param difficulty - difficulty selected by user
      * @return - all trails with the same specified difficulty
      */
-    ArrayList<Trail> fetchByDifficulty(String difficulty);
+    List<Trail> fetchByDifficulty(String difficulty);
 
     /**
      * Fetch all trails with matching zip codes
      * @param zipCode - zip code selected by user
      * @return - all trails with the same zip code
      */
-    ArrayList<Trail> fetchByZipCode(String zipCode);
+    List<Trail> fetchByZipCode(String zipCode);
 
     /**
      * Get current weather data for trails with provided zip code
@@ -60,7 +60,7 @@ public interface ITrailService {
      * @param longitude - provided longitude coordinate
      * @return - List containing all trails
      */
-    ArrayList<Trail> fetchByCoordinates(String latitude, String longitude);
+    Trail fetchByCoordinates(String latitude, String longitude);
 
     /**
      * Saves a trail

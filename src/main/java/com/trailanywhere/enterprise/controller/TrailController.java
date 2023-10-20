@@ -1,13 +1,26 @@
-package com.trailanywhere.enterprise;
+package com.trailanywhere.enterprise.controller;
 
+import com.trailanywhere.enterprise.dto.Trail;
+import com.trailanywhere.enterprise.service.ITrailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.logging.Logger;
+
 
 /**
  * This controller will handle all Trail endpoints.
  */
 @Controller
 public class TrailController {
+
+    @Autowired
+    ITrailService trailService;
+
+    private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
     /**
      * Handle the root endpoint and return the homepage.
@@ -16,6 +29,18 @@ public class TrailController {
     @RequestMapping("/")
     public String index() {
         return "TrailFinder";
+    }
+
+    @PostMapping(value="/trail", consumes="application/json", produces="application/json")
+    @ResponseBody
+    public Trail createTrail(@RequestBody Trail trail) {
+        Trail newTrail = null;
+        try {
+            newTrail = trailService.save(trail);
+        } catch (Exception e) {
+            logger.severe("Error creating Trail: " + e.getMessage());
+        }
+        return newTrail;
     }
 
     /**
