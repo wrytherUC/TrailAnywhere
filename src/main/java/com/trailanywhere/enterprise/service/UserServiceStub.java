@@ -4,7 +4,8 @@ import com.trailanywhere.enterprise.dao.IUserDAO;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.dto.UserFavoriteTrails;
-import org.springframework.stereotype.Component;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +14,13 @@ import java.util.Objects;
 /**
  * Contain mock data for IUserService
  */
-@Component
+@Service
+@NoArgsConstructor
 public class UserServiceStub implements IUserService {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<User> loggedInUsers = new ArrayList<>();
     ArrayList<UserFavoriteTrails> favoriteTrails = new ArrayList<>();
     private IUserDAO userDAO;
-
-    /**
-     * Default constructor
-     */
-    public UserServiceStub() {}
 
     /**
      * Constructor using DAO

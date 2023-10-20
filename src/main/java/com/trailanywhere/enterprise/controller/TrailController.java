@@ -1,4 +1,4 @@
-package com.trailanywhere.enterprise;
+package com.trailanywhere.enterprise.controller;
 
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.service.ITrailService;
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.logging.Logger;
+
 
 /**
  * This controller will handle all Trail endpoints.
@@ -17,6 +19,8 @@ public class TrailController {
 
     @Autowired
     ITrailService trailService;
+
+    private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
     /**
      * Handle the root endpoint and return the homepage.
@@ -34,7 +38,7 @@ public class TrailController {
         try {
             newTrail = trailService.save(trail);
         } catch (Exception e) {
-            // TODO add logging
+            logger.severe("Error creating Trail: " + e.getMessage());
         }
         return newTrail;
     }
