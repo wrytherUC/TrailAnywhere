@@ -74,4 +74,13 @@ public class TrailController {
     public String login() {
         return "Login";
     }
+
+    /**
+     * Handle the create endpoint and return a page.
+     * @return create page
+     */
+    @RequestMapping("/CreateTrail")
+    public String create() {
+        return "CreateTrail";
+    }
 }

@@ -22,6 +22,16 @@
                     <button class="btn btn-light btn-lg">Alerts</button>
                 </form>
             </li>
+            <li>
+                <form method="GET" th:action="@{/CreateTrail}">
+                    <button class="btn btn-light btn-lg">Create</button>
+                </form>
+            </li>
+            <li>
+                <form method="GET" th:action="@{/Favorites}">
+                    <button class="btn btn-light btn-lg">Favorites</button>
+                </form>
+            </li>
         </ul>
     </nav>
 </header>
@@ -55,20 +65,35 @@
     </table>
 </div>
 
-<h3>Add Favorite Trail</h3>
-
-<div class="container">
-    <form action="addFavoriteLogic.html" method="POST">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput1" name="search_query" placeholder="x" required>
-            <label for="floatingInput1">Enter the name of the trail you want to add</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput2" name="search_query" placeholder="x" required>
-            <label for="floatingInput2">Enter the zipcode of the trail you want to add</label>
-            <input type="submit" class="btn btn-success" value="Submit">
-        </div>
-    </form>
+<div class="container favorites">
+    <div class="add">
+        <h3>Add Favorite Trail</h3>
+            <form action="addFavoriteLogic.html" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput1" name="search_query" placeholder="x" required>
+                    <label for="floatingInput1">Enter the name of the trail to add</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput2" name="search_query" placeholder="x" required>
+                    <label for="floatingInput2">Enter the zipcode of the trail to add</label>
+                    <input type="submit" class="btn btn-success" value="Submit">
+                </div>
+            </form>
+    </div>
+    <div class="end">
+        <h3>Drop Favorite Trail</h3>
+            <form action="dropFavoriteLogic.html" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput3" name="search_query" placeholder="x" required>
+                    <label for="floatingInput3">Enter the name of the trail to drop</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput4" name="search_query" placeholder="x" required>
+                    <label for="floatingInput4">Enter the zipcode of the trail to drop</label>
+                    <input type="submit" class="btn btn-success" value="Submit">
+                </div>
+            </form>
+    </div>
 </div>
 
 <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
