@@ -31,6 +31,11 @@ public class TrailController {
         return "TrailFinder";
     }
 
+    /**
+     * API POST endpoint for creating trails
+     * @param trail the trail to be created
+     * @return created trail in JSON format
+     */
     @PostMapping(value="/trail", consumes="application/json", produces="application/json")
     @ResponseBody
     public Trail createTrail(@RequestBody Trail trail) {
