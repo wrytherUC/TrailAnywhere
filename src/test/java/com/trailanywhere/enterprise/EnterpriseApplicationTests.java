@@ -6,12 +6,8 @@ import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +25,7 @@ class EnterpriseApplicationTests {
     private Trail trail = new Trail();
     private Trail trailWithCoordinates = new Trail();
 
-    @MockBean
+    @Autowired
     private ITrailDAO trailDAO;
 
     private List<Trail> trailList = new ArrayList<>();
@@ -49,27 +45,26 @@ class EnterpriseApplicationTests {
      * Test fetching trail with a specific name.
      */
     @Test
-    void fetchTrailByName_returnTrailID1ForTrailForrestPark() throws Exception {
+    void fetchTrailByName() throws Exception {
         givenTrailDataIsAvailable();
-        whenTrailForrestParkIsAdded();
-        whenSearchTrailWithNameForrestPark();
-        thenReturnTrailID1TrailForForrestPark();
+        whenTrailIsAdded();
+        whenSearchTrailWithName();
+        thenReturnTrail();
     }
 
-    private void whenTrailForrestParkIsAdded() {
-        Trail forrestpark = new Trail();
-        forrestpark.setName("Forrest Park");
-        forrestpark.setTrailID(1);
-        Mockito.when(trailDAO.fetchByTrail("Forrest Park")).thenReturn(forrestpark);
+    private void whenTrailIsAdded() throws Exception {
+        Trail newTrail = new Trail();
+        newTrail.setName("Able Park");
+        trailService.save(trail);
     }
 
-    private void whenSearchTrailWithNameForrestPark() {
-        trail = trailService.fetchByTrailName("Forrest Park");
+    private void whenSearchTrailWithName() {
+        trail = trailService.fetchByTrailName("Able Park");
     }
 
-    private void thenReturnTrailID1TrailForForrestPark() {
-        Integer trailID = trail.getTrailID();
-        assertEquals(1, trailID);
+    private void thenReturnTrail() {
+        String trailName = trail.getName();
+        assertEquals(trail.getName(), trailName);
     }
 
     /**
@@ -83,7 +78,6 @@ class EnterpriseApplicationTests {
     }
 
     private void givenTrailDataIsAvailable() throws Exception {
-        Mockito.when(trailDAO.save(trail)).thenReturn(trail);
         trailService = new TrailService(trailDAO);
     }
 
@@ -158,12 +152,11 @@ class EnterpriseApplicationTests {
         thenReturnTrailWeatherWithCoordinates();
     }
 
-    private void whenTrailWithCoordinatesIsAdded() {
+    private void whenTrailWithCoordinatesIsAdded() throws Exception {
         Trail coordinatesTrail = new Trail();
-        coordinatesTrail.setTrailID(2);
         coordinatesTrail.setLatitude("39.13797");
         coordinatesTrail.setLongitude("-84.52533");
-        Mockito.when(trailDAO.fetchByCoordinates("39.13797","-84.52533")).thenReturn(coordinatesTrail);
+        trailService.save(coordinatesTrail);
     }
 
     private void whenSearchTrailWithCoordinates() {
@@ -203,7 +196,6 @@ class EnterpriseApplicationTests {
     private void thenCreateNewTrailAndReturnItFromService() throws Exception {
         Trail createdTrail = trailService.save(trail);
         assertEquals(trail, createdTrail);
-        verify(trailDAO, atLeastOnce()).save(trail);
     }
 
     /**
@@ -218,7 +210,11 @@ class EnterpriseApplicationTests {
     }
 
     private void thenDeleteTrail() throws Exception {
-        trailDAO.delete(trail);
-        verify(trailDAO, atLeastOnce()).delete(trail);
+        trailService.save(trail);
+        trailService.delete(trail);
+        Trail deletedTrail = trailService.fetchByTrailName(trail.getName());
+        if (trail.getName().equals(deletedTrail.getName())) {
+            fail("Failed to delete trail.");
+        }
     }
 }

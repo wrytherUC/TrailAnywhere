@@ -40,8 +40,6 @@ public class TrailService implements ITrailService {
      */
     @Override
     public Trail fetchByTrailName(String trailName) {
-
-
         return trailDAO.fetchByTrail(trailName);
     }
 
@@ -70,7 +68,6 @@ public class TrailService implements ITrailService {
      */
     @Override
     public List<Trail> fetchByDifficulty(String difficulty) {
-
         return trailDAO.fetchByDifficulty(difficulty);
     }
 
@@ -81,7 +78,6 @@ public class TrailService implements ITrailService {
      */
     @Override
     public List<Trail> fetchByZipCode(String zipCode) {
-
         return trailDAO.fetchByZipCode(zipCode);
     }
 
@@ -160,7 +156,6 @@ public class TrailService implements ITrailService {
      */
     @Override
     public Trail fetchByCoordinates(String latitude, String longitude) {
-
         return trailDAO.fetchByCoordinates(latitude, longitude);
     }
 
