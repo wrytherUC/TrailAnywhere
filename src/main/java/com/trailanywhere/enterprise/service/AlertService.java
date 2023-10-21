@@ -3,24 +3,27 @@ package com.trailanywhere.enterprise.service;
 import com.trailanywhere.enterprise.dao.IAlertDAO;
 import com.trailanywhere.enterprise.dto.Alert;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contain mock data for IAlertService
  */
 @Service
 @NoArgsConstructor
-public class AlertServiceStub implements IAlertService {
+public class AlertService implements IAlertService {
     ArrayList<Alert> allAlerts = new ArrayList<>();
+    @Autowired
     private IAlertDAO alertDAO;
 
     /**
      * Constructor using DAO
      * @param alertDAO - DAO
      */
-    public AlertServiceStub(IAlertDAO alertDAO) {
+    public AlertService(IAlertDAO alertDAO) {
         this.alertDAO = alertDAO;
     }
 
@@ -29,8 +32,8 @@ public class AlertServiceStub implements IAlertService {
      * @return - list of alerts
      */
     @Override
-    public ArrayList<Alert> fetchAllAlerts() {
-        return allAlerts;
+    public List<Alert> fetchAllAlerts() {
+        return alertDAO.fetchAllAlerts();
     }
 
     /**

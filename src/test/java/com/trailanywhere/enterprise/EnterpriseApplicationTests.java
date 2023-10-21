@@ -84,7 +84,7 @@ class EnterpriseApplicationTests {
 
     private void givenTrailDataIsAvailable() throws Exception {
         Mockito.when(trailDAO.save(trail)).thenReturn(trail);
-        trailService = new TrailServiceStub(trailDAO);
+        trailService = new TrailService(trailDAO);
     }
 
     private void whenSearchTrailWithDifficultyHard() {

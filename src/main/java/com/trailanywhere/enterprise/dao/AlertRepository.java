@@ -42,9 +42,20 @@ public class AlertRepository implements IAlertDAO {
     @Override
     @Transactional
     public Alert save(Alert alert) throws Exception {
-        entityManager.persist(alert.getUser());
-        entityManager.persist(alert.getTrail());
-        entityManager.persist(alert);
+        // Handle alert saves if a user or trail already exists, else insert a new record of both
+        if (alert.getUser().getUserID() != 0 && alert.getTrail().getTrailID() != 0) {
+            entityManager.persist(alert);
+        } else if (alert.getUser().getUserID() != 0) {
+            entityManager.persist(alert.getTrail());
+            entityManager.persist(alert);
+        } else if (alert.getTrail().getTrailID() != 0) {
+            entityManager.persist(alert.getUser());
+            entityManager.persist(alert);
+        } else {
+            entityManager.persist(alert.getUser());
+            entityManager.persist(alert.getTrail());
+            entityManager.persist(alert);
+        }
         entityManager.flush();
         return alert;
     }
@@ -57,7 +68,7 @@ public class AlertRepository implements IAlertDAO {
     @Override
     @Transactional
     public void delete(Alert alert) throws Exception {
-        TypedQuery<Alert> query = entityManager.createQuery("DELETE FROM Alert a WHERE a.alertID = :ALERT", Alert.class);
+        Query query = entityManager.createQuery("DELETE FROM Alert a WHERE a.alertID = :ALERT");
         query.setParameter("ALERT", alert.getAlertID());
         query.executeUpdate();
     }

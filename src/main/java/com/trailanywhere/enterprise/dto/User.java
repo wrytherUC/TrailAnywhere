@@ -18,6 +18,7 @@ public class User {
     @GeneratedValue
     private int userID;
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
     @OneToMany(mappedBy = "user")

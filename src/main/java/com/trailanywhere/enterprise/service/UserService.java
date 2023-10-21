@@ -16,17 +16,16 @@ import java.util.Objects;
  */
 @Service
 @NoArgsConstructor
-public class UserServiceStub implements IUserService {
+public class UserService implements IUserService {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<User> loggedInUsers = new ArrayList<>();
-    ArrayList<UserFavoriteTrails> favoriteTrails = new ArrayList<>();
     private IUserDAO userDAO;
 
     /**
      * Constructor using DAO
      * @param userDAO - Handle CRUD operations
      */
-    public UserServiceStub(IUserDAO userDAO) {
+    public UserService(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -47,15 +46,7 @@ public class UserServiceStub implements IUserService {
      */
     @Override
     public List<Trail> fetchFavoriteTrails(User user) {
-        ArrayList<Trail> userFavorites = new ArrayList<>();
-        UserFavoriteTrails favs = new UserFavoriteTrails();
-        favs.setUser(user);
-        for (UserFavoriteTrails favoriteTrail : favoriteTrails) {
-            if (Objects.equals(favoriteTrail.getUser().getName(), user.getName())) {
-                userFavorites.add(favoriteTrail.getTrail());
-            }
-        }
-        return userFavorites;
+        return userDAO.fetchFavoriteTrails(user);
     }
 
     /**
@@ -64,10 +55,7 @@ public class UserServiceStub implements IUserService {
      */
     @Override
     public void addFavoriteTrail(User user, Trail trail) {
-        UserFavoriteTrails favs = new UserFavoriteTrails();
-        favs.setUser(user);
-        favs.setTrail(trail);
-        favoriteTrails.add(favs);
+        userDAO.addFavoriteTrail(user, trail);
     }
 
     /**
@@ -123,5 +111,16 @@ public class UserServiceStub implements IUserService {
     @Override
     public void delete(User user) throws Exception {
         userDAO.delete(user);
+    }
+
+    /**
+     * Find a user based on their credentials
+     * @param email - email address
+     * @param password - user password
+     * @return - user
+     */
+    @Override
+    public User findUser(String email, String password) {
+        return userDAO.findUser(email, password);
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.atLeastOnce;
 public class AlertTests {
     @Autowired
     private IAlertService alertService;
-    @MockBean
+    @Autowired
     private IAlertDAO alertDAO;
     private Alert alert = new Alert();
     private User user = new User();
@@ -36,11 +37,9 @@ public class AlertTests {
     ArrayList<User> userList = new ArrayList<>();
     @Autowired
     private ITrailService trailService;
-    @MockBean
+    @Autowired
     private ITrailDAO trailDAO;
     private Trail trail = new Trail();
-    private List<Trail> trailList;
-    //List<Trail> trailList = new ArrayList<>();
 
     /**
      * Test creating a new alert
@@ -53,16 +52,15 @@ public class AlertTests {
         thenCreateAlert();
     }
 
-    private void givenAlertDataIsAvailable() throws Exception {
-        Mockito.when(alertDAO.save(alert)).thenReturn(alert);
-        alertService = new AlertServiceStub(alertDAO);
+    private void givenAlertDataIsAvailable() {
+        alertService = new AlertService(alertDAO);
     }
 
     private void whenAlertDataIsGiven() {
         User user = new User();
         user.setName("Jacob");
         Trail trail = new Trail();
-        trail.setName("Forrest Park");
+        trail.setName("Rapid Run Park");
         alert.setUser(user);
         alert.setTrail(trail);
     }
@@ -82,9 +80,8 @@ public class AlertTests {
         thenCreateAlertForTrail();
     }
 
-    private void givenTrailDataIsAvailable() throws Exception {
-        Mockito.when(trailDAO.save(trail)).thenReturn(trail);
-        trailService = new TrailServiceStub(trailDAO);
+    private void givenTrailDataIsAvailable() {
+        trailService = new TrailService(trailDAO);
     }
 
     private void whenUserIsLoggedIn() {
@@ -96,18 +93,18 @@ public class AlertTests {
 
     private void thenCreateAlertForTrail() throws Exception {
         // Set test trail data
-        trail = trailService.fetchByTrailName("Forrest Park");
+        trail = trailService.fetchByTrailName("French Park");
 
         // Set test alert data
         Alert alert = new Alert();
         alert.setUser(user);
         alert.setTrail(trail);
         alertService.addAlert(alert);
-        ArrayList<Alert> alertList = alertService.fetchAllAlerts();
+        alertService.save(alert);
+        List<Alert> alertList = alertService.fetchAllAlerts();
 
         // Test conditions
         assertEquals(userList.get(0).getName(), alertList.get(0).getUser().getName());
-        //assertEquals(trailList.get(0).getName(), alertList.get(0).getTrail().getName());
     }
 
     /**
@@ -122,8 +119,15 @@ public class AlertTests {
     }
 
     private void thenDeleteAlert() throws Exception {
+        alert.getTrail().setName("New Trail"); // Avoid unique constraint error
+        alertService.save(alert);
         alertService.delete(alert);
-        verify(alertDAO, atLeastOnce()).delete(alert);
+        List<Alert> alertList = alertService.fetchAllAlerts();
+        for (Alert a : alertList) {
+            if (a.equals(alert)) {
+                fail("Failed to delete alert.");
+            }
+        }
     }
 
 }

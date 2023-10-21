@@ -3,13 +3,14 @@ package com.trailanywhere.enterprise.service;
 import com.trailanywhere.enterprise.dto.Alert;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IAlertService {
     /**
      * Fetch all alerts
      * @return - list of alerts
      */
-    ArrayList<Alert> fetchAllAlerts();
+    List<Alert> fetchAllAlerts();
 
     /**
      * Add an alert
