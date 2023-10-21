@@ -51,7 +51,7 @@ public class UserRepository implements IUserDAO {
     @Override
     @Transactional
     public void delete(User user) throws Exception {
-        TypedQuery<User> query = entityManager.createQuery("DELETE FROM User u WHERE u.userID = :USER", User.class);
+        Query query = entityManager.createQuery("DELETE FROM User u WHERE u.userID = :USER");
         query.setParameter("USER", user.getUserID());
         query.executeUpdate();
     }
@@ -105,9 +105,15 @@ public class UserRepository implements IUserDAO {
      */
     @Override
     public User findUser(String email, String password) {
-        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :EMAIL AND u.password = :PASSWORD", User.class);
-        query.setParameter("EMAIL", email);
-        query.setParameter("PASSWORD", password);
-        return query.getSingleResult();
+        try {
+            TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :EMAIL AND u.password = :PASSWORD", User.class);
+            query.setParameter("EMAIL", email);
+            query.setParameter("PASSWORD", password);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            // If query fails to validate user, return an empty object
+            return new User();
+        }
+
     }
 }

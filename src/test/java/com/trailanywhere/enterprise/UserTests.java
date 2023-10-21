@@ -26,12 +26,12 @@ import static org.mockito.Mockito.atLeastOnce;
 public class UserTests {
     @Autowired
     private IUserService userService;
-    @MockBean
+    @Autowired
     private IUserDAO userDAO;
     private User user = new User();
     @Autowired
     private ITrailService trailService;
-    @MockBean
+    @Autowired
     private ITrailDAO trailDAO;
     private Trail trail = new Trail();
 
@@ -47,12 +47,13 @@ public class UserTests {
     }
 
     private void givenUserDataIsAvailable() throws Exception {
-        Mockito.when(userDAO.save(user)).thenReturn(user);
         userService = new UserService(userDAO);
     }
 
     private void whenUserDataIsCreated() {
         user.setName("Sam");
+        user.setEmail("sam@gmail.com");
+        user.setPassword("password");
     }
 
     private void thenCreateNewUser() throws Exception {
@@ -94,9 +95,21 @@ public class UserTests {
         thenDeleteUser();
     }
 
-    private void thenDeleteUser() throws Exception {
-        userDAO.delete(user);
-        verify(userDAO, atLeastOnce()).delete(user);
+    private void thenDeleteUser() {
+        try {
+            user.setEmail("sam1@gmail.com");
+            userService.save(user);
+            userService.delete(user);
+            User deletedUser = userService.findUser(user.getEmail(), user.getPassword());
+            if (user.getEmail().equals(deletedUser.getEmail())) {
+                System.out.println("Saved user: " + user);
+                System.out.println("Deleted user: " + deletedUser);
+                fail("Failed to delete user");
+            }
+        } catch (Exception e) {
+            fail("An error has occurred. " + e);
+        }
+
     }
 
     @Test
@@ -108,20 +121,28 @@ public class UserTests {
         thenAddTrailToFavoritesList();
     }
 
-    private void givenTrailDataIsAvailable() throws Exception {
-        Mockito.when(trailDAO.save(trail)).thenReturn(trail);
+    private void givenTrailDataIsAvailable() {
         trailService = new TrailService(trailDAO);
     }
 
     private void whenTrailDataIsCreated() {
-        trail.setName("Forrest Park");
+        trail.setName("Ridge Park");
     }
 
     private void thenAddTrailToFavoritesList() {
-        userService.addFavoriteTrail(user, trail);
-        List<Trail> favorites = userService.fetchFavoriteTrails(user);
-        if (favorites.isEmpty()) {
-            fail("No favorite trails exist for this user.");
+        try {
+            user.setEmail("sam2@gmail.com");
+            userService.save(user);
+            trailService.save(trail);
+            userService.addFavoriteTrail(user, trail);
+            List<Trail> favorites = userService.fetchFavoriteTrails(user);
+            System.out.println(favorites);
+            if (favorites.isEmpty()) {
+                fail("No favorite trails exist for this user.");
+            }
+        } catch(Exception e) {
+            fail("An error has occurred: " + e);
         }
+
     }
 }
