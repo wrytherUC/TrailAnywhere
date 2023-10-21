@@ -77,6 +77,20 @@ public class UserRepository implements IUserDAO {
     @Override
     @Transactional
     public void addFavoriteTrail(User user, Trail trail) {
+        // If user/trail does not exist, insert them into the DB first
+        if (user.getUserID() == 0 && trail.getTrailID() == 0) {
+            entityManager.persist(user);
+            entityManager.persist(trail);
+            entityManager.flush();
+        } else if (user.getUserID() == 0) {
+            entityManager.persist(user);
+            entityManager.flush();
+        } else if (trail.getTrailID() == 0) {
+            entityManager.persist(trail);
+            entityManager.flush();
+        }
+
+        // Add a favorite trail
         Query query = entityManager.createNativeQuery("INSERT INTO USER_FAVORITE_TRAILS (TRAILID, USERID) SELECT t.TRAILID, u.USERID FROM TRAIL t, USERS u WHERE t.TRAILID = ?1 AND u.USERID = ?2");// "
         query.setParameter(1, trail.getTrailID());
         query.setParameter(2, user.getUserID());
