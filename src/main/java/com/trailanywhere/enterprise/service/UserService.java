@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 @Service
 @NoArgsConstructor
-public class UserServiceStub implements IUserService {
+public class UserService implements IUserService {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<User> loggedInUsers = new ArrayList<>();
     ArrayList<UserFavoriteTrails> favoriteTrails = new ArrayList<>();
@@ -26,7 +26,7 @@ public class UserServiceStub implements IUserService {
      * Constructor using DAO
      * @param userDAO - Handle CRUD operations
      */
-    public UserServiceStub(IUserDAO userDAO) {
+    public UserService(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }
 

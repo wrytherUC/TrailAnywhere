@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 @Service
 @NoArgsConstructor
-public class AlertServiceStub implements IAlertService {
+public class AlertService implements IAlertService {
     ArrayList<Alert> allAlerts = new ArrayList<>();
     private IAlertDAO alertDAO;
 
@@ -20,7 +20,7 @@ public class AlertServiceStub implements IAlertService {
      * Constructor using DAO
      * @param alertDAO - DAO
      */
-    public AlertServiceStub(IAlertDAO alertDAO) {
+    public AlertService(IAlertDAO alertDAO) {
         this.alertDAO = alertDAO;
     }
 

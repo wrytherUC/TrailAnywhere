@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Service
 @NoArgsConstructor
-public class TrailServiceStub implements ITrailService {
+public class TrailService implements ITrailService {
 
     @Autowired
     private ITrailDAO trailDAO;
@@ -28,7 +28,7 @@ public class TrailServiceStub implements ITrailService {
      * Constructor for unit testing with Mockito
      * @param trailDAO
      */
-    public TrailServiceStub(ITrailDAO trailDAO) {
+    public TrailService(ITrailDAO trailDAO) {
         this.trailDAO = trailDAO;
     }
 

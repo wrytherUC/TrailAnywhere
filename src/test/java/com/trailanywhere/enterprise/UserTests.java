@@ -6,8 +6,8 @@ import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.ITrailService;
 import com.trailanywhere.enterprise.service.IUserService;
-import com.trailanywhere.enterprise.service.TrailServiceStub;
-import com.trailanywhere.enterprise.service.UserServiceStub;
+import com.trailanywhere.enterprise.service.TrailService;
+import com.trailanywhere.enterprise.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class UserTests {
 
     private void givenUserDataIsAvailable() throws Exception {
         Mockito.when(userDAO.save(user)).thenReturn(user);
-        userService = new UserServiceStub(userDAO);
+        userService = new UserService(userDAO);
     }
 
     private void whenUserDataIsCreated() {
@@ -110,7 +110,7 @@ public class UserTests {
 
     private void givenTrailDataIsAvailable() throws Exception {
         Mockito.when(trailDAO.save(trail)).thenReturn(trail);
-        trailService = new TrailServiceStub(trailDAO);
+        trailService = new TrailService(trailDAO);
     }
 
     private void whenTrailDataIsCreated() {

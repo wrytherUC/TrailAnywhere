@@ -55,7 +55,7 @@ public class AlertTests {
 
     private void givenAlertDataIsAvailable() throws Exception {
         Mockito.when(alertDAO.save(alert)).thenReturn(alert);
-        alertService = new AlertServiceStub(alertDAO);
+        alertService = new AlertService(alertDAO);
     }
 
     private void whenAlertDataIsGiven() {
@@ -84,7 +84,7 @@ public class AlertTests {
 
     private void givenTrailDataIsAvailable() throws Exception {
         Mockito.when(trailDAO.save(trail)).thenReturn(trail);
-        trailService = new TrailServiceStub(trailDAO);
+        trailService = new TrailService(trailDAO);
     }
 
     private void whenUserIsLoggedIn() {
