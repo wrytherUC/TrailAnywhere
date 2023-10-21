@@ -58,4 +58,11 @@ public interface IUserService {
      * @throws Exception - handle errors
      */
     void delete(User user) throws Exception;
+
+    /**
+     * Find a user based on their credentials
+     * @param email - email address
+     * @param password - user password
+     */
+    User findUser(String email, String password);
 }
