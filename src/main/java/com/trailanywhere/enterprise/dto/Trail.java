@@ -1,9 +1,6 @@
 package com.trailanywhere.enterprise.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -19,6 +16,7 @@ public class Trail {
     @Id
     @GeneratedValue
     private int trailID;
+    @Column(unique = true)
     private String name;
     private String difficulty;
     private String terrain;

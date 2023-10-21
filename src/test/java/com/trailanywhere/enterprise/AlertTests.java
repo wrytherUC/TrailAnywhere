@@ -40,8 +40,6 @@ public class AlertTests {
     @Autowired
     private ITrailDAO trailDAO;
     private Trail trail = new Trail();
-    private List<Trail> trailList;
-    //List<Trail> trailList = new ArrayList<>();
 
     /**
      * Test creating a new alert
@@ -54,8 +52,7 @@ public class AlertTests {
         thenCreateAlert();
     }
 
-    private void givenAlertDataIsAvailable() throws Exception {
-        //Mockito.when(alertDAO.save(alert)).thenReturn(alert);
+    private void givenAlertDataIsAvailable() {
         alertService = new AlertService(alertDAO);
     }
 
@@ -63,7 +60,7 @@ public class AlertTests {
         User user = new User();
         user.setName("Jacob");
         Trail trail = new Trail();
-        trail.setName("Forrest Park");
+        trail.setName("Rapid Run Park");
         alert.setUser(user);
         alert.setTrail(trail);
     }
@@ -83,8 +80,7 @@ public class AlertTests {
         thenCreateAlertForTrail();
     }
 
-    private void givenTrailDataIsAvailable() throws Exception {
-        //Mockito.when(trailDAO.save(trail)).thenReturn(trail);
+    private void givenTrailDataIsAvailable() {
         trailService = new TrailService(trailDAO);
     }
 
@@ -123,6 +119,7 @@ public class AlertTests {
     }
 
     private void thenDeleteAlert() throws Exception {
+        alert.getTrail().setName("New Trail"); // Avoid unique constraint error
         alertService.save(alert);
         alertService.delete(alert);
         List<Alert> alertList = alertService.fetchAllAlerts();
