@@ -102,8 +102,6 @@ public class UserTests {
             userService.delete(user);
             User deletedUser = userService.findUser(user.getEmail(), user.getPassword());
             if (user.getEmail().equals(deletedUser.getEmail())) {
-                System.out.println("Saved user: " + user);
-                System.out.println("Deleted user: " + deletedUser);
                 fail("Failed to delete user");
             }
         } catch (Exception e) {
