@@ -1,5 +1,6 @@
 package com.trailanywhere.enterprise.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.service.ITrailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 
@@ -27,7 +34,14 @@ public class TrailController {
      * @return homepage
      */
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        Map<String, Trail> trailData = new HashMap<>();
+        for (Trail trail : allTrails) {
+            JsonNode node = trailService.getCurrentWeather(trail.getLatitude(), trail.getLongitude());
+            trailData.put(node.at("/current_weather/temperature").asText(), trail);
+        }
+        model.addAttribute("trailData", trailData);
         return "TrailFinder";
     }
 
