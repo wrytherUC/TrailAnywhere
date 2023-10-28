@@ -47,74 +47,13 @@
     </table>
 </div>
 
-
-<script type="text/javascript">
-    $(function () {
-        $("#floatingInput").autocomplete({
-            source: ["Forrest Park", "Beechwood, Furnas, Ponderosa, and Red Oak Trail", "Stone Steps Loop", "French Park", "Ault Forest Loop Trail", "Bender Mountain Loop Trail", "Hiking", "Moderate", "Easy", "Hard", "45211", "45212", "45213", "45214", "45215"],
-            minLength: 1
-        });
-
-        $("#search-form").submit(function (event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-
-            // Get the user's input
-            var userInput = $("#floatingInput").val();
-
-            // List of trail names / search queries
-            var trailNames = [
-                "Forrest Park",
-                "Beechwood, Furnas, Ponderosa, and Red Oak Trail",
-                "Stone Steps Loop",
-                "French Park",
-                "Ault Forest Loop Trail",
-                "Bender Mountain Loop Trail",
-                "Hiking",
-                "Easy",
-                "Moderate",
-                "Hard",
-                "45211",
-                "45212",
-                "45213",
-                "45214",
-                "45215"
-                // Add more trail names here
-            ];
-
-            // Show the table
-            $("#trail-table").show();
-
-            // Hide rows that don't match the user's input
-            $("#trail-table tbody tr").each(function () {
-                var trailRow = $(this);
-                var shouldShow = false;
-
-                // Show the header row
-                $("#header-row").show();
-
-                // Check each cell in the row for a match with user input
-                trailRow.find("td").each(function () {
-                    if ($(this).text().toLowerCase().includes(userInput.toLowerCase())) {
-                        shouldShow = true;
-                        return false; // Break the loop
-                    }
-                });
-
-                if (shouldShow) {
-                    trailRow.show();
-                } else {
-                    trailRow.hide();
-                }
-            });
-        });
-    });
-</script>
-
 <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
     Status: <span id="status-text">Loading...</span>
     <span id="username-text"></span>
 </a>
 
 <script th:src="@{/js/LoginStatus.js}"></script>
+<script th:src="@{/js/TrailAutocomplete.js}"></script>
+
 </body>
 </html>
