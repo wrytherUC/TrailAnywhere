@@ -37,12 +37,12 @@
             <td><b>Temperature</b></td>
         </tr>
         <tr id="trail-row" th:each="trail : ${trailData}">
-            <td th:text="${trail.value.name}"></td>
-            <td th:text="${trail.value.trailType}"></td>
-            <td th:text="${trail.value.difficulty}"></td>
-            <td th:text="${trail.value.address}"></td>
-            <td th:text="${trail.value.zipCode}"></td>
-            <td th:text="*{trail.key + '°F'}"></td>
+            <td th:text="${trail.key.name}"></td>
+            <td th:text="${trail.key.trailType}"></td>
+            <td th:text="${trail.key.difficulty}"></td>
+            <td th:text="${trail.key.address}"></td>
+            <td th:text="${trail.key.zipCode}"></td>
+            <td th:text="*{trail.value + '°F'}"></td>
         </tr>
     </table>
 </div>
