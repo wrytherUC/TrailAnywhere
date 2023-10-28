@@ -1,16 +1,15 @@
 package com.trailanywhere.enterprise.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.trailanywhere.enterprise.dto.LabelValue;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.service.ITrailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,4 +96,24 @@ public class TrailController {
     public String create() {
         return "CreateTrail";
     }
+
+    @GetMapping("/trailAutocomplete")
+    @ResponseBody
+    public List<LabelValue> trailAutocomplete(@RequestParam(value="term", required = false, defaultValue="") String term) {
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        List<LabelValue> trailData = new ArrayList<>();
+        for (Trail trail : allTrails) {
+            if (trail.getName().toLowerCase().contains(term.toLowerCase()) ||
+                    trail.getTrailType().toLowerCase().contains(term.toLowerCase()) ||
+                    trail.getDifficulty().toLowerCase().contains(term.toLowerCase()) ||
+                    trail.getZipCode().toLowerCase().contains(term.toLowerCase())) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(trail.getName());
+                labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
+    }
+
 }
