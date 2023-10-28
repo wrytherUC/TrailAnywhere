@@ -107,7 +107,16 @@ public class TestData {
         User user = new User();
 
         user.setName("Jacob");
+        user.setEmail("jacob@gmail.com");
+        user.setPassword("password");
         trail.setName("Forrest Park");
+        trail.setDifficulty("Easy");
+        trail.setTerrain("Hill");
+        trail.setTrailType("Hiking");
+        trail.setAddress("123 Test St");
+        trail.setLatitude("39.15838");
+        trail.setLongitude("-84.59775");
+        trail.setZipCode("45216");
         alert.setUser(user);
         alert.setTrail(trail);
         alert.setAlertText("Flooding");
