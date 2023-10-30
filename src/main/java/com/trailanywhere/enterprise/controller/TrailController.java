@@ -61,7 +61,7 @@ public class TrailController {
 
     @GetMapping("/trail/{name}/")
     public ResponseEntity fetchTrailByName (@PathVariable("name") String name) {
-        Trail foundTrail = trailService.fetchByTrailName("name");
+        Trail foundTrail = trailService.fetchByTrailName(name);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundTrail, headers, HttpStatus.OK);
@@ -69,7 +69,7 @@ public class TrailController {
 
     @PostMapping(value="/trail", consumes="application/json", produces="application/json")
     public ResponseEntity createSpecimen(@RequestBody Trail trail) {
-        Trail newTrail = null;
+        Trail newTrail;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         try {
