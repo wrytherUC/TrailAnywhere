@@ -103,17 +103,30 @@ public class TrailController {
         List<Trail> allTrails = trailService.fetchAllTrails();
         List<LabelValue> trailData = new ArrayList<>();
         for (Trail trail : allTrails) {
-            if (trail.getName().toLowerCase().contains(term.toLowerCase()) ||
-                    trail.getTrailType().toLowerCase().contains(term.toLowerCase()) ||
-                    trail.getDifficulty().toLowerCase().contains(term.toLowerCase()) ||
-                    trail.getZipCode().toLowerCase().contains(term.toLowerCase())) {
-                LabelValue labelValue = new LabelValue();
+            LabelValue labelValue = new LabelValue();
+
+            if (trail.getName().toLowerCase().contains(term.toLowerCase())) {
                 labelValue.setLabel(trail.getName());
                 labelValue.setValue(trail.getTrailID());
                 trailData.add(labelValue);
+            } else if (trail.getTrailType().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getTrailType());
+                labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
+            } else if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getDifficulty());
+                labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
+            } else if(trail.getZipCode().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getZipCode());
+                labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
             }
-        }
+
+
+
+            }
         return trailData;
     }
 
-}
+    }
