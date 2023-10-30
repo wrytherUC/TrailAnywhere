@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,10 +112,12 @@ public class TrailController {
                 labelValue.setLabel(trail.getTrailType());
                 labelValue.setValue(trail.getTrailID());
                 trailData.add(labelValue);
+                break;
             } else if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
                 labelValue.setLabel(trail.getDifficulty());
                 labelValue.setValue(trail.getTrailID());
                 trailData.add(labelValue);
+                break;
             } else if(trail.getZipCode().toLowerCase().contains(term.toLowerCase())) {
                 labelValue.setLabel(trail.getZipCode());
                 labelValue.setValue(trail.getTrailID());
