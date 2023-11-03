@@ -32,4 +32,11 @@ public interface IAlertDAO {
      * @return - alert
      */
     Alert findAlertByID(int alertID);
+
+    /**
+     * Find alerts related to a trail
+     * @param trailID - trail ID
+     * @return - alerts
+     */
+    List<Alert> findAlertsForTrail(int trailID);
 }
