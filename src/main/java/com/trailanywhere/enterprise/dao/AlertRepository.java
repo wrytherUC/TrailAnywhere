@@ -106,4 +106,16 @@ public class AlertRepository implements IAlertDAO {
         query.setParameter("TRAIL", trailID);
         return query.getResultList();
     }
+
+    /**
+     * Find all alerts made by a user
+     * @param userID - user
+     * @return - list of alerts
+     */
+    @Override
+    public List<Alert> findAlertsForUser(int userID) {
+        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.user.userID = :USER", Alert.class);
+        query.setParameter("USER", userID);
+        return query.getResultList();
+    }
 }

@@ -85,4 +85,14 @@ public class AlertService implements IAlertService {
     public List<Alert> findAlertsForTrail(int trailID) {
         return alertDAO.findAlertsForTrail(trailID);
     }
+
+    /**
+     * Find alerts made by a user
+     * @param userID - user
+     * @return - list of alerts
+     */
+    @Override
+    public List<Alert> findAlertsForUser(int userID) {
+        return alertDAO.findAlertsForUser(userID);
+    }
 }
