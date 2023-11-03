@@ -50,14 +50,14 @@ public class TrailRepository implements ITrailDAO {
 
     /**
      * Delete a trail from the DB
-     * @param trail - trail to be deleted
+     * @param trailID - trail to be deleted
      * @throws Exception - handle error
      */
     @Override
     @Transactional
-    public void delete(Trail trail) throws Exception {
+    public void delete(int trailID) throws Exception {
         Query query = entityManager.createQuery("DELETE FROM Trail t WHERE t.trailID = :TRAIL");
-        query.setParameter("TRAIL", trail.getTrailID());
+        query.setParameter("TRAIL", trailID);
         query.executeUpdate();
     }
 
