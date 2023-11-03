@@ -45,14 +45,14 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Delete a user from the DB
-     * @param user - user to be deleted
+     * @param userID - user to be deleted
      * @throws Exception - handle errors
      */
     @Override
     @Transactional
-    public void delete(User user) throws Exception {
+    public void delete(int userID) throws Exception {
         Query query = entityManager.createQuery("DELETE FROM User u WHERE u.userID = :USER");
-        query.setParameter("USER", user.getUserID());
+        query.setParameter("USER", userID);
         query.executeUpdate();
     }
 

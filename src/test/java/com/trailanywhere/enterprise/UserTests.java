@@ -98,8 +98,8 @@ public class UserTests {
     private void thenDeleteUser() {
         try {
             user.setEmail("sam1@gmail.com");
-            userService.save(user);
-            userService.delete(user);
+            User userDeleted = userService.save(user);
+            userService.delete(userDeleted.getUserID());
             User deletedUser = userService.findUser(user.getEmail(), user.getPassword());
             if (user.getEmail().equals(deletedUser.getEmail())) {
                 fail("Failed to delete user");

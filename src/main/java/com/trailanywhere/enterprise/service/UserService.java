@@ -105,12 +105,12 @@ public class UserService implements IUserService {
 
     /**
      * Delete a user
-     * @param user - user to be deleted
+     * @param userID - user to be deleted
      * @throws Exception - handle errors
      */
     @Override
-    public void delete(User user) throws Exception {
-        userDAO.delete(user);
+    public void delete(int userID) throws Exception {
+        userDAO.delete(userID);
     }
 
     /**

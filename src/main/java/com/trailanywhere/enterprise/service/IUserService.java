@@ -54,10 +54,10 @@ public interface IUserService {
 
     /**
      * Delete a user
-     * @param user - user to be deleted
+     * @param userID - user to be deleted
      * @throws Exception - handle errors
      */
-    void delete(User user) throws Exception;
+    void delete(int userID) throws Exception;
 
     /**
      * Find a user based on their credentials
