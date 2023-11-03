@@ -18,7 +18,7 @@ public interface IUserService {
      *
      * @return - list of trails
      */
-    List<Trail> fetchFavoriteTrails(User user);
+    List<Trail> fetchFavoriteTrails(int userID);
 
     /**
      * Add a favorite trail

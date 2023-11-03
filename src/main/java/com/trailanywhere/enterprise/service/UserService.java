@@ -41,12 +41,12 @@ public class UserService implements IUserService {
     /**
      * Fetch a user's favorite trails
      *
-     * @param user - user
+     * @param userID - user
      * @return - list of trails
      */
     @Override
-    public List<Trail> fetchFavoriteTrails(User user) {
-        return userDAO.fetchFavoriteTrails(user);
+    public List<Trail> fetchFavoriteTrails(int userID) {
+        return userDAO.fetchFavoriteTrails(userID);
     }
 
     /**

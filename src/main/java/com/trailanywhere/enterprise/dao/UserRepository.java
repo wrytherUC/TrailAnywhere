@@ -59,13 +59,13 @@ public class UserRepository implements IUserDAO {
     /**
      * Fetch a user's favorite trails
      *
-     * @param user - user
+     * @param userID - user
      * @return - list of trails
      */
     @Override
-    public List<Trail> fetchFavoriteTrails(User user) {
+    public List<Trail> fetchFavoriteTrails(int userID) {
         TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM UserFavoriteTrails ut JOIN Trail t ON ut.trail.trailID = t.trailID WHERE ut.user.userID = :USER", Trail.class);
-        query.setParameter("USER", user.getUserID());
+        query.setParameter("USER", userID);
         return query.getResultList();
     }
 

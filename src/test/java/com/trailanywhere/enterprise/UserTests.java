@@ -131,7 +131,7 @@ public class UserTests {
         try {
             user.setEmail("sam2@gmail.com");
             userService.addFavoriteTrail(user, trail);
-            List<Trail> favorites = userService.fetchFavoriteTrails(user);
+            List<Trail> favorites = userService.fetchFavoriteTrails(user.getUserID());
             if (favorites.isEmpty()) {
                 fail("No favorite trails exist for this user.");
             }
