@@ -65,4 +65,14 @@ public class AlertService implements IAlertService {
     public void delete(int alertID) throws Exception {
         alertDAO.delete(alertID);
     }
+
+    /**
+     * Find alert based on its ID
+     * @param alertID - alert ID
+     * @return - alert
+     */
+    @Override
+    public Alert findAlertByID(int alertID) {
+        return alertDAO.findAlertByID(alertID);
+    }
 }

@@ -32,4 +32,11 @@ public interface IAlertService {
      * @throws Exception - handle errors
      */
     void delete(int alertID) throws Exception;
+
+    /**
+     * Find alert based on its ID
+     * @param alertID - alert ID
+     * @return - alert
+     */
+    Alert findAlertByID(int alertID);
 }

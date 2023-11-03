@@ -25,4 +25,11 @@ public interface IAlertDAO {
      * @return - list of alerts
      */
     List<Alert> fetchAllAlerts();
+
+    /**
+     * Find alert based on its ID
+     * @param alertID - alert ID
+     * @return - alert
+     */
+    Alert findAlertByID(int alertID);
 }
