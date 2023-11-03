@@ -62,14 +62,14 @@ public class AlertRepository implements IAlertDAO {
 
     /**
      * Delete an alert
-     * @param alert - alert to be deleted
+     * @param alertID - alert to be deleted
      * @throws Exception - handle errors
      */
     @Override
     @Transactional
-    public void delete(Alert alert) throws Exception {
+    public void delete(int alertID) throws Exception {
         Query query = entityManager.createQuery("DELETE FROM Alert a WHERE a.alertID = :ALERT");
-        query.setParameter("ALERT", alert.getAlertID());
+        query.setParameter("ALERT", alertID);
         query.executeUpdate();
     }
 

@@ -15,10 +15,10 @@ public interface IAlertDAO {
 
     /**
      * Delete an alert
-     * @param alert - alert to be deleted
+     * @param alertID - alert to be deleted
      * @throws Exception - handle errors
      */
-    void delete(Alert alert) throws Exception;
+    void delete(int alertID) throws Exception;
 
     /**
      * Fetch all alerts

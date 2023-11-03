@@ -120,8 +120,8 @@ public class AlertTests {
 
     private void thenDeleteAlert() throws Exception {
         alert.getTrail().setName("New Trail"); // Avoid unique constraint error
-        alertService.save(alert);
-        alertService.delete(alert);
+        Alert alertDelete = alertService.save(alert);
+        alertService.delete(alertDelete.getAlertID());
         List<Alert> alertList = alertService.fetchAllAlerts();
         for (Alert a : alertList) {
             if (a.equals(alert)) {

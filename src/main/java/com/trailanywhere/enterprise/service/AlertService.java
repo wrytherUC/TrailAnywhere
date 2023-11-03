@@ -58,11 +58,11 @@ public class AlertService implements IAlertService {
 
     /**
      * Delete an alert
-     * @param alert - alert to be deleted
+     * @param alertID - alert to be deleted
      * @throws Exception - handle errors
      */
     @Override
-    public void delete(Alert alert) throws Exception {
-        alertDAO.delete(alert);
+    public void delete(int alertID) throws Exception {
+        alertDAO.delete(alertID);
     }
 }
