@@ -130,4 +130,21 @@ public class UserRepository implements IUserDAO {
         }
 
     }
+
+    /**
+     * Find a user based on their ID
+     * @param userID - user ID
+     * @return - user
+     */
+    @Override
+    public User findUserByID(int userID) {
+        try {
+            TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.userID = :USER", User.class);
+            query.setParameter("USER", userID);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            // If query fails to validate user, return an empty object
+            return new User();
+        }
+    }
 }

@@ -72,4 +72,11 @@ public interface IUserService {
      * @param trailID - Trail to be unfavorited
      */
     void deleteFavoriteTrail(int userID, int trailID);
+
+    /**
+     * Find a user based on their ID
+     * @param userID - user ID
+     * @return - user
+     */
+    User findUserByID(int userID);
 }
