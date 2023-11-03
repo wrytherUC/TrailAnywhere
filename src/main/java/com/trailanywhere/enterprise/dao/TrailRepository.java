@@ -126,4 +126,16 @@ public class TrailRepository implements ITrailDAO {
         query.setParameter("LONGITUDE", longitude);
         return query.getSingleResult();
     }
+
+    /**
+     * Find a trail based on its ID
+     * @param trailID - trail ID
+     * @return - trail
+     */
+    @Override
+    public Trail findTrailByID(int trailID) {
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.trailID = :TRAIL", Trail.class);
+        query.setParameter("TRAIL", trailID);
+        return query.getSingleResult();
+    }
 }

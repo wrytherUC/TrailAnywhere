@@ -179,4 +179,15 @@ public class TrailService implements ITrailService {
     public void delete(int trailID) throws Exception {
         trailDAO.delete(trailID);
     }
+
+    /**
+     * Find a trail based on its ID
+     * @param trailID - trail ID
+     * @return - trail
+     */
+    @Override
+    public Trail findTrailByID(int trailID) {
+        return trailDAO.findTrailByID(trailID);
+    }
+
 }

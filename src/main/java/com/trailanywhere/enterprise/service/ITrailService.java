@@ -76,4 +76,11 @@ public interface ITrailService {
      * @throws Exception - handle errors
      */
     void delete(int trailID) throws Exception;
+
+    /**
+     * Find a trail based on its ID
+     * @param trailID - trail ID
+     * @return - trail
+     */
+    Trail findTrailByID(int trailID);
 }

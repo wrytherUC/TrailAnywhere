@@ -56,4 +56,11 @@ public interface ITrailDAO {
      * @return - List containing all trails
      */
     Trail fetchByCoordinates(String latitude, String longitude);
+
+    /**
+     * Find a trail based on its ID
+     * @param trailID - trail ID
+     * @return - trail
+     */
+    Trail findTrailByID(int trailID);
 }
