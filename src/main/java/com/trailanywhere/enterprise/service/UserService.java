@@ -123,4 +123,14 @@ public class UserService implements IUserService {
     public User findUser(String email, String password) {
         return userDAO.findUser(email, password);
     }
+
+    /**
+     * Delete a favorite trail
+     * @param userID - User
+     * @param trailID - Trail to be unfavorited
+     */
+    @Override
+    public void deleteFavoriteTrail(int userID, int trailID) {
+        userDAO.deleteFavoriteTrail(userID, trailID);
+    }
 }

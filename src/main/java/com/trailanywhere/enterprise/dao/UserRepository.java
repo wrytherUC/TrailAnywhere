@@ -99,15 +99,15 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Delete a favorite trail
-     * @param user - User
-     * @param trail - Trail to be unfavorited
+     * @param userID - User
+     * @param trailID - Trail to be unfavorited
      */
     @Override
     @Transactional
-    public void deleteFavoriteTrail(User user, Trail trail) {
+    public void deleteFavoriteTrail(int userID, int trailID) {
         Query query = entityManager.createNativeQuery("DELETE FROM USER_FAVORITE_TRAILS ut WHERE ut.USERID = ?1 AND ut.TRAILID = ?2");
-        query.setParameter(1, user.getUserID());
-        query.setParameter(2, trail.getTrailID());
+        query.setParameter(1, userID);
+        query.setParameter(2, trailID);
         query.executeUpdate();
     }
 

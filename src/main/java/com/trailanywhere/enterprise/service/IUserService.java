@@ -65,4 +65,11 @@ public interface IUserService {
      * @param password - user password
      */
     User findUser(String email, String password);
+
+    /**
+     * Remove a favorite trail
+     * @param userID - User
+     * @param trailID - Trail to be unfavorited
+     */
+    void deleteFavoriteTrail(int userID, int trailID);
 }

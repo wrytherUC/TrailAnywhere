@@ -40,10 +40,10 @@ public interface IUserDAO {
 
     /**
      * Remove a favorite trail
-     * @param user - User
-     * @param trail - Trail to be unfavorited
+     * @param userID - User
+     * @param trailID - Trail to be unfavorited
      */
-    void deleteFavoriteTrail(User user, Trail trail);
+    void deleteFavoriteTrail(int userID, int trailID);
 
     /**
      * Find a user based on their credentials
