@@ -41,12 +41,12 @@ public class UserService implements IUserService {
     /**
      * Fetch a user's favorite trails
      *
-     * @param user - user
+     * @param userID - user
      * @return - list of trails
      */
     @Override
-    public List<Trail> fetchFavoriteTrails(User user) {
-        return userDAO.fetchFavoriteTrails(user);
+    public List<Trail> fetchFavoriteTrails(int userID) {
+        return userDAO.fetchFavoriteTrails(userID);
     }
 
     /**
@@ -105,12 +105,12 @@ public class UserService implements IUserService {
 
     /**
      * Delete a user
-     * @param user - user to be deleted
+     * @param userID - user to be deleted
      * @throws Exception - handle errors
      */
     @Override
-    public void delete(User user) throws Exception {
-        userDAO.delete(user);
+    public void delete(int userID) throws Exception {
+        userDAO.delete(userID);
     }
 
     /**
@@ -122,5 +122,25 @@ public class UserService implements IUserService {
     @Override
     public User findUser(String email, String password) {
         return userDAO.findUser(email, password);
+    }
+
+    /**
+     * Delete a favorite trail
+     * @param userID - User
+     * @param trailID - Trail to be unfavorited
+     */
+    @Override
+    public void deleteFavoriteTrail(int userID, int trailID) {
+        userDAO.deleteFavoriteTrail(userID, trailID);
+    }
+
+    /**
+     * Find a user based on their ID
+     * @param userID - user ID
+     * @return - user
+     */
+    @Override
+    public User findUserByID(int userID) {
+        return userDAO.findUserByID(userID);
     }
 }

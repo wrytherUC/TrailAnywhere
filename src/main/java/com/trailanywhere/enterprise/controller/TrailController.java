@@ -5,10 +5,15 @@ import com.trailanywhere.enterprise.dto.LabelValue;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.service.ITrailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,11 +128,19 @@ public class TrailController {
                 labelValue.setValue(trail.getTrailID());
                 trailData.add(labelValue);
             }
-
-
-
-            }
+        }
         return trailData;
     }
 
+    /**
+     * getTrailJSON endpoint returns all current trails in JSON format
+     *
+     * @return - JSON of all trails
+     */
+    @RequestMapping(value="/getTrailJSON", method=RequestMethod.GET)
+    @ResponseBody
+    public List<Trail> getTrailJSON() {
+        return trailService.fetchAllTrails();
     }
+
+}

@@ -1,5 +1,6 @@
 package com.trailanywhere.enterprise.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -25,9 +26,11 @@ public class Trail {
     private String latitude;
     private String longitude;
     private String zipCode;
+    @JsonIgnore
     @OneToMany(mappedBy = "trail")
     @ToString.Exclude
     private List<UserFavoriteTrails> userFavoriteTrails;
+    @JsonIgnore
     @OneToMany(mappedBy = "trail")
     @ToString.Exclude
     private List<Alert> alerts;

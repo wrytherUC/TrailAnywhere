@@ -45,27 +45,27 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Delete a user from the DB
-     * @param user - user to be deleted
+     * @param userID - user to be deleted
      * @throws Exception - handle errors
      */
     @Override
     @Transactional
-    public void delete(User user) throws Exception {
+    public void delete(int userID) throws Exception {
         Query query = entityManager.createQuery("DELETE FROM User u WHERE u.userID = :USER");
-        query.setParameter("USER", user.getUserID());
+        query.setParameter("USER", userID);
         query.executeUpdate();
     }
 
     /**
      * Fetch a user's favorite trails
      *
-     * @param user - user
+     * @param userID - user
      * @return - list of trails
      */
     @Override
-    public List<Trail> fetchFavoriteTrails(User user) {
+    public List<Trail> fetchFavoriteTrails(int userID) {
         TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM UserFavoriteTrails ut JOIN Trail t ON ut.trail.trailID = t.trailID WHERE ut.user.userID = :USER", Trail.class);
-        query.setParameter("USER", user.getUserID());
+        query.setParameter("USER", userID);
         return query.getResultList();
     }
 
@@ -99,15 +99,15 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Delete a favorite trail
-     * @param user - User
-     * @param trail - Trail to be unfavorited
+     * @param userID - User
+     * @param trailID - Trail to be unfavorited
      */
     @Override
     @Transactional
-    public void deleteFavoriteTrail(User user, Trail trail) {
+    public void deleteFavoriteTrail(int userID, int trailID) {
         Query query = entityManager.createNativeQuery("DELETE FROM USER_FAVORITE_TRAILS ut WHERE ut.USERID = ?1 AND ut.TRAILID = ?2");
-        query.setParameter(1, user.getUserID());
-        query.setParameter(2, trail.getTrailID());
+        query.setParameter(1, userID);
+        query.setParameter(2, trailID);
         query.executeUpdate();
     }
 
@@ -129,5 +129,22 @@ public class UserRepository implements IUserDAO {
             return new User();
         }
 
+    }
+
+    /**
+     * Find a user based on their ID
+     * @param userID - user ID
+     * @return - user
+     */
+    @Override
+    public User findUserByID(int userID) {
+        try {
+            TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.userID = :USER", User.class);
+            query.setParameter("USER", userID);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            // If query fails to validate user, return an empty object
+            return new User();
+        }
     }
 }

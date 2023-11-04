@@ -18,7 +18,7 @@ public interface IUserService {
      *
      * @return - list of trails
      */
-    List<Trail> fetchFavoriteTrails(User user);
+    List<Trail> fetchFavoriteTrails(int userID);
 
     /**
      * Add a favorite trail
@@ -54,10 +54,10 @@ public interface IUserService {
 
     /**
      * Delete a user
-     * @param user - user to be deleted
+     * @param userID - user to be deleted
      * @throws Exception - handle errors
      */
-    void delete(User user) throws Exception;
+    void delete(int userID) throws Exception;
 
     /**
      * Find a user based on their credentials
@@ -65,4 +65,18 @@ public interface IUserService {
      * @param password - user password
      */
     User findUser(String email, String password);
+
+    /**
+     * Remove a favorite trail
+     * @param userID - User
+     * @param trailID - Trail to be unfavorited
+     */
+    void deleteFavoriteTrail(int userID, int trailID);
+
+    /**
+     * Find a user based on their ID
+     * @param userID - user ID
+     * @return - user
+     */
+    User findUserByID(int userID);
 }

@@ -172,11 +172,22 @@ public class TrailService implements ITrailService {
 
     /**
      * Deletes a trail
-     * @param trail - trail to be deleted
+     * @param trailID - trail to be deleted
      * @throws Exception - handle errors
      */
     @Override
-    public void delete(Trail trail) throws Exception {
-        trailDAO.delete(trail);
+    public void delete(int trailID) throws Exception {
+        trailDAO.delete(trailID);
     }
+
+    /**
+     * Find a trail based on its ID
+     * @param trailID - trail ID
+     * @return - trail
+     */
+    @Override
+    public Trail findTrailByID(int trailID) {
+        return trailDAO.findTrailByID(trailID);
+    }
+
 }
