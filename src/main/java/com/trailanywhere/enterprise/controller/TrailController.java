@@ -89,8 +89,8 @@ public class TrailController {
         return new ResponseEntity(foundTrail, headers, HttpStatus.OK);
     }
 
-    @DeleteMapping("/trail/{name}/")
-    public ResponseEntity deleteTrail(@PathVariable("name") int trailID) {
+    @DeleteMapping("/trail/{trailID}/")
+    public ResponseEntity deleteTrail(@PathVariable("trailID") int trailID) {
         logger.log(Level.INFO,"Entering delete trail endpoint" );
         try {
             trailService.delete(trailID);
