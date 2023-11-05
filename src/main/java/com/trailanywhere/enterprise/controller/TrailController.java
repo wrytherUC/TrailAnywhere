@@ -145,11 +145,17 @@ public class TrailController {
     @GetMapping("/alertsByTrailId/{trailID}/")
     public ModelAndView alertsByTrailId (@PathVariable("trailID") int trailID) {
         ModelAndView modelAndView = new ModelAndView();
+        Map<Trail, String> trailDetails = new HashMap<>();
+
         modelAndView.setViewName("trailDetails");
         List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
         Trail foundTrail = trailService.findTrailByID(trailID);
+
+        JsonNode node = trailService.getCurrentWeather(foundTrail.getLatitude(), foundTrail.getLongitude());
+        trailDetails.put(foundTrail, node.at("/current_weather/temperature").asText());
+
         modelAndView.addObject("foundAlerts", foundAlerts);
-        modelAndView.addObject("foundTrail", foundTrail);
+        modelAndView.addObject("trailDetails", trailDetails);
         return modelAndView;
     }
 
