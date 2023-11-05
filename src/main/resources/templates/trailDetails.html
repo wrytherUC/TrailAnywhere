@@ -58,6 +58,37 @@
     </table>
 </div>
 
+<div class="container alerts">
+    <div class="add">
+        <h3>Add Alert</h3>
+        <form action="addAlertLogic.html" method="POST">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput2" name="Trail_Name" placeholder="x" required>
+                <label for="floatingInput2">Trail Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput3" name="Alert" placeholder="x" required>
+                <label for="floatingInput3">Alert</label>
+                <input type="submit" class="btn btn-success" value="Submit">
+            </div>
+        </form>
+    </div>
+    <div class="end">
+        <h3>End Alert</h3>
+        <form action="removeAlertLogic.html" method="POST">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput4" name="Trail_Name" placeholder="x" required>
+                <label for="floatingInput4">Trail Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput5" name="Alert" placeholder="x" required>
+                <label for="floatingInput5">User</label>
+                <input type="submit" class="btn btn-success" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+
 <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
     Status: <span id="status-text">Loading...</span>
     <span id="username-text"></span>
