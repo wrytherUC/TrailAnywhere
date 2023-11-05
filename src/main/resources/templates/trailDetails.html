@@ -14,14 +14,12 @@
 
 <div th:replace="fragments/topnav :: navbar"></div>
 
-<h2>Trail Finder</h2>
-
 <br/>
-Trail details:
+<h3>Trail details:</h3>
 
-<div class="center-table">
+<div class="table-header">
     <table id="trail-table" class="table-bordered table table-hover table-secondary">
-        <tr id="header-row" class="table-primary" style="display: none;">
+        <tr id="header-row">
             <td><b>Name</b></td>
             <td><b>Type</b></td>
             <td><b>Difficulty</b></td>
@@ -29,19 +27,23 @@ Trail details:
             <td><b>Zip Code</b></td>
             <td><b>Temperature</b></td>
         </tr>
-        <tr id="trail-row" th:each="trail : ${foundTrail}">
+        <tr id="foundtrail-row" th:each="trail : ${foundTrail}">
             <td th:text="${trail.name}"></td>
             <td th:text="${trail.trailType}"></td>
             <td th:text="${trail.difficulty}"></td>
             <td th:text="${trail.address}"></td>
             <td th:text="${trail.zipCode}"></td>
-            <td th:text="*{trail.value + '°F'}"></td>
+<!--            <td th:text="*{trail.value + '°F'}"></td>-->
         </tr>
     </table>
 </div>
+
+<br/>
+<h3>Alert details:</h3>
+
 <div class="table-header">
     <table id="alert-table" class="table-bordered table table-hover table-secondary">
-        <tr id="header" class="table-primary" style="display: none;">
+        <tr id="header" class="table-default">
             <td><b>Alert ID</b></td>
             <td><b>Trail</b></td>
             <td><b>Alert Description</b></td>
