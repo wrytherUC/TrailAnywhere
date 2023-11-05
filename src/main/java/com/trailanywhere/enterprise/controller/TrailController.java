@@ -90,14 +90,14 @@ public class TrailController {
     }
 
     @DeleteMapping("/trail/{name}/")
-    public ResponseEntity deleteTrail(@PathVariable("name") Trail name) {
+    public ResponseEntity deleteTrail(@PathVariable("name") int trailID) {
         logger.log(Level.INFO,"Entering delete trail endpoint" );
         try {
-            trailService.delete(name);
-            logger.log(Level.INFO,"Trail with name " + name + " was deleted." );
+            trailService.delete(trailID);
+            logger.log(Level.INFO,"Trail with ID " + trailID + " was deleted." );
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
-            logger.log(Level.WARNING, "Unable to delete trail with name: " + name + ". Message: " + e.getMessage(), e);
+            logger.log(Level.WARNING, "Unable to delete trail with name: " + trailID + ". Message: " + e.getMessage(), e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
