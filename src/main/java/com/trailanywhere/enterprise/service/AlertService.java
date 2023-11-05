@@ -58,11 +58,41 @@ public class AlertService implements IAlertService {
 
     /**
      * Delete an alert
-     * @param alert - alert to be deleted
+     * @param alertID - alert to be deleted
      * @throws Exception - handle errors
      */
     @Override
-    public void delete(Alert alert) throws Exception {
-        alertDAO.delete(alert);
+    public void delete(int alertID) throws Exception {
+        alertDAO.delete(alertID);
+    }
+
+    /**
+     * Find alert based on its ID
+     * @param alertID - alert ID
+     * @return - alert
+     */
+    @Override
+    public Alert findAlertByID(int alertID) {
+        return alertDAO.findAlertByID(alertID);
+    }
+
+    /**
+     * Find alerts for a trail
+     * @param trailID - trail ID
+     * @return - list of alerts
+     */
+    @Override
+    public List<Alert> findAlertsForTrail(int trailID) {
+        return alertDAO.findAlertsForTrail(trailID);
+    }
+
+    /**
+     * Find alerts made by a user
+     * @param userID - user
+     * @return - list of alerts
+     */
+    @Override
+    public List<Alert> findAlertsForUser(int userID) {
+        return alertDAO.findAlertsForUser(userID);
     }
 }
