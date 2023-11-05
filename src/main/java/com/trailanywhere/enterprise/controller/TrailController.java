@@ -1,8 +1,10 @@
 package com.trailanywhere.enterprise.controller;
 
+import com.trailanywhere.enterprise.dto.Alert;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.LabelValue;
 import com.trailanywhere.enterprise.dto.Trail;
+import com.trailanywhere.enterprise.service.IAlertService;
 import com.trailanywhere.enterprise.service.ITrailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -11,8 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.logging.Level;
 import org.springframework.ui.Model;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +32,9 @@ public class TrailController {
 
     @Autowired
     ITrailService trailService;
+
+    @Autowired
+    IAlertService alertService;
 
     private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
@@ -55,15 +61,62 @@ public class TrailController {
      */
     @PostMapping(value="/trail", consumes="application/json", produces="application/json")
     @ResponseBody
-    public Trail createTrail(@RequestBody Trail trail) {
-        Trail newTrail = null;
+    public ResponseEntity createTrail(@RequestBody Trail trail) {
+        Trail newTrail;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
         try {
             newTrail = trailService.save(trail);
         } catch (Exception e) {
             logger.severe("Error creating Trail: " + e.getMessage());
+            return new ResponseEntity(headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return newTrail;
+        return new ResponseEntity(newTrail, headers, HttpStatus.OK);
     }
+
+    @GetMapping("/trail")
+    @ResponseBody
+    public List<Trail> fetchAllTrails() {
+        return trailService.fetchAllTrails();
+    }
+
+
+    @GetMapping("/trail/{name}/")
+    public ResponseEntity fetchTrailByName (@PathVariable("name") String name) {
+        Trail foundTrail = trailService.fetchByTrailName(name);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundTrail, headers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/trail/{trailID}/")
+    public ResponseEntity deleteTrail(@PathVariable("trailID") int trailID) {
+        logger.log(Level.INFO,"Entering delete trail endpoint" );
+        try {
+            trailService.delete(trailID);
+            logger.log(Level.INFO,"Trail with ID " + trailID + " was deleted." );
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Unable to delete trail with name: " + trailID + ". Message: " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/alert")
+    @ResponseBody
+    public List<Alert> fetchAllAlerts() {
+        return alertService.fetchAllAlerts();
+    }
+
+    //Need input on this
+//    @GetMapping("/alert/{name}/")
+//    public ResponseEntity fetchAlertByTrailId (@PathVariable("name") String name) {
+//        Alert foundAlert = alertService.fetchAllAlerts();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        return new ResponseEntity(foundAlert, headers, HttpStatus.OK);
+//    }
+
 
     /**
      * Handle the alerts endpoint and return a page.
