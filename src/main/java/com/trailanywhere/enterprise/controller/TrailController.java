@@ -106,6 +106,7 @@ public class TrailController {
 
     @GetMapping("/trails")
     public String searchTrailsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+        searchTerm = searchTerm.trim();
         List<Trail> trails;
         String regex = ".*\\d{5}$";
         Pattern pattern = Pattern.compile(regex);

@@ -48,10 +48,10 @@ Trail details:
             <td><b>User</b></td>
         </tr>
         <tr id="alert-row" th:each="alert : ${foundAlerts}">
-            <td th:text="${alert.key.alertID}"></td>
-            <td th:text="${trail.key.trail}"></td>
-            <td th:text="${trail.key.alertText}"></td>
-            <td th:text="${trail.key.user}"></td>
+            <td th:text="${alert.alertID}"></td>
+            <td th:text="${alert.trail.name}"></td>
+            <td th:text="${alert.alertText}"></td>
+            <td th:text="${alert.user.name}"></td>
         </tr>
     </table>
 </div>
