@@ -58,7 +58,7 @@ h1 {
 h2 {
     font-size: 40px;
     color: black;
-    margin-top: 180px;/*200*/
+    margin-top: 50px;/*180*/
     text-align: center;
     font-style: italic;
 }
@@ -240,11 +240,21 @@ tr {
     height: 600px;
 }
 
-/* Style for teh H2s in Login Page*/
+/* Style for the H2s in Login Page*/
 .login-H2 {
     font-size: 40px;
     color: black;
-    margin-top: 250px;/*200*/
+    margin-top: 180px;/*250*/
     text-align: center;
     font-style: italic;
+}
+
+/* Style for the trail table - hiding when there is no user input*/
+#trail-row {
+     display: none; /* Hide the table by default */
+}
+
+/* Style for the trail table - showing when the user searches*/
+.show-table {
+    display: table; /* Show the table when this class is applied */
 }

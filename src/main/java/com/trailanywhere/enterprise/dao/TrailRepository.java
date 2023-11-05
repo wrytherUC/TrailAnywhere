@@ -50,14 +50,14 @@ public class TrailRepository implements ITrailDAO {
 
     /**
      * Delete a trail from the DB
-     * @param trail - trail to be deleted
+     * @param trailID - trail to be deleted
      * @throws Exception - handle error
      */
     @Override
     @Transactional
-    public void delete(Trail trail) throws Exception {
+    public void delete(int trailID) throws Exception {
         Query query = entityManager.createQuery("DELETE FROM Trail t WHERE t.trailID = :TRAIL");
-        query.setParameter("TRAIL", trail.getTrailID());
+        query.setParameter("TRAIL", trailID);
         query.executeUpdate();
     }
 
@@ -124,6 +124,18 @@ public class TrailRepository implements ITrailDAO {
         TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE", Trail.class);
         query.setParameter("LATITUDE", latitude);
         query.setParameter("LONGITUDE", longitude);
+        return query.getSingleResult();
+    }
+
+    /**
+     * Find a trail based on its ID
+     * @param trailID - trail ID
+     * @return - trail
+     */
+    @Override
+    public Trail findTrailByID(int trailID) {
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.trailID = :TRAIL", Trail.class);
+        query.setParameter("TRAIL", trailID);
         return query.getSingleResult();
     }
 }

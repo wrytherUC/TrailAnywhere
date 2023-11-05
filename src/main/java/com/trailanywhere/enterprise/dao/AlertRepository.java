@@ -62,14 +62,14 @@ public class AlertRepository implements IAlertDAO {
 
     /**
      * Delete an alert
-     * @param alert - alert to be deleted
+     * @param alertID - alert to be deleted
      * @throws Exception - handle errors
      */
     @Override
     @Transactional
-    public void delete(Alert alert) throws Exception {
+    public void delete(int alertID) throws Exception {
         Query query = entityManager.createQuery("DELETE FROM Alert a WHERE a.alertID = :ALERT");
-        query.setParameter("ALERT", alert.getAlertID());
+        query.setParameter("ALERT", alertID);
         query.executeUpdate();
     }
 
@@ -80,6 +80,42 @@ public class AlertRepository implements IAlertDAO {
     @Override
     public List<Alert> fetchAllAlerts() {
         TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a", Alert.class);
+        return query.getResultList();
+    }
+
+    /**
+     * Find alert based on its ID
+     * @param alertID - alert ID
+     * @return - trail
+     */
+    @Override
+    public Alert findAlertByID(int alertID) {
+        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.alertID = :ALERT", Alert.class);
+        query.setParameter("ALERT", alertID);
+        return query.getSingleResult();
+    }
+
+    /**
+     * Find alerts for a trail
+     * @param trailID - trail ID
+     * @return - list of alerts
+     */
+    @Override
+    public List<Alert> findAlertsForTrail(int trailID) {
+        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.trail.trailID = :TRAIL", Alert.class);
+        query.setParameter("TRAIL", trailID);
+        return query.getResultList();
+    }
+
+    /**
+     * Find all alerts made by a user
+     * @param userID - user
+     * @return - list of alerts
+     */
+    @Override
+    public List<Alert> findAlertsForUser(int userID) {
+        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.user.userID = :USER", Alert.class);
+        query.setParameter("USER", userID);
         return query.getResultList();
     }
 }

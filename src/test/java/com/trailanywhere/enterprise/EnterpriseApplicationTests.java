@@ -210,8 +210,8 @@ class EnterpriseApplicationTests {
     }
 
     private void thenDeleteTrail() throws Exception {
-        trailService.save(trail);
-        trailService.delete(trail);
+        Trail trailDelete = trailService.save(trail);
+        trailService.delete(trailDelete.getTrailID());
         Trail deletedTrail = trailService.fetchByTrailName(trail.getName());
         if (trail.getName().equals(deletedTrail.getName())) {
             fail("Failed to delete trail.");

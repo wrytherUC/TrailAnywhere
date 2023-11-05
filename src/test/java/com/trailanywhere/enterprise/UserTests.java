@@ -98,8 +98,8 @@ public class UserTests {
     private void thenDeleteUser() {
         try {
             user.setEmail("sam1@gmail.com");
-            userService.save(user);
-            userService.delete(user);
+            User userDeleted = userService.save(user);
+            userService.delete(userDeleted.getUserID());
             User deletedUser = userService.findUser(user.getEmail(), user.getPassword());
             if (user.getEmail().equals(deletedUser.getEmail())) {
                 fail("Failed to delete user");
@@ -131,7 +131,7 @@ public class UserTests {
         try {
             user.setEmail("sam2@gmail.com");
             userService.addFavoriteTrail(user, trail);
-            List<Trail> favorites = userService.fetchFavoriteTrails(user);
+            List<Trail> favorites = userService.fetchFavoriteTrails(user.getUserID());
             if (favorites.isEmpty()) {
                 fail("No favorite trails exist for this user.");
             }

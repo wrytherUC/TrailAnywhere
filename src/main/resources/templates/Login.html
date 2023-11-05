@@ -8,35 +8,8 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <h1>TrailAnywhere</h1>
-    <nav>
-        <ul>
-            <li>
-                <form method="GET" th:action="@{/}">
-                    <button class="btn btn-light btn-lg">Trails</button>
-                </form>
-            </li>
-            <li>
-                <form method="GET" th:action="@{/Alerts}">
-                    <button class="btn btn-light btn-lg">Alerts</button>
-                </form>
-            </li>
-            <li>
-                <form method="GET" th:action="@{/CreateTrail}">
-                    <button class="btn btn-light btn-lg">Create</button>
-                </form>
-            </li>
-            <li>
-                <form method="GET" th:action="@{/Favorites}">
-                    <button class="btn btn-light btn-lg">Favorites</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
-</header>
 
-
+<div th:replace="fragments/topnav :: navbar"></div>
 
 <div class="container login-forms">
     <div class="login">
