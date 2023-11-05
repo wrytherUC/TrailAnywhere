@@ -39,7 +39,7 @@ public class Trail {
     private List<Alert> alerts;
 
     public String toString() {
-        return trailID + " " + name + " " + difficulty + " " + zipCode;
+        return "TrailID: " + trailID + " TrailName: " + name + " TrailDifficulty: " + difficulty + " ZipCode: " + zipCode;
     }
 
     @Override
