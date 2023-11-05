@@ -14,12 +14,11 @@
 
 <div th:replace="~{fragments/topnav :: navbar}"></div>
 
-<h2>Trail Finder</h2>
+<h3>List of found trails:</h3>
 
 </div>
 
 <br/>
-List of found trails:
 
 <div class="list-group" th:each="trail : ${trails}">
     <a th:href="@{'/alertsByTrailId/' + ${trail.trailID} + '/'}" class="list-group-item list-group-item-action">
