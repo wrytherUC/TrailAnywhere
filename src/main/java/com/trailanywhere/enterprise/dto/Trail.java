@@ -35,6 +35,10 @@ public class Trail {
     @ToString.Exclude
     private List<Alert> alerts;
 
+    public String toString() {
+        return trailID + " " + name + " " + difficulty + " " + zipCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

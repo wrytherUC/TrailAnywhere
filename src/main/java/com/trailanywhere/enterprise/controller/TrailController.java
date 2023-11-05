@@ -13,15 +13,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
+import java.util.*;
 import java.util.logging.Level;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -102,6 +104,29 @@ public class TrailController {
         }
     }
 
+    @GetMapping("/trails")
+    public String searchTrailsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+        List<Trail> trails;
+        String regex = ".*\\d{5}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(searchTerm);
+        boolean b = m.matches();
+
+        if (b) {
+            trails = trailService.fetchByZipCode(searchTerm);
+        } else if (searchTerm.toLowerCase().contains("easy") ||searchTerm.toLowerCase().contains("moderate") ||
+        searchTerm.toLowerCase().contains("hard"))  {
+            trails = trailService.fetchByDifficulty(searchTerm);
+        } else {
+            trails = Collections.singletonList(trailService.fetchByTrailName(searchTerm));
+        }
+
+        model.addAttribute("trails", trails);
+        return "trails";
+
+    }
+
+
     @GetMapping("/alert")
     @ResponseBody
     public List<Alert> fetchAllAlerts() {
@@ -114,6 +139,17 @@ public class TrailController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundAlerts, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/alertsByTrailId/{trailID}/")
+    public ModelAndView alertsByTrailId (@PathVariable("trailID") int trailID) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("trailDetails");
+        List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
+        Trail foundTrail = trailService.findTrailByID(trailID);
+        modelAndView.addObject("foundAlerts", foundAlerts);
+        modelAndView.addObject("foundTrail", foundTrail);
+        return modelAndView;
     }
 
 
