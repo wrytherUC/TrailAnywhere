@@ -109,13 +109,13 @@ public class TrailController {
     }
 
     //Need input on this
-//    @GetMapping("/alert/{name}/")
-//    public ResponseEntity fetchAlertByTrailId (@PathVariable("name") String name) {
-//        Alert foundAlert = alertService.fetchAllAlerts();
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        return new ResponseEntity(foundAlert, headers, HttpStatus.OK);
-//    }
+    @GetMapping("/alert/{trailID}/")
+    public ResponseEntity fetchAlertByTrailId (@PathVariable("trailID") int trailID) {
+        List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundAlerts, headers, HttpStatus.OK);
+    }
 
 
     /**
