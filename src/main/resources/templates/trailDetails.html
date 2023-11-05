@@ -87,6 +87,20 @@
             </div>
         </form>
     </div>
+    <div class="add">
+        <h3>Add Favorite Trail</h3>
+        <form action="addFavoriteLogic.html" method="POST">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput6" name="search_query" placeholder="x" required>
+                <label for="floatingInput6">Enter the name of the trail to add</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput7" name="search_query" placeholder="x" required>
+                <label for="floatingInput2">Enter the zipcode of the trail to add</label>
+                <input type="submit" class="btn btn-success" value="Submit">
+            </div>
+        </form>
+    </div>
 </div>
 
 <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
