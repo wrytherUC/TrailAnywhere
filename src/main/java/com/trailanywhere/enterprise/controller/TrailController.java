@@ -108,7 +108,6 @@ public class TrailController {
         return alertService.fetchAllAlerts();
     }
 
-    //Need input on this
     @GetMapping("/alert/{trailID}/")
     public ResponseEntity fetchAlertByTrailId (@PathVariable("trailID") int trailID) {
         List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
