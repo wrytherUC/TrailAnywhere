@@ -159,16 +159,6 @@ public class TrailController {
         return modelAndView;
     }
 
-
-    /**
-     * Handle the alerts endpoint and return a page.
-     * @return alerts page
-     */
-    @RequestMapping("/Alerts")
-    public String alerts() {
-        return "Alerts";
-    }
-
     /**
      * Handle the favorites endpoint and return a page.
      * @return favorites page
