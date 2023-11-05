@@ -46,13 +46,6 @@ public class TrailController {
      */
     @RequestMapping("/")
     public String index(Model model) {
-        List<Trail> allTrails = trailService.fetchAllTrails();
-        Map<Trail, String> trailData = new HashMap<>();
-        for (Trail trail : allTrails) {
-            JsonNode node = trailService.getCurrentWeather(trail.getLatitude(), trail.getLongitude());
-            trailData.put(trail, node.at("/current_weather/temperature").asText());
-        }
-        model.addAttribute("trailData", trailData);
         return "TrailFinder";
     }
 
