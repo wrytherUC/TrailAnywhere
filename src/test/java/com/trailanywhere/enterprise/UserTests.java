@@ -110,6 +110,10 @@ public class UserTests {
 
     }
 
+    /**
+     * Test adding and fetching favorite trails
+     * @throws Exception - handle errors
+     */
     @Test
     void addingAFavoriteTrailForAUser() throws Exception {
         givenUserDataIsAvailable();
@@ -139,5 +143,29 @@ public class UserTests {
             fail("An error has occurred: " + e);
         }
 
+    }
+
+    /**
+     * Test deleting a favorite trail
+     * @throws Exception - handle errors
+     */
+    @Test
+    void deleteFavoriteTrails() throws Exception {
+        givenUserDataIsAvailable();
+        givenTrailDataIsAvailable();
+        whenUserDataIsCreated();
+        whenTrailDataIsCreated();
+        thenDeleteFavoriteTrail();
+    }
+
+    private void thenDeleteFavoriteTrail() {
+        user.setEmail("samDelete@gmail.com");
+        trail.setName("Deleted Park");
+        userService.addFavoriteTrail(user, trail);
+        userService.deleteFavoriteTrail(user.getUserID(), trail.getTrailID());
+        List<Trail> favorites = userService.fetchFavoriteTrails(user.getUserID());
+        if (!favorites.isEmpty()) {
+            fail("Failed to delete favorite trail");
+        }
     }
 }
