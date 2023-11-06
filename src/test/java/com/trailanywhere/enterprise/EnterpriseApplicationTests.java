@@ -217,4 +217,21 @@ class EnterpriseApplicationTests {
             fail("Failed to delete trail.");
         }
     }
+
+    /**
+     * Test finding a trail by ID
+     */
+    @Test
+    void findTrailByID() throws Exception {
+        givenTrailDataIsAvailable();
+        whenTrailIsAdded();
+        thenFetchByTrailID();
+    }
+
+    private void thenFetchByTrailID() {
+        Trail foundTrail = trailService.findTrailByID(1);
+        if (foundTrail.getTrailID() == 0) {
+            fail("Failed to fetch trail by ID.");
+        }
+    }
 }
