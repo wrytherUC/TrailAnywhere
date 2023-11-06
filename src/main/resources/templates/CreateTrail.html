@@ -10,6 +10,7 @@
 <body>
 
 <div th:replace="fragments/topnav :: navbar"></div>
+<div th:replace="~{fragments/topnav :: login}"></div>
 
 <h2>Create A Trail</h2>
 
@@ -38,12 +39,6 @@
         </div>
     </form>
 </div>
-
-
-<a th:href="@{/Login}" id="status-indicator" class="status-indicator">
-    Status: <span id="status-text">Loading...</span>
-    <span id="username-text"></span>
-</a>
 
 <script th:src="@{/js/LoginStatus.js}"></script>
 </body>

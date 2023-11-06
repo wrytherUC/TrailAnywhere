@@ -25,3 +25,10 @@
         </ul>
     </nav>
 </header>
+
+<div th:fragment="login">
+    <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
+        Status: <span id="status-text">Loading...</span>
+        <span id="username-text"></span>
+    </a>
+</div>
