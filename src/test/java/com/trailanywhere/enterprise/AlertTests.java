@@ -130,4 +130,27 @@ public class AlertTests {
         }
     }
 
+    /**
+     * Test finding an alert by its ID
+     */
+    @Test
+    void findAlertByID() {
+        givenAlertDataIsAvailable();
+        givenTrailDataIsAvailable();
+        whenAlertDataIsGiven();
+        thenFindAlertByID();
+    }
+
+    private void thenFindAlertByID() {
+        try {
+            alert.getTrail().setName("findByID");
+            alertService.save(alert);
+            int alertID = alert.getAlertID();
+            Alert foundAlert = alertService.findAlertByID(alertID);
+            assertEquals(alertID, foundAlert.getAlertID());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
