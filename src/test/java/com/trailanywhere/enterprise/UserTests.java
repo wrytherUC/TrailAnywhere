@@ -168,4 +168,27 @@ public class UserTests {
             fail("Failed to delete favorite trail");
         }
     }
+
+    /**
+     * Fetch a user by their ID
+     * @throws Exception - handle errors
+     */
+    @Test
+    void fetchUserByID() throws Exception {
+        givenUserDataIsAvailable();
+        whenUserDataIsCreated();
+        thenFetchUserByID();
+    }
+
+    private void thenFetchUserByID() {
+        try {
+            user.setEmail("deletedUser@gmail.com");
+            userService.save(user);
+            int userID = user.getUserID();
+            User fetchedUser = userService.findUserByID(userID);
+            assertEquals(userID, fetchedUser.getUserID());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
