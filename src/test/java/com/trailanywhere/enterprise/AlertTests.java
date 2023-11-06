@@ -175,4 +175,27 @@ public class AlertTests {
         }
     }
 
+    /**
+     * Testing fetching alerts made by a user
+     */
+    @Test
+    void findAlertsFromAUser() {
+        givenAlertDataIsAvailable();
+        givenTrailDataIsAvailable();
+        whenAlertDataIsGiven();
+        thenFetchAlertsFromUser();
+    }
+
+    private void thenFetchAlertsFromUser() {
+        try {
+            alert.getTrail().setName("findAlertsForThisTrail2");
+            alert.getUser().setEmail("alertEmail@gmail.com");
+            alertService.save(alert);
+            List<Alert> foundAlert = alertService.findAlertsForUser(alert.getUser().getUserID());
+            assertEquals(1, foundAlert.size());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
