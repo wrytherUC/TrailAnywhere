@@ -130,4 +130,72 @@ public class AlertTests {
         }
     }
 
+    /**
+     * Test finding an alert by its ID
+     */
+    @Test
+    void findAlertByID() {
+        givenAlertDataIsAvailable();
+        givenTrailDataIsAvailable();
+        whenAlertDataIsGiven();
+        thenFindAlertByID();
+    }
+
+    private void thenFindAlertByID() {
+        try {
+            alert.getTrail().setName("findByID");
+            alertService.save(alert);
+            int alertID = alert.getAlertID();
+            Alert foundAlert = alertService.findAlertByID(alertID);
+            assertEquals(alertID, foundAlert.getAlertID());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Test finding an alert for a trail
+     */
+    @Test
+    void findAlertsForATrail() {
+        givenAlertDataIsAvailable();
+        givenTrailDataIsAvailable();
+        whenAlertDataIsGiven();
+        thenFindAlertsForTrail();
+    }
+
+    private void thenFindAlertsForTrail() {
+        try {
+            alert.getTrail().setName("findAlertsForThisTrail");
+            alertService.save(alert);
+            List<Alert> foundAlert = alertService.findAlertsForTrail(alert.getTrail().getTrailID());
+            assertEquals(1, foundAlert.size());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Testing fetching alerts made by a user
+     */
+    @Test
+    void findAlertsFromAUser() {
+        givenAlertDataIsAvailable();
+        givenTrailDataIsAvailable();
+        whenAlertDataIsGiven();
+        thenFetchAlertsFromUser();
+    }
+
+    private void thenFetchAlertsFromUser() {
+        try {
+            alert.getTrail().setName("findAlertsForThisTrail2");
+            alert.getUser().setEmail("alertEmail@gmail.com");
+            alertService.save(alert);
+            List<Alert> foundAlert = alertService.findAlertsForUser(alert.getUser().getUserID());
+            assertEquals(1, foundAlert.size());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
