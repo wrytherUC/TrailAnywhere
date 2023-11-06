@@ -121,10 +121,14 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public Trail fetchByCoordinates(String latitude, String longitude) {
-        TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE", Trail.class);
-        query.setParameter("LATITUDE", latitude);
-        query.setParameter("LONGITUDE", longitude);
-        return query.getSingleResult();
+        try {
+            TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE", Trail.class);
+            query.setParameter("LATITUDE", latitude);
+            query.setParameter("LONGITUDE", longitude);
+            return query.getSingleResult();
+        } catch(Exception e) {
+            return new Trail();
+        }
     }
 
     /**
@@ -134,8 +138,12 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public Trail findTrailByID(int trailID) {
-        TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.trailID = :TRAIL", Trail.class);
-        query.setParameter("TRAIL", trailID);
-        return query.getSingleResult();
+        try {
+            TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.trailID = :TRAIL", Trail.class);
+            query.setParameter("TRAIL", trailID);
+            return query.getSingleResult();
+        } catch(Exception e) {
+            return new Trail();
+        }
     }
 }

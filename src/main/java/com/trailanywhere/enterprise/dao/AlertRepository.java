@@ -90,9 +90,13 @@ public class AlertRepository implements IAlertDAO {
      */
     @Override
     public Alert findAlertByID(int alertID) {
-        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.alertID = :ALERT", Alert.class);
-        query.setParameter("ALERT", alertID);
-        return query.getSingleResult();
+        try {
+            TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.alertID = :ALERT", Alert.class);
+            query.setParameter("ALERT", alertID);
+            return query.getSingleResult();
+        } catch(Exception e) {
+            return new Alert();
+        }
     }
 
     /**
