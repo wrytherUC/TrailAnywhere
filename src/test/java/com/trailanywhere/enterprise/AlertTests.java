@@ -153,4 +153,26 @@ public class AlertTests {
         }
     }
 
+    /**
+     * Test finding an alert for a trail
+     */
+    @Test
+    void findAlertsForATrail() {
+        givenAlertDataIsAvailable();
+        givenTrailDataIsAvailable();
+        whenAlertDataIsGiven();
+        thenFindAlertsForTrail();
+    }
+
+    private void thenFindAlertsForTrail() {
+        try {
+            alert.getTrail().setName("findAlertsForThisTrail");
+            alertService.save(alert);
+            List<Alert> foundAlert = alertService.findAlertsForTrail(alert.getTrail().getTrailID());
+            assertEquals(1, foundAlert.size());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
