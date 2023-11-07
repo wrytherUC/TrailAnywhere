@@ -171,13 +171,16 @@ public class TrailController {
      * @return login page
      */
     @RequestMapping("/Login")
-    public String login() {
+    public String login(Model model) {
+        User user = new User();
+        model.addAttribute("User", user);
         return "Login";
     }
 
     /**
      * Check if a user exists and output result in JSON
-     * @param user - user login details
+     * @param email - user email
+     * @param password - user password
      * @return - found user
      */
     @PostMapping("/loginUser")
@@ -186,6 +189,21 @@ public class TrailController {
         email = email.trim();
         password = password.trim();
         return userService.findUser(email, password);
+    }
+
+    /**
+     * Create a new user
+     * @param user - user
+     * @return - newly created user
+     * @throws Exception - handle errors
+     */
+    @PostMapping("/createUser")
+    @ResponseBody
+    public User createUser(User user) throws Exception {
+        user.setName(user.getName().trim());
+        user.setEmail(user.getEmail().trim());
+        user.setPassword(user.getPassword().trim());
+        return userService.save(user);
     }
 
     /**

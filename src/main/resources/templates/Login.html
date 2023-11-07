@@ -36,17 +36,17 @@
     </div>
     <div class="create">
         <h2 class="login-H2">Create An Account</h2>
-            <form action="createAccountLogic.html" method="POST">
+            <form th:action="@{/createUser}" th:object="${User}" method="POST">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput4" name="name" placeholder="x" required>
+                    <input th:field="*{name}" type="text" class="form-control" id="floatingInput4" name="name" placeholder="x" required>
                     <label for="floatingInput4">Name</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput5" name="email" placeholder="x" required>
+                    <input th:field="*{email}" type="email" class="form-control" id="floatingInput5" name="email" placeholder="x" required>
                     <label for="floatingInput5">Email</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingInput6" name="password" placeholder="x" required>
+                    <input th:field="*{password}" type="password" class="form-control" id="floatingInput6" name="password" placeholder="x" required>
                     <label for="floatingInput6">Password</label>
                     <input type="submit" class="btn btn-success" value="Create New Account">
                 </div>
