@@ -1,5 +1,7 @@
 package com.trailanywhere.enterprise.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -13,6 +15,9 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Getter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "userID")
 public class User {
     @Id
     @GeneratedValue
