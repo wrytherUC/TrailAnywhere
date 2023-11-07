@@ -42,6 +42,7 @@ function loginUser() {
     data.append("email", document.getElementById('email').value.trim());
     data.append("password", document.getElementById('password').value.trim());
     const errorMessage = document.getElementById("loginError");
+    const successMessage = document.getElementById("loginSuccess");
 
     // Submit form data to the /loginUser endpoint
     let xhr = new XMLHttpRequest();
@@ -55,10 +56,28 @@ function loginUser() {
                 errorMessage.classList.remove("d-none");
                 errorMessage.classList.add("d-block");
             }
+
+            // Remove message after 5 seconds
+            setTimeout(() => {
+                errorMessage.classList.remove("d-block");
+                errorMessage.classList.add("d-none");
+            }, 5000);
         } else {
             // Save name and user ID to session storage
             sessionStorage.setItem("userID", response.userID.toString());
             sessionStorage.setItem("name", response.name.toString());
+
+            // Show success message
+            if (successMessage.classList.contains("d-none")) {
+                successMessage.classList.remove("d-none");
+                successMessage.classList.add("d-block");
+            }
+
+            // Remove message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove("d-block");
+                successMessage.classList.add("d-none");
+            }, 5000);
 
             // Remove error message if needed
             if (errorMessage.classList.contains("d-block")) {
