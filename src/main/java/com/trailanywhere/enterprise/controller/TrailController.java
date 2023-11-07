@@ -13,15 +13,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
+import java.util.*;
 import java.util.logging.Level;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -44,13 +46,6 @@ public class TrailController {
      */
     @RequestMapping("/")
     public String index(Model model) {
-        List<Trail> allTrails = trailService.fetchAllTrails();
-        Map<Trail, String> trailData = new HashMap<>();
-        for (Trail trail : allTrails) {
-            JsonNode node = trailService.getCurrentWeather(trail.getLatitude(), trail.getLongitude());
-            trailData.put(trail, node.at("/current_weather/temperature").asText());
-        }
-        model.addAttribute("trailData", trailData);
         return "TrailFinder";
     }
 
@@ -102,6 +97,30 @@ public class TrailController {
         }
     }
 
+    @GetMapping("/trails")
+    public String searchTrailsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+        searchTerm = searchTerm.trim();
+        List<Trail> trails;
+        String regex = ".*\\d{5}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(searchTerm);
+        boolean b = m.matches();
+
+        if (b) {
+            trails = trailService.fetchByZipCode(searchTerm);
+        } else if (searchTerm.toLowerCase().contains("easy") ||searchTerm.toLowerCase().contains("moderate") ||
+        searchTerm.toLowerCase().contains("hard"))  {
+            trails = trailService.fetchByDifficulty(searchTerm);
+        } else {
+            trails = Collections.singletonList(trailService.fetchByTrailName(searchTerm));
+        }
+
+        model.addAttribute("trails", trails);
+        return "trails";
+
+    }
+
+
     @GetMapping("/alert")
     @ResponseBody
     public List<Alert> fetchAllAlerts() {
@@ -116,14 +135,21 @@ public class TrailController {
         return new ResponseEntity(foundAlerts, headers, HttpStatus.OK);
     }
 
+    @GetMapping("/alertsByTrailId/{trailID}/")
+    public ModelAndView alertsByTrailId (@PathVariable("trailID") int trailID) {
+        ModelAndView modelAndView = new ModelAndView();
+        Map<Trail, String> trailDetails = new HashMap<>();
 
-    /**
-     * Handle the alerts endpoint and return a page.
-     * @return alerts page
-     */
-    @RequestMapping("/Alerts")
-    public String alerts() {
-        return "Alerts";
+        modelAndView.setViewName("trailDetails");
+        List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
+        Trail foundTrail = trailService.findTrailByID(trailID);
+
+        JsonNode node = trailService.getCurrentWeather(foundTrail.getLatitude(), foundTrail.getLongitude());
+        trailDetails.put(foundTrail, node.at("/current_weather/temperature").asText());
+
+        modelAndView.addObject("foundAlerts", foundAlerts);
+        modelAndView.addObject("trailDetails", trailDetails);
+        return modelAndView;
     }
 
     /**
