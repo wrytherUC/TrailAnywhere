@@ -158,10 +158,10 @@ public class TrailController {
      */
     @PostMapping("/loginUser")
     @ResponseBody
-    public User loginUser(User user) {
-        user.setEmail(user.getEmail().trim());
-        user.setPassword(user.getPassword().trim());
-        return userService.findUser(user.getEmail(), user.getPassword());
+    public User loginUser(String email, String password) {
+        email = email.trim();
+        password = password.trim();
+        return userService.findUser(email, password);
     }
 
     /**
