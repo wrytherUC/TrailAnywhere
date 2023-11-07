@@ -198,7 +198,14 @@ public class TrailController {
     @PostMapping("/createUser")
     @ResponseBody
     public User createUser(User user) throws Exception {
-        return userService.save(user);
+        User foundUser = userService.findExistingEmail(user.getEmail());
+        if (foundUser.getUserID() == 0) {
+            // Email doesn't exist, we can create this new user
+            return userService.save(user);
+        } else {
+            // Email already exists, return blank user
+            return new User();
+        }
     }
 
     /**

@@ -87,6 +87,7 @@ function createUser() {
         console.log(response);
         if (response.userID === 0) {
             // Show error message
+            errorMessage.innerText = "Email already exists.";
             showErrorMessage(errorMessage);
         } else {
             // Save name and user ID to session storage
@@ -94,6 +95,7 @@ function createUser() {
             sessionStorage.setItem("name", response.name.toString());
 
             // Show success message
+            successMessage.innerText = "Account successfully created.";
             showSuccessMessage(successMessage, errorMessage);
 
             // Update 'log in' button to 'log out'
