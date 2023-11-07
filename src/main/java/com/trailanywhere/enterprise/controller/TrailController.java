@@ -186,8 +186,6 @@ public class TrailController {
     @PostMapping("/loginUser")
     @ResponseBody
     public User loginUser(String email, String password) {
-        email = email.trim();
-        password = password.trim();
         return userService.findUser(email, password);
     }
 
@@ -200,9 +198,6 @@ public class TrailController {
     @PostMapping("/createUser")
     @ResponseBody
     public User createUser(User user) throws Exception {
-        user.setName(user.getName().trim());
-        user.setEmail(user.getEmail().trim());
-        user.setPassword(user.getPassword().trim());
         return userService.save(user);
     }
 

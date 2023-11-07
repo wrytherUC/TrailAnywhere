@@ -51,39 +51,14 @@ function loginUser() {
         // Check if endpoint returned valid user
         let response = JSON.parse(xhr.responseText);
         if (response.userID === 0) {
-            // Show error message
-            if (errorMessage.classList.contains("d-none")) {
-                errorMessage.classList.remove("d-none");
-                errorMessage.classList.add("d-block");
-            }
-
-            // Remove message after 5 seconds
-            setTimeout(() => {
-                errorMessage.classList.remove("d-block");
-                errorMessage.classList.add("d-none");
-            }, 5000);
+            showErrorMessage(errorMessage);
         } else {
             // Save name and user ID to session storage
             sessionStorage.setItem("userID", response.userID.toString());
             sessionStorage.setItem("name", response.name.toString());
 
             // Show success message
-            if (successMessage.classList.contains("d-none")) {
-                successMessage.classList.remove("d-none");
-                successMessage.classList.add("d-block");
-            }
-
-            // Remove message after 5 seconds
-            setTimeout(() => {
-                successMessage.classList.remove("d-block");
-                successMessage.classList.add("d-none");
-            }, 5000);
-
-            // Remove error message if needed
-            if (errorMessage.classList.contains("d-block")) {
-                errorMessage.classList.remove("d-block");
-                errorMessage.classList.add("d-none");
-            }
+            showSuccessMessage(successMessage, errorMessage);
 
             // Update 'log in' button to 'log out'
             isLoggedIn();
@@ -93,4 +68,83 @@ function loginUser() {
 
     // Prevent page refresh
     return false;
+}
+
+/**
+ * Create a new user and log them in
+ */
+function createUser() {
+    const errorMessage = document.getElementById("createError");
+    const successMessage = document.getElementById("createSuccess");
+    let data = new FormData();
+    data.append("name", document.getElementById("createName").value.trim());
+    data.append("email", document.getElementById("createEmail").value.trim());
+    data.append("password", document.getElementById("createPassword").value.trim());
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/createUser");
+    xhr.onload = function(){
+        let response = JSON.parse(xhr.responseText);
+        console.log(response);
+        if (response.userID === 0) {
+            // Show error message
+            showErrorMessage(errorMessage);
+        } else {
+            // Save name and user ID to session storage
+            sessionStorage.setItem("userID", response.userID.toString());
+            sessionStorage.setItem("name", response.name.toString());
+
+            // Show success message
+            showSuccessMessage(successMessage, errorMessage);
+
+            // Update 'log in' button to 'log out'
+            isLoggedIn();
+        }
+    };
+    xhr.send(data);
+
+    // Prevent page refresh
+    return false;
+}
+
+/**
+ * Display an error message
+ * @param errorMessage
+ */
+function showErrorMessage(errorMessage) {
+    // Show error message
+    if (errorMessage.classList.contains("d-none")) {
+        errorMessage.classList.remove("d-none");
+        errorMessage.classList.add("d-block");
+    }
+
+    // Remove message after 5 seconds
+    setTimeout(() => {
+        errorMessage.classList.remove("d-block");
+        errorMessage.classList.add("d-none");
+    }, 5000);
+}
+
+/**
+ * Show success message
+ * @param successMessage - success message
+ * @param errorMessage - error message
+ */
+function showSuccessMessage(successMessage, errorMessage) {
+    // Show success message
+    if (successMessage.classList.contains("d-none")) {
+        successMessage.classList.remove("d-none");
+        successMessage.classList.add("d-block");
+    }
+
+    // Remove message after 5 seconds
+    setTimeout(() => {
+        successMessage.classList.remove("d-block");
+        successMessage.classList.add("d-none");
+    }, 5000);
+
+    // Remove error message if needed
+    if (errorMessage.classList.contains("d-block")) {
+        errorMessage.classList.remove("d-block");
+        errorMessage.classList.add("d-none");
+    }
 }

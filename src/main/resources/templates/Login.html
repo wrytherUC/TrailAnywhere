@@ -39,18 +39,24 @@
     </div>
     <div class="create">
         <h2 class="login-H2">Create An Account</h2>
-            <form th:action="@{/createUser}" th:object="${User}" method="POST">
+        <div id="createSuccess" class="alert alert-success d-none" role="alert">
+            Successfully logged in.
+        </div>
+        <div id="createError" class="alert alert-danger d-none" role="alert">
+            Email and/or password does not exist.
+        </div>
+            <form onsubmit="return createUser()" method="POST">
                 <div class="form-floating mb-3">
-                    <input th:field="*{name}" type="text" class="form-control" id="floatingInput4" name="name" placeholder="x" required>
-                    <label for="floatingInput4">Name</label>
+                    <input type="text" class="form-control" id="createName" name="name" placeholder="x" required>
+                    <label for="createName">Name</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input th:field="*{email}" type="email" class="form-control" id="floatingInput5" name="email" placeholder="x" required>
-                    <label for="floatingInput5">Email</label>
+                    <input type="email" class="form-control" id="createEmail" name="email" placeholder="x" required>
+                    <label for="createEmail">Email</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input th:field="*{password}" type="password" class="form-control" id="floatingInput6" name="password" placeholder="x" required>
-                    <label for="floatingInput6">Password</label>
+                    <input type="password" class="form-control" id="createPassword" name="password" placeholder="x" required>
+                    <label for="createPassword">Password</label>
                     <input type="submit" class="btn btn-success" value="Create New Account">
                 </div>
             </form>
