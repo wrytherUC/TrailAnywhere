@@ -15,6 +15,9 @@
 <div class="container login-forms">
     <div class="login">
         <h2 class="login-H2">Login</h2>
+        <div id="loginError" class="alert alert-danger d-none" role="alert">
+            Email and/or password does not exist.
+        </div>
             <form onsubmit="return loginUser()" method="POST" id="loginForm">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput1" name="name" placeholder="x" required>
