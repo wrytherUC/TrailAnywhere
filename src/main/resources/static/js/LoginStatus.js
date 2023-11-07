@@ -10,6 +10,7 @@ function isLoggedIn() {
     const statusIndicator = document.getElementById("status-indicator");
     const statusText = document.getElementById("status-text");
     let usernameText = document.getElementById("username-text");
+    const favorites = document.getElementById("favoritesLink");
 
     if (sessionStorage.getItem("userID") !== null) {
         // Show logout button
@@ -18,10 +19,17 @@ function isLoggedIn() {
         statusIndicator.addEventListener("click", () => {
             sessionStorage.clear();
         });
+        return true;
     } else {
         statusIndicator.style.backgroundColor = "#FF0000"; // Red color for status
         statusText.textContent = "Log In";
         usernameText.textContent = ""; // Clear the username when not logged in
+
+        // Redirect to login page if trying to access favorites page
+        favorites.addEventListener("click", () => {
+            window.location.href = "/Login";
+        });
+        return false;
     }
 }
 

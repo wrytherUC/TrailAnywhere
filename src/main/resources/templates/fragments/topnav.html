@@ -18,7 +18,7 @@
                 </form>
             </li>
             <li>
-                <form method="GET" th:action="@{/Favorites}">
+                <form id="favoritesLink" method="GET" th:action="@{/Favorites}" onsubmit="return isLoggedIn()">
                     <button class="btn btn-light btn-lg">Favorites</button>
                 </form>
             </li>
