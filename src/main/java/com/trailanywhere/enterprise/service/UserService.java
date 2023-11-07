@@ -145,4 +145,14 @@ public class UserService implements IUserService {
     public User findUserByID(int userID) {
         return userDAO.findUserByID(userID);
     }
+
+    /**
+     * Check if an email already exists
+     * @param email - email
+     * @return - user
+     */
+    @Override
+    public User findExistingEmail(String email) {
+        return userDAO.findExistingEmail(email);
+    }
 }
