@@ -4,8 +4,10 @@ import com.trailanywhere.enterprise.dto.Alert;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.LabelValue;
 import com.trailanywhere.enterprise.dto.Trail;
+import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.IAlertService;
 import com.trailanywhere.enterprise.service.ITrailService;
+import com.trailanywhere.enterprise.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.logging.Level;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +39,9 @@ public class TrailController {
 
     @Autowired
     IAlertService alertService;
+
+    @Autowired
+    IUserService userService;
 
     private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
@@ -142,6 +149,19 @@ public class TrailController {
     @RequestMapping("/Login")
     public String login() {
         return "Login";
+    }
+
+    /**
+     * Check if a user exists and output result in JSON
+     * @param user - user login details
+     * @return - found user
+     */
+    @PostMapping("/loginUser")
+    @ResponseBody
+    public User loginUser(User user) {
+        user.setEmail(user.getEmail().trim());
+        user.setPassword(user.getPassword().trim());
+        return userService.findUser(user.getEmail(), user.getPassword());
     }
 
     /**
