@@ -20,3 +20,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* Still need to make a logout button - only showing when the user is currently logged in - when clicked will switch boolean or kill cookie/session */
 /* Also need to make favorites page only accessible if isLoggedIn is true or other logic proves the user is logged in via SQL database connection string */
+
+/**
+ * Send form data to /loginUser endpoint
+ */
+function loginUser() {
+    // Bind form data
+    let data = new FormData();
+    data.append("email", document.getElementById('email').value.trim());
+    data.append("password", document.getElementById('password').value.trim());
+
+    // Submit form data to the /loginUser endpoint
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/loginUser");
+    xhr.onload = function() {
+        // Check if endpoint returned valid user
+        let response = JSON.parse(xhr.responseText);
+        if (response.userID === 0) {
+            // Show error message
+        } else {
+            // Save name and user ID to session storage
+            sessionStorage.setItem("userID", response.userID.toString());
+            sessionStorage.setItem("name", response.name.toString());
+        }
+
+        // JSON output for testing
+        console.log(xhr.responseText)
+    };
+    xhr.send(data);
+
+    // Prevent page refresh
+    return false;
+}

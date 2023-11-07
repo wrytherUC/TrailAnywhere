@@ -15,18 +15,18 @@
 <div class="container login-forms">
     <div class="login">
         <h2 class="login-H2">Login</h2>
-            <form action="loginLogic.html" method="POST">
+            <form onsubmit="return loginUser()" method="POST" id="loginForm">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput1" name="name" placeholder="x" required>
                     <label for="floatingInput1">Name</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput2" name="email" placeholder="x" required>
-                    <label for="floatingInput2">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="x" required>
+                    <label for="email">Email</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingInput3" name="password" placeholder="x" required>
-                    <label for="floatingInput3">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="x" required>
+                    <label for="password">Password</label>
                     <input type="submit" class="btn btn-success" value="Login">
                 </div>
             </form>
