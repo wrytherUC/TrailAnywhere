@@ -167,6 +167,17 @@ public class TrailController {
     }
 
     /**
+     * Get a user's favorite trails
+     * @param userID - user ID passed in from the client
+     * @return - list of favorite trails
+     */
+    @PostMapping("/getFavoriteTrails")
+    @ResponseBody
+    public List<Trail> getFavoriteTrails(int userID) {
+        return userService.fetchFavoriteTrails(userID);
+    }
+
+    /**
      * Handle the login endpoint and return a page.
      * @return login page
      */
