@@ -178,6 +178,41 @@ public class TrailController {
     }
 
     /**
+     * Add a favorite trail
+     * @param trailID - trail
+     * @param userID - user
+     * @return - newly favorited trail
+     */
+    @PostMapping("/addFavoriteTrail")
+    public String addFavoriteTrail(int trailID, int userID) {
+        try {
+            Trail foundTrail = trailService.findTrailByID(trailID);
+            User foundUser = userService.findUserByID(userID);
+            userService.addFavoriteTrail(foundUser, foundTrail);
+            return "Favorites";
+        } catch(Exception e) {
+            logger.severe("Error adding favorite trail: " + e);
+            return "error";
+        }
+    }
+
+    /**
+     * Delete a trail
+     * @param trailID - trail
+     * @return - deleted trail
+     */
+    @PostMapping("/deleteFavoriteTrail")
+    public String deleteFavoriteTrail(int userID, int trailID) {
+        try {
+            userService.deleteFavoriteTrail(userID, trailID);
+            return "Favorites";
+        } catch(Exception e) {
+           logger.severe("Error deleting trail: " + e);
+           return "error";
+        }
+    }
+
+    /**
      * Handle the login endpoint and return a page.
      * @return login page
      */
