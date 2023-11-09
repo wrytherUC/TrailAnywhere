@@ -122,4 +122,28 @@ public class TestData {
         alert.setAlertText("Flooding");
         alertDAO.save(alert);
     }
+
+    /**
+     * Create a favorite trail
+     * @throws Exception - handle errors
+     */
+    @EventListener(ApplicationReadyEvent.class)
+    public void addFavoriteTrail() throws Exception {
+        Trail trail = new Trail();
+        trail.setName("Favorite Trail");
+        trail.setDifficulty("Hard");
+        trail.setTerrain("Hill");
+        trail.setTrailType("Hiking");
+        trail.setAddress("123 Test St");
+        trail.setLatitude("39.25838");
+        trail.setLongitude("-84.59777");
+        trail.setZipCode("45217");
+        User user = new User();
+        user.setName("Favorite");
+        user.setEmail("favorite@gmail.com");
+        user.setPassword("password");
+        trailDAO.save(trail);
+        userDAO.save(user);
+        userDAO.addFavoriteTrail(user, trail);
+    }
 }
