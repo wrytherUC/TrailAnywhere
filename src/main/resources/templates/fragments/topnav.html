@@ -8,15 +8,22 @@
                 </form>
             </li>
             <li>
-                <form method="GET" th:action="@{/CreateTrail}">
+                <form method="GET" th:action="@{/CreateTrail}" onsubmit="return isLoggedIn()">
                     <button class="btn btn-light btn-lg">Create New Trail</button>
                 </form>
             </li>
             <li>
-                <form method="GET" th:action="@{/Favorites}">
+                <form id="favoritesLink" method="GET" th:action="@{/Favorites}" onsubmit="return isLoggedIn()">
                     <button class="btn btn-light btn-lg">Favorites</button>
                 </form>
             </li>
         </ul>
     </nav>
 </header>
+
+<div th:fragment="login">
+    <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
+        <span id="status-text">Loading...</span>
+        <span id="username-text"></span>
+    </a>
+</div>

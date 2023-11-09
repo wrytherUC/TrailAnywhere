@@ -13,6 +13,7 @@
 <body>
 
 <div th:replace="~{fragments/topnav :: navbar}"></div>
+<div th:replace="~{fragments/topnav :: login}"></div>
 
 <h2>Trail Finder</h2>
 
@@ -43,11 +44,6 @@
         </tr>
     </table>
 </div>
-
-<a th:href="@{/Login}" id="status-indicator" class="status-indicator">
-    Status: <span id="status-text">Loading...</span>
-    <span id="username-text"></span>
-</a>
 
 <script th:src="@{/js/LoginStatus.js}"></script>
 <script th:src="@{/js/TrailAutocomplete.js}"></script>

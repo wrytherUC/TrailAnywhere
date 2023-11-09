@@ -79,4 +79,11 @@ public interface IUserService {
      * @return - user
      */
     User findUserByID(int userID);
+
+    /**
+     * Check if an email already exists
+     * @param email - email
+     * @return - user
+     */
+    User findExistingEmail(String email);
 }

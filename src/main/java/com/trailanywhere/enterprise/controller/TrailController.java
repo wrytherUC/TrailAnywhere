@@ -4,8 +4,10 @@ import com.trailanywhere.enterprise.dto.Alert;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.LabelValue;
 import com.trailanywhere.enterprise.dto.Trail;
+import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.IAlertService;
 import com.trailanywhere.enterprise.service.ITrailService;
+import com.trailanywhere.enterprise.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,6 +39,9 @@ public class TrailController {
 
     @Autowired
     IAlertService alertService;
+
+    @Autowired
+    IUserService userService;
 
     private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
@@ -166,8 +171,41 @@ public class TrailController {
      * @return login page
      */
     @RequestMapping("/Login")
-    public String login() {
+    public String login(Model model) {
+        User user = new User();
+        model.addAttribute("User", user);
         return "Login";
+    }
+
+    /**
+     * Check if a user exists and output result in JSON
+     * @param email - user email
+     * @param password - user password
+     * @return - found user
+     */
+    @PostMapping("/loginUser")
+    @ResponseBody
+    public User loginUser(String email, String password) {
+        return userService.findUser(email, password);
+    }
+
+    /**
+     * Create a new user
+     * @param user - user
+     * @return - newly created user
+     * @throws Exception - handle errors
+     */
+    @PostMapping("/createUser")
+    @ResponseBody
+    public User createUser(User user) throws Exception {
+        User foundUser = userService.findExistingEmail(user.getEmail());
+        if (foundUser.getUserID() == 0) {
+            // Email doesn't exist, we can create this new user
+            return userService.save(user);
+        } else {
+            // Email already exists, return blank user
+            return new User();
+        }
     }
 
     /**
