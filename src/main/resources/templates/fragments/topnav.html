@@ -8,7 +8,7 @@
                 </form>
             </li>
             <li>
-                <form method="GET" th:action="@{/CreateTrail}">
+                <form method="GET" th:action="@{/CreateTrail}" onsubmit="return isLoggedIn()">
                     <button class="btn btn-light btn-lg">Create New Trail</button>
                 </form>
             </li>

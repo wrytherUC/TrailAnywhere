@@ -38,24 +38,22 @@ function isLoggedIn() {
  */
 function loginUser() {
     // Bind form data
-    let data = new FormData();
-    data.append("email", document.getElementById('email').value.trim());
-    data.append("password", document.getElementById('password').value.trim());
+    let email = document.getElementById('email').value.trim();
+    let password = document.getElementById('password').value.trim();
     const errorMessage = document.getElementById("loginError");
     const successMessage = document.getElementById("loginSuccess");
 
-    // Submit form data to the /loginUser endpoint
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/loginUser");
-    xhr.onload = function() {
-        // Check if endpoint returned valid user
-        let response = JSON.parse(xhr.responseText);
-        if (response.userID === 0) {
+    $.post("loginUser", {
+       email: email,
+       password: password
+    }, function(data) {
+        console.log(data);
+        if (data.userID === 0) {
             showErrorMessage(errorMessage);
         } else {
             // Save name and user ID to session storage
-            sessionStorage.setItem("userID", response.userID.toString());
-            sessionStorage.setItem("name", response.name.toString());
+            sessionStorage.setItem("userID", data.userID.toString());
+            sessionStorage.setItem("name", data.name.toString());
 
             // Show success message
             showSuccessMessage(successMessage, errorMessage);
@@ -63,8 +61,7 @@ function loginUser() {
             // Update 'log in' button to 'log out'
             isLoggedIn();
         }
-    };
-    xhr.send(data);
+    });
 
     // Prevent page refresh
     return false;
@@ -76,23 +73,22 @@ function loginUser() {
 function createUser() {
     const errorMessage = document.getElementById("createError");
     const successMessage = document.getElementById("createSuccess");
-    let data = new FormData();
-    data.append("name", document.getElementById("createName").value.trim());
-    data.append("email", document.getElementById("createEmail").value.trim());
-    data.append("password", document.getElementById("createPassword").value.trim());
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/createUser");
-    xhr.onload = function(){
-        let response = JSON.parse(xhr.responseText);
-        console.log(response);
-        if (response.userID === 0) {
+    let name = document.getElementById("createName").value.trim();
+    let email = document.getElementById("createEmail").value.trim();
+    let password = document.getElementById("createPassword").value.trim();
+    $.post("createUser", {
+        name: name,
+        email: email,
+        password: password
+    }, function(data) {
+        if (data.userID === 0) {
             // Show error message
             errorMessage.innerText = "Email already exists.";
             showErrorMessage(errorMessage);
         } else {
             // Save name and user ID to session storage
-            sessionStorage.setItem("userID", response.userID.toString());
-            sessionStorage.setItem("name", response.name.toString());
+            sessionStorage.setItem("userID", data.userID.toString());
+            sessionStorage.setItem("name", data.name.toString());
 
             // Show success message
             successMessage.innerText = "Account successfully created.";
@@ -101,8 +97,7 @@ function createUser() {
             // Update 'log in' button to 'log out'
             isLoggedIn();
         }
-    };
-    xhr.send(data);
+    });
 
     // Prevent page refresh
     return false;
