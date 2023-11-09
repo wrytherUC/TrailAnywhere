@@ -31,6 +31,7 @@ public class Trail {
     private String latitude;
     private String longitude;
     private String zipCode;
+    @JsonIgnore
     @OneToMany(mappedBy = "trail")
     @ToString.Exclude
     private List<UserFavoriteTrails> userFavoriteTrails;
