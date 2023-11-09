@@ -181,35 +181,76 @@ public class TrailController {
      * Add a favorite trail
      * @param trailID - trail
      * @param userID - user
-     * @return - newly favorited trail
      */
     @PostMapping("/addFavoriteTrail")
-    public String addFavoriteTrail(int trailID, int userID) {
+    @ResponseBody
+    public Trail addFavoriteTrail(int trailID, int userID) {
         try {
             Trail foundTrail = trailService.findTrailByID(trailID);
             User foundUser = userService.findUserByID(userID);
             userService.addFavoriteTrail(foundUser, foundTrail);
-            return "Favorites";
+            return foundTrail;
         } catch(Exception e) {
             logger.severe("Error adding favorite trail: " + e);
-            return "error";
+            return new Trail();
         }
     }
 
     /**
      * Delete a trail
      * @param trailID - trail
-     * @return - deleted trail
      */
     @PostMapping("/deleteFavoriteTrail")
-    public String deleteFavoriteTrail(int userID, int trailID) {
+    @ResponseBody
+    public void deleteFavoriteTrail(int userID, int trailID) {
         try {
             userService.deleteFavoriteTrail(userID, trailID);
-            return "Favorites";
         } catch(Exception e) {
            logger.severe("Error deleting trail: " + e);
-           return "error";
         }
+    }
+
+    /**
+     * Autocomplete for only trail names. Used for favorites/alerts page.
+     * @param term - search term
+     * @return - list of trails
+     */
+    @GetMapping("/autocompleteTrailName")
+    @ResponseBody
+    public List<LabelValue> autocompleteTrailName(@RequestParam(value="term", required = false, defaultValue="") String term) {
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        List<LabelValue> trailData = new ArrayList<>();
+        for (Trail trail : allTrails) {
+            LabelValue labelValue = new LabelValue();
+            if (trail.getName().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getName());
+                labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
+    }
+
+    /**
+     * Autocomplete for favorite trails
+     * @param userID - user ID
+     * @param term - search term
+     * @return - autocomplete
+     */
+    @PostMapping("/autocompleteFavoriteTrails")
+    @ResponseBody
+    public List<LabelValue> autocompleteFavoriteTrails(int userID, String term) {
+        List<Trail> allTrails = userService.fetchFavoriteTrails(userID);
+        List<LabelValue> trailData = new ArrayList<>();
+        for (Trail trail : allTrails) {
+            LabelValue labelValue = new LabelValue();
+            if (trail.getName().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getName());
+                labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
     }
 
     /**
@@ -263,6 +304,11 @@ public class TrailController {
         return "CreateTrail";
     }
 
+    /**
+     * Comprehensive autocomplete to search for trail name, type, difficulty, and zip code
+     * @param term - search term
+     * @return - list of trails
+     */
     @GetMapping("/trailAutocomplete")
     @ResponseBody
     public List<LabelValue> trailAutocomplete(@RequestParam(value="term", required = false, defaultValue="") String term) {

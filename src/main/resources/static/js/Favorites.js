@@ -3,25 +3,24 @@
  */
 document.addEventListener("DOMContentLoaded", function () {
     getFavoriteTrails();
+    autocomplete();
 });
 
 /**
  * Retrieve favorite trails from backend
  */
 function getFavoriteTrails() {
-    let userID = 0;
-    let data = new FormData();
-    if (sessionStorage.getItem("userID") !== null) {
-        userID = sessionStorage.getItem("userID");
-        data.append("userID", userID);
+    try {
+        let userID = sessionStorage.getItem("userID");
+        $.post("getFavoriteTrails", {
+            userID: userID
+        }, function(data, success) {
+            showFavoriteTrails(data);
+            console.log(data);
+        });
+    } catch(e) {
+        console.log(e);
     }
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/getFavoriteTrails");
-    xhr.onload = function() {
-        let response = JSON.parse(xhr.responseText);
-        showFavoriteTrails(response);
-    }
-    xhr.send(data);
 }
 
 /**
@@ -48,5 +47,75 @@ function showFavoriteTrails(response) {
         let noTrails = row.insertCell(0);
         noTrails.colSpan = "5";
         noTrails.innerText = "You have no favorite trails.";
+    }
+}
+
+/**
+ * Add a favorite trail
+ */
+function addTrail() {
+    let userID = sessionStorage.getItem("userID");
+    let trailID = document.getElementById("addTrailID").value;
+    try {
+        $.post("addFavoriteTrail", {
+            trailID: trailID,
+            userID: userID
+        }, function(data, success) {
+            console.log("Trails: " + data);
+        });
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+/**
+ * Autocomplete trails for favoriting
+ */
+function autocomplete() {
+    $("#addFavoriteTrail").autocomplete({
+        source: "autocompleteTrailName",
+        minLength: 1,
+        select: function(event, ui) {
+            // Display trail name
+            this.value = ui.item.label;
+            // Store PK in the hidden ID field, if that field exists
+            $("#addTrailID").val(ui.item.value);
+            return false;
+        }
+    });
+    $("#deleteFavoriteTrail").autocomplete({
+        source: function(request, response) {
+            $.post("autocompleteFavoriteTrails", {
+                userID: sessionStorage.getItem("userID"),
+                term: request.term
+            }, function(data) {
+                response(data);
+            });
+        },
+        minLength: 1,
+        select: function(event, ui) {
+            // Display trail name
+            this.value = ui.item.label;
+            // Store PK in the hidden ID field, if that field exists
+            $("#deleteTrailID").val(ui.item.value);
+            return false;
+        }
+    });
+}
+
+/**
+ * Delete a favorite trail
+ */
+function deleteTrail() {
+    let userID = sessionStorage.getItem("userID");
+    let trailID = document.getElementById("deleteTrailID").value;
+    try {
+        $.post("deleteFavoriteTrail", {
+            userID: userID,
+            trailID: trailID
+        });
+        return false;
+    } catch(e) {
+        console.log(e);
     }
 }
