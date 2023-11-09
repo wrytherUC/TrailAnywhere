@@ -11,6 +11,7 @@ function isLoggedIn() {
     const statusText = document.getElementById("status-text");
     let usernameText = document.getElementById("username-text");
     const favorites = document.getElementById("favoritesLink");
+    const createTrail = document.getElementById("createTrailLink");
 
     if (sessionStorage.getItem("userID") !== null) {
         // Show logout button
@@ -25,8 +26,11 @@ function isLoggedIn() {
         statusText.textContent = "Log In";
         usernameText.textContent = ""; // Clear the username when not logged in
 
-        // Redirect to login page if trying to access favorites page
+        // Redirect to login page if trying to access favorites/create trail page
         favorites.addEventListener("click", () => {
+            window.location.href = "/Login";
+        });
+        createTrail.addEventListener("click", () => {
             window.location.href = "/Login";
         });
         return false;
