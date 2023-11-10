@@ -18,31 +18,13 @@
 
 <div class="container">
     <form class="form-inline" action="#" th:action="@{/trails}"  method="GET">
-        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by zipcode, difficulty, type, or name" aria-label="Search"  name="searchTerm" id="floatingInput">
+        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by name, type, difficulty, or zip code" aria-label="Search"  name="searchTerm" id="floatingInput">
+        <p>(Example: Stone Steps Loop, Hiking, Hard, 45215)</p>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 </div>
 
-<div class="center-table">
-    <table id="trail-table" class="table-bordered table table-hover table-secondary">
-        <tr id="header-row" class="table-primary" style="display: none;">
-            <td><b>Name</b></td>
-            <td><b>Type</b></td>
-            <td><b>Difficulty</b></td>
-            <td><b>Address</b></td>
-            <td><b>Zip Code</b></td>
-            <td><b>Temperature</b></td>
-        </tr>
-        <tr id="trail-row" th:each="trail : ${trailData}">
-            <td th:text="${trail.key.name}"></td>
-            <td th:text="${trail.key.trailType}"></td>
-            <td th:text="${trail.key.difficulty}"></td>
-            <td th:text="${trail.key.address}"></td>
-            <td th:text="${trail.key.zipCode}"></td>
-            <td th:text="*{trail.value + '°F'}"></td>
-        </tr>
-    </table>
-</div>
+
 
 <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
     Status: <span id="status-text">Loading...</span>

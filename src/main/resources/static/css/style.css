@@ -265,3 +265,8 @@ tr {
 .show-table {
     display: table; /* Show the table when this class is applied */
 }
+
+/* Style for the search button on trailFinder page*/
+.btn-outline-success.my-2.my-sm-0 {
+    margin-top: 1px !important;
+}
