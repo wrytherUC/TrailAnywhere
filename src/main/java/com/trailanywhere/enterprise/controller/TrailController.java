@@ -129,9 +129,6 @@ public class TrailController {
 
         if (b) {
             trails = trailService.fetchByZipCode(searchTerm);
-        } else if (searchTerm.toLowerCase().contains("easy") ||searchTerm.toLowerCase().contains("moderate") ||
-        searchTerm.toLowerCase().contains("hard"))  {
-            trails = trailService.fetchByDifficulty(searchTerm);
         } else {
             trails = Collections.singletonList(trailService.fetchByTrailName(searchTerm));
         }
@@ -148,6 +145,19 @@ public class TrailController {
         List<Trail> trails;
 
         trails = trailService.fetchByDifficulty(searchTerm);
+
+        model.addAttribute("trails", trails);
+        return "trails";
+
+    }
+
+    @GetMapping("/trailsByType")
+    public String trailsByType(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+
+        searchTerm = searchTerm.trim();
+        List<Trail> trails;
+
+        trails = trailService.fetchByTrailType(searchTerm);
 
         model.addAttribute("trails", trails);
         return "trails";
@@ -269,6 +279,21 @@ public class TrailController {
             LabelValue labelValue = new LabelValue();
             if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
                 labelValue.setLabel(trail.getDifficulty());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
+    }
+
+    @GetMapping("/autocompleteTrailType")
+    @ResponseBody
+    public Set<LabelValue> autocompleteTrailType(@RequestParam(value="term", required = false, defaultValue="") String term) {
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        Set<LabelValue> trailData = new HashSet<>();
+        for (Trail trail : allTrails) {
+            LabelValue labelValue = new LabelValue();
+            if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getTrailType());
                 trailData.add(labelValue);
             }
         }
