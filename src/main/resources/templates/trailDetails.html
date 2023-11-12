@@ -24,6 +24,8 @@
             <td class="table-primary"><b>Difficulty</b></td>
             <td class="table-primary"><b>Address</b></td>
             <td class="table-primary"><b>Zip Code</b></td>
+            <td class="table-primary"><b>Latitude</b></td>
+            <td class="table-primary"><b>Longitude</b></td>
             <td class="table-primary"><b>Temperature</b></td>
         </tr>
         <tr id="foundtrail-row" th:each="trail : ${trailDetails}">
@@ -32,6 +34,8 @@
             <td th:text="${trail.key.difficulty}"></td>
             <td th:text="${trail.key.address}"></td>
             <td th:text="${trail.key.zipCode}"></td>
+            <td th:text="${trail.key.latitude}"></td>
+            <td th:text="${trail.key.longitude}"></td>
             <td th:text="*{trail.value + '°F'}"></td>
         </tr>
     </table>
