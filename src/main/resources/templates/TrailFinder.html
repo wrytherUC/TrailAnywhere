@@ -19,11 +19,21 @@
 
 <div class="container">
     <form class="form-inline" action="#" th:action="@{/searchType}"  method="GET">
-        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by name, type, difficulty, or zip code" aria-label="Search"  name="searchType" id="floatingInput">
-        <p>Type in the trail search type</p>
+        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by name, type, difficulty, or zip code" aria-label="Search"  name="searchType">
+        <p>Type in the trail search type to narrow down results</p>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 </div>
+
+<div class="container">
+    <form class="form-inline" action="#" th:action="@{/trails}"  method="GET">
+        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by name, type, difficulty, or zip code" aria-label="Search"  name="searchTerm" id="floatingInput">
+        <p>(Example: Stone Steps Loop, Hiking, Hard, 45215)</p>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+
+
 
 <a th:href="@{/Login}" id="status-indicator" class="status-indicator">
     Status: <span id="status-text">Loading...</span>
@@ -31,6 +41,7 @@
 </a>
 
 <script th:src="@{/js/LoginStatus.js}"></script>
+<script th:src="@{/js/TrailAutocomplete.js}"></script>
 
 </body>
 </html>
