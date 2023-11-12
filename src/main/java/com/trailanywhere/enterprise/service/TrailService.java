@@ -190,4 +190,9 @@ public class TrailService implements ITrailService {
         return trailDAO.findTrailByID(trailID);
     }
 
+    @Override
+    public List<Trail> fetchByTrailType(String trailType) {
+        return trailDAO.fetchByTrailType(trailType);
+    }
+
 }

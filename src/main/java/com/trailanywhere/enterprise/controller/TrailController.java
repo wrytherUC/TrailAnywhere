@@ -102,6 +102,22 @@ public class TrailController {
         }
     }
 
+    @RequestMapping("/searchType")
+    public String searchType(@RequestParam(value="searchType", required=false, defaultValue="None")  String searchType, Model model) {
+        if (searchType.toLowerCase().contains("name")) {
+            return "TrailFinder-Name";
+        } else if (searchType.toLowerCase().contains("type")) {
+            return "TrailFinder-Type";
+        } else if (searchType.toLowerCase().contains("difficulty")) {
+            return "TrailFinder-Difficulty";
+        } else if(searchType.toLowerCase().contains("zipcode") || searchType.toLowerCase().contains("zip code")) {
+            return "TrailFinder-ZipCode";
+        }
+        else {
+            return "TrailFinder";
+        }
+    }
+
     @GetMapping("/trails")
     public String searchTrailsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
         searchTerm = searchTerm.trim();
@@ -113,12 +129,48 @@ public class TrailController {
 
         if (b) {
             trails = trailService.fetchByZipCode(searchTerm);
-        } else if (searchTerm.toLowerCase().contains("easy") ||searchTerm.toLowerCase().contains("moderate") ||
-        searchTerm.toLowerCase().contains("hard"))  {
-            trails = trailService.fetchByDifficulty(searchTerm);
         } else {
             trails = Collections.singletonList(trailService.fetchByTrailName(searchTerm));
         }
+
+        model.addAttribute("trails", trails);
+        return "trails";
+
+    }
+
+    @GetMapping("/trailsByDifficulty")
+    public String trailsByDifficulty(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+
+        searchTerm = searchTerm.trim();
+        List<Trail> trails;
+
+        trails = trailService.fetchByDifficulty(searchTerm);
+
+        model.addAttribute("trails", trails);
+        return "trails";
+
+    }
+
+    @GetMapping("/trailsByType")
+    public String trailsByType(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+
+        searchTerm = searchTerm.trim();
+        List<Trail> trails;
+
+        trails = trailService.fetchByTrailType(searchTerm);
+
+        model.addAttribute("trails", trails);
+        return "trails";
+
+    }
+
+    @GetMapping("/trailsByZipCode")
+    public String trailsByZipCode(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+
+        searchTerm = searchTerm.trim();
+        List<Trail> trails;
+
+        trails = trailService.fetchByZipCode(searchTerm);
 
         model.addAttribute("trails", trails);
         return "trails";
@@ -225,6 +277,51 @@ public class TrailController {
             if (trail.getName().toLowerCase().contains(term.toLowerCase())) {
                 labelValue.setLabel(trail.getName());
                 labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
+    }
+
+    @GetMapping("/autocompleteTrailDifficulty")
+    @ResponseBody
+    public Set<LabelValue> autocompleteTrailDifficulty(@RequestParam(value="term", required = false, defaultValue="") String term) {
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        Set<LabelValue> trailData = new HashSet<>();
+        for (Trail trail : allTrails) {
+            LabelValue labelValue = new LabelValue();
+            if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getDifficulty());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
+    }
+
+    @GetMapping("/autocompleteTrailType")
+    @ResponseBody
+    public Set<LabelValue> autocompleteTrailType(@RequestParam(value="term", required = false, defaultValue="") String term) {
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        Set<LabelValue> trailData = new HashSet<>();
+        for (Trail trail : allTrails) {
+            LabelValue labelValue = new LabelValue();
+            if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getTrailType());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
+    }
+
+    @GetMapping("/autocompleteZipCode")
+    @ResponseBody
+    public Set<LabelValue> autocompleteZipCode(@RequestParam(value="term", required = false, defaultValue="") String term) {
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        Set<LabelValue> trailData = new HashSet<>();
+        for (Trail trail : allTrails) {
+            LabelValue labelValue = new LabelValue();
+            if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getZipCode());
                 trailData.add(labelValue);
             }
         }

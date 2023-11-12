@@ -18,9 +18,9 @@
 <h2>Trail Finder</h2>
 
 <div class="container">
-    <form class="form-inline" action="#" th:action="@{/searchType}"  method="GET">
-        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by name, type, difficulty, or zip code" aria-label="Search"  name="searchType" id="floatingInput">
-        <p>Type in the trail search type</p>
+    <form class="form-inline" action="#" th:action="@{/trails}"  method="GET">
+        <input class="form-control mr-sm-2" type="search" placeholder="Trail name" aria-label="Search"  name="searchTerm" id="floatingInput">
+        <p>Search for a trail by trail difficulty</p>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 </div>
@@ -31,6 +31,7 @@
 </a>
 
 <script th:src="@{/js/LoginStatus.js}"></script>
+<script th:src="@{/js/TrailAutocomplete-Difficulty.js}"></script>
 
 </body>
 </html>

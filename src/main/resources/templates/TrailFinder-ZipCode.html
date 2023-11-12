@@ -15,12 +15,12 @@
 <div th:replace="~{fragments/topnav :: navbar}"></div>
 <div th:replace="~{fragments/topnav :: login}"></div>
 
-<h2>Trail Finder</h2>
+<h2>Trail Finder - Trail Zip Code Search</h2>
 
 <div class="container">
-    <form class="form-inline" action="#" th:action="@{/searchType}"  method="GET">
-        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by name, type, difficulty, or zip code" aria-label="Search"  name="searchType" id="floatingInput">
-        <p>Type in the trail search type</p>
+    <form class="form-inline" action="#" th:action="@{/trailsByZipCode}"  method="GET">
+        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by name, type, difficulty, or zip code" aria-label="Search"  name="searchTerm" id="floatingInput">
+        <p>(Example: Stone Steps Loop, Hiking, Hard, 45215)</p>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 </div>
@@ -31,6 +31,7 @@
 </a>
 
 <script th:src="@{/js/LoginStatus.js}"></script>
+<script th:src="@{/js/TrailAutocomplete-ZipCode.js}"></script>
 
 </body>
 </html>
