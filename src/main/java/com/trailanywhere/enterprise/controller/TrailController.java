@@ -62,12 +62,15 @@ public class TrailController {
     @PostMapping(value="/trail", produces="application/json")
     @ResponseBody
     public Trail createTrail(Trail trail) {
+        Trail foundTrail = trailService.fetchByTrailName(trail.getName());
         try {
-            return trailService.save(trail);
+            if (foundTrail.getTrailID() == 0) {
+                return trailService.save(trail);
+            }
         } catch (Exception e) {
             logger.severe("Error creating Trail: " + e.getMessage());
-            return new Trail();
         }
+        return foundTrail;
     }
 
     @GetMapping("/trail")
