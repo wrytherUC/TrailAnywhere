@@ -121,16 +121,26 @@ public class TrailController {
     @GetMapping("/trails")
     public String searchTrailsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
         searchTerm = searchTerm.trim();
-        List<Trail> trails;
+        
         String regex = ".*\\d{5}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher m = pattern.matcher(searchTerm);
         boolean b = m.matches();
 
-        if (b) {
-            trails = trailService.fetchByZipCode(searchTerm);
-        } else {
-            trails = Collections.singletonList(trailService.fetchByTrailName(searchTerm));
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        List<Trail> trails = null;
+        for (Trail trail : allTrails) {
+            if (trail.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                trails = Collections.singletonList(trailService.fetchByTrailName(searchTerm));
+            } else if (trail.getTrailType().toLowerCase().contains(searchTerm.toLowerCase())) {
+                trails = trailService.fetchByTrailType(searchTerm);
+                break;
+            } else if (trail.getDifficulty().toLowerCase().contains(searchTerm.toLowerCase())) {
+                trails = trailService.fetchByDifficulty(searchTerm);
+                break;
+            } else if (trail.getZipCode().toLowerCase().contains(searchTerm.toLowerCase())) {
+                trails = trailService.fetchByZipCode(searchTerm);
+            }
         }
 
         model.addAttribute("trails", trails);
