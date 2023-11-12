@@ -65,10 +65,11 @@ public class TrailController {
         Trail foundTrail = trailService.fetchByTrailName(trail.getName());
         try {
             if (foundTrail.getTrailID() == 0) {
-                return trailService.save(trail);
+                trailService.save(trail);
             }
         } catch (Exception e) {
             logger.severe("Error creating Trail: " + e.getMessage());
+            foundTrail = new Trail();
         }
         return foundTrail;
     }

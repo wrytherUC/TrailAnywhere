@@ -18,15 +18,14 @@ function validateForm() {
 
         // If form is validated, save the trail
         if (validated === true) {
-            if (createTrail() === true) {
-                // Prevent page refresh
-                validated = false;
-            }
+            createTrail();
         }
     } catch(e) {
         console.log(e);
     }
-    return validated;
+
+    // Prevent page reload
+    return false;
 }
 
 /**
@@ -42,7 +41,6 @@ function createTrail() {
     const zipCode = document.getElementById("trailZipCode").value.trim();
     const latitude = document.getElementById("trailLatitude").value.trim();
     const longitude = document.getElementById("trailLongitude").value.trim();
-    let success = false;
 
     // API post to create a trail and display message
     try {
@@ -58,17 +56,14 @@ function createTrail() {
         }, function(data) {
             console.log(data);
             if (data.trailID === 0) {
-                displayMessage(false, "Error creating trail.");
-            } else {
                 displayMessage(true, "Successfully created trail.");
-                success = true;
+            } else {
+                displayMessage(false, "Error creating trail. Try using a different name.");
             }
         });
     } catch(e) {
         console.log(e);
     }
-
-    return success;
 }
 
 /**
@@ -79,15 +74,17 @@ function createTrail() {
 function displayMessage(result, messageText) {
     const message = document.getElementById("trailMessage");
     if (result) {
-        if (message.classList.contains("d-none")) {
+        if (message.classList.contains("d-none") || message.classList.contains("alert-danger")) {
             message.classList.remove("d-none");
+            message.classList.remove("alert-danger");
             message.classList.add("d-block");
             message.classList.add("alert-success");
             message.innerText = messageText;
         }
     } else {
-        if (message.classList.contains("d-none")) {
+        if (message.classList.contains("d-none") || message.classList.contains("alert-success")) {
             message.classList.remove("d-none");
+            message.classList.remove("alert-success");
             message.classList.add("d-block");
             message.classList.add("alert-danger");
             message.innerText = messageText;
