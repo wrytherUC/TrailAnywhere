@@ -59,19 +59,15 @@ public class TrailController {
      * @param trail the trail to be created
      * @return created trail in JSON format
      */
-    @PostMapping(value="/trail", consumes="application/json", produces="application/json")
+    @PostMapping(value="/trail", produces="application/json")
     @ResponseBody
-    public ResponseEntity createTrail(@RequestBody Trail trail) {
-        Trail newTrail;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+    public Trail createTrail(Trail trail) {
         try {
-            newTrail = trailService.save(trail);
+            return trailService.save(trail);
         } catch (Exception e) {
             logger.severe("Error creating Trail: " + e.getMessage());
-            return new ResponseEntity(headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new Trail();
         }
-        return new ResponseEntity(newTrail, headers, HttpStatus.OK);
     }
 
     @GetMapping("/trail")
