@@ -201,6 +201,13 @@ tr {
     float: left;
 }
 
+/* Style for adding Favorite trail form*/
+.addFav {
+    padding-right: 50px;
+    width: 50%;
+    margin: 0 auto;
+}
+
 /* Style for ending alert form*/
 .end {
     padding-left: 50px;
@@ -251,10 +258,15 @@ tr {
 
 /* Style for the trail table - hiding when there is no user input*/
 #trail-row {
-     display: none; /* Hide the table by default */
+    display: none;  /*Hide the table by default */
 }
 
 /* Style for the trail table - showing when the user searches*/
 .show-table {
     display: table; /* Show the table when this class is applied */
+}
+
+/* Style for the search button on trailFinder page*/
+.btn-outline-success.my-2.my-sm-0 {
+    margin-top: 1px !important;
 }

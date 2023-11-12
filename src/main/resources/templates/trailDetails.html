@@ -14,18 +14,17 @@
 
 <div th:replace="~{fragments/topnav :: navbar}"></div>
 
-<br/>
-<h3>Trail details:</h3>
+<h2>Trail Details</h2>
 
-<div class="table-header">
+<div class="center-table">
     <table id="trail-table" class="table-bordered table table-hover table-secondary">
         <tr id="header-row">
-            <td><b>Name</b></td>
-            <td><b>Type</b></td>
-            <td><b>Difficulty</b></td>
-            <td><b>Address</b></td>
-            <td><b>Zip Code</b></td>
-            <td><b>Temperature</b></td>
+            <td class="table-primary"><b>Name</b></td>
+            <td class="table-primary"><b>Type</b></td>
+            <td class="table-primary"><b>Difficulty</b></td>
+            <td class="table-primary"><b>Address</b></td>
+            <td class="table-primary"><b>Zip Code</b></td>
+            <td class="table-primary"><b>Temperature</b></td>
         </tr>
         <tr id="foundtrail-row" th:each="trail : ${trailDetails}">
             <td th:text="${trail.key.name}"></td>
@@ -36,18 +35,27 @@
             <td th:text="*{trail.value + '°F'}"></td>
         </tr>
     </table>
+        <div class="text-center mt-3">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add To Favorites</button>
+        </div>
 </div>
 
-<br/>
-<h3>Alert details:</h3>
+<!-- Below is the possible future logic for adding a favorite trail based on what the user clicked on using a button - as of right now it doesn't work properly
+<div class="addFav">
+    <form id="addFavoriteForm" method="POST">
+        <button type="button" class="btn btn-success" th:onclick="|addFavorite('${trail.key.name}', '${trail.key.zipCode}')|">Add to Favorites</button>
+    </form>
+</div>
+-->
+<h2>Alert Details</h2>
 
-<div class="table-header">
+<div class="center-table">
     <table id="alert-table" class="table-bordered table table-hover table-secondary">
         <tr id="header" class="table-default">
-            <td><b>Alert ID</b></td>
-            <td><b>Trail</b></td>
-            <td><b>Alert Description</b></td>
-            <td><b>User</b></td>
+            <td class="table-primary"><b>Alert ID</b></td>
+            <td class="table-primary"><b>Trail</b></td>
+            <td class="table-primary"><b>Alert Description</b></td>
+            <td class="table-primary"><b>User</b></td>
         </tr>
         <tr id="alert-row" th:each="alert : ${foundAlerts}">
             <td th:text="${alert.alertID}"></td>
@@ -61,7 +69,7 @@
 <div class="container alerts">
     <div class="add">
         <h3>Add Alert</h3>
-        <form action="addAlertLogic.html" method="POST">
+        <form method="POST">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput2" name="Trail_Name" placeholder="x" required>
                 <label for="floatingInput2">Trail Name</label>
@@ -75,7 +83,7 @@
     </div>
     <div class="end">
         <h3>End Alert</h3>
-        <form action="removeAlertLogic.html" method="POST">
+        <form method="POST">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput4" name="Trail_Name" placeholder="x" required>
                 <label for="floatingInput4">Trail Name</label>
@@ -83,20 +91,6 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput5" name="Alert" placeholder="x" required>
                 <label for="floatingInput5">User</label>
-                <input type="submit" class="btn btn-success" value="Submit">
-            </div>
-        </form>
-    </div>
-    <div class="add">
-        <h3>Add Favorite Trail</h3>
-        <form action="addFavoriteLogic.html" method="POST">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput6" name="search_query" placeholder="x" required>
-                <label for="floatingInput6">Enter the name of the trail to add</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput7" name="search_query" placeholder="x" required>
-                <label for="floatingInput2">Enter the zipcode of the trail to add</label>
                 <input type="submit" class="btn btn-success" value="Submit">
             </div>
         </form>
