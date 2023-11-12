@@ -83,4 +83,6 @@ public interface ITrailService {
      * @return - trail
      */
     Trail findTrailByID(int trailID);
+
+    List<Trail> fetchByTrailType(String trailType);
 }

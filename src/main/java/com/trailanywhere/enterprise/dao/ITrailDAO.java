@@ -63,4 +63,6 @@ public interface ITrailDAO {
      * @return - trail
      */
     Trail findTrailByID(int trailID);
+
+    List<Trail> fetchByTrailType(String trailType);
 }

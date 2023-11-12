@@ -146,4 +146,11 @@ public class TrailRepository implements ITrailDAO {
             return new Trail();
         }
     }
+
+    @Override
+    public List<Trail> fetchByTrailType(String trailType) {
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM Trail t WHERE t.trailType = :TRAIL_TYPE", Trail.class);
+        query.setParameter("TRAIL_TYPE", trailType);
+        return query.getResultList();
+    }
 }
