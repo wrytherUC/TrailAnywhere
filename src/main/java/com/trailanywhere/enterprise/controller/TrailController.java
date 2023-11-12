@@ -4,8 +4,10 @@ import com.trailanywhere.enterprise.dto.Alert;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.LabelValue;
 import com.trailanywhere.enterprise.dto.Trail;
+import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.IAlertService;
 import com.trailanywhere.enterprise.service.ITrailService;
+import com.trailanywhere.enterprise.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,6 +39,9 @@ public class TrailController {
 
     @Autowired
     IAlertService alertService;
+
+    @Autowired
+    IUserService userService;
 
     private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
@@ -162,12 +167,132 @@ public class TrailController {
     }
 
     /**
+     * Get a user's favorite trails
+     * @param userID - user ID passed in from the client
+     * @return - list of favorite trails
+     */
+    @PostMapping("/getFavoriteTrails")
+    @ResponseBody
+    public List<Trail> getFavoriteTrails(int userID) {
+        return userService.fetchFavoriteTrails(userID);
+    }
+
+    /**
+     * Add a favorite trail
+     * @param trailID - trail
+     * @param userID - user
+     */
+    @PostMapping("/addFavoriteTrail")
+    @ResponseBody
+    public Trail addFavoriteTrail(int trailID, int userID) {
+        try {
+            Trail foundTrail = trailService.findTrailByID(trailID);
+            User foundUser = userService.findUserByID(userID);
+            userService.addFavoriteTrail(foundUser, foundTrail);
+            return foundTrail;
+        } catch(Exception e) {
+            logger.severe("Error adding favorite trail: " + e);
+            return new Trail();
+        }
+    }
+
+    /**
+     * Delete a trail
+     * @param trailID - trail
+     */
+    @PostMapping("/deleteFavoriteTrail")
+    @ResponseBody
+    public void deleteFavoriteTrail(int userID, int trailID) {
+        try {
+            userService.deleteFavoriteTrail(userID, trailID);
+        } catch(Exception e) {
+           logger.severe("Error deleting trail: " + e);
+        }
+    }
+
+    /**
+     * Autocomplete for only trail names. Used for favorites/alerts page.
+     * @param term - search term
+     * @return - list of trails
+     */
+    @GetMapping("/autocompleteTrailName")
+    @ResponseBody
+    public List<LabelValue> autocompleteTrailName(@RequestParam(value="term", required = false, defaultValue="") String term) {
+        List<Trail> allTrails = trailService.fetchAllTrails();
+        List<LabelValue> trailData = new ArrayList<>();
+        for (Trail trail : allTrails) {
+            LabelValue labelValue = new LabelValue();
+            if (trail.getName().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getName());
+                labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
+    }
+
+    /**
+     * Autocomplete for favorite trails
+     * @param userID - user ID
+     * @param term - search term
+     * @return - autocomplete
+     */
+    @PostMapping("/autocompleteFavoriteTrails")
+    @ResponseBody
+    public List<LabelValue> autocompleteFavoriteTrails(int userID, String term) {
+        List<Trail> allTrails = userService.fetchFavoriteTrails(userID);
+        List<LabelValue> trailData = new ArrayList<>();
+        for (Trail trail : allTrails) {
+            LabelValue labelValue = new LabelValue();
+            if (trail.getName().toLowerCase().contains(term.toLowerCase())) {
+                labelValue.setLabel(trail.getName());
+                labelValue.setValue(trail.getTrailID());
+                trailData.add(labelValue);
+            }
+        }
+        return trailData;
+    }
+
+    /**
      * Handle the login endpoint and return a page.
      * @return login page
      */
     @RequestMapping("/Login")
-    public String login() {
+    public String login(Model model) {
+        User user = new User();
+        model.addAttribute("User", user);
         return "Login";
+    }
+
+    /**
+     * Check if a user exists and output result in JSON
+     * @param email - user email
+     * @param password - user password
+     * @return - found user
+     */
+    @PostMapping("/loginUser")
+    @ResponseBody
+    public User loginUser(String email, String password) {
+        return userService.findUser(email, password);
+    }
+
+    /**
+     * Create a new user
+     * @param user - user
+     * @return - newly created user
+     * @throws Exception - handle errors
+     */
+    @PostMapping("/createUser")
+    @ResponseBody
+    public User createUser(User user) throws Exception {
+        User foundUser = userService.findExistingEmail(user.getEmail());
+        if (foundUser.getUserID() == 0) {
+            // Email doesn't exist, we can create this new user
+            return userService.save(user);
+        } else {
+            // Email already exists, return blank user
+            return new User();
+        }
     }
 
     /**
@@ -179,6 +304,11 @@ public class TrailController {
         return "CreateTrail";
     }
 
+    /**
+     * Comprehensive autocomplete to search for trail name, type, difficulty, and zip code
+     * @param term - search term
+     * @return - list of trails
+     */
     @GetMapping("/trailAutocomplete")
     @ResponseBody
     public List<LabelValue> trailAutocomplete(@RequestParam(value="term", required = false, defaultValue="") String term) {

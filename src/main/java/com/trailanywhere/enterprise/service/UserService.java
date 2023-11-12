@@ -5,6 +5,7 @@ import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.dto.UserFavoriteTrails;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.Objects;
 public class UserService implements IUserService {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<User> loggedInUsers = new ArrayList<>();
+    @Autowired
     private IUserDAO userDAO;
 
     /**
@@ -142,5 +144,15 @@ public class UserService implements IUserService {
     @Override
     public User findUserByID(int userID) {
         return userDAO.findUserByID(userID);
+    }
+
+    /**
+     * Check if an email already exists
+     * @param email - email
+     * @return - user
+     */
+    @Override
+    public User findExistingEmail(String email) {
+        return userDAO.findExistingEmail(email);
     }
 }

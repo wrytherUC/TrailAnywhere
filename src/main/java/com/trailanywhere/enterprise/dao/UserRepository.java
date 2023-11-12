@@ -147,4 +147,20 @@ public class UserRepository implements IUserDAO {
             return new User();
         }
     }
+
+    /**
+     * Check if an email already exists
+     * @param email - email
+     * @return - user
+     */
+    @Override
+    public User findExistingEmail(String email) {
+         try {
+             TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :USER", User.class);
+             query.setParameter("USER", email);
+             return query.getSingleResult();
+         } catch(Exception e) {
+             return new User();
+         }
+    }
 }
