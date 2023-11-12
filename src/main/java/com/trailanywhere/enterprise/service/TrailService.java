@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trailanywhere.enterprise.dao.ITrailDAO;
 import com.trailanywhere.enterprise.dto.Trail;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -57,6 +59,7 @@ public class TrailService implements ITrailService {
      * @return - list of trails
      */
     @Override
+    @Cacheable("trails")
     public List<Trail> fetchAllTrails() {
         return trailDAO.fetchAllTrails();
     }
@@ -87,6 +90,7 @@ public class TrailService implements ITrailService {
      * @return - JSON containing weather data
      */
     @Override
+    @Cacheable("weatherByZipCode")
     public JsonNode getCurrentWeatherByZipCode(String zipCode) {
         Trail trailOne = new Trail();
         trailOne.setZipCode(zipCode);
@@ -123,6 +127,7 @@ public class TrailService implements ITrailService {
      * @return - JSON containing weather data
      */
     @Override
+    @Cacheable("weather")
     public JsonNode getCurrentWeather(String latitude, String longitude) {
         // Build URL string
         String apiURL = "https://api.open-meteo.com/v1/forecast";
