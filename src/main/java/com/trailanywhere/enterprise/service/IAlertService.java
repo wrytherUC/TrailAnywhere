@@ -1,8 +1,6 @@
 package com.trailanywhere.enterprise.service;
 
 import com.trailanywhere.enterprise.dto.Alert;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IAlertService {
