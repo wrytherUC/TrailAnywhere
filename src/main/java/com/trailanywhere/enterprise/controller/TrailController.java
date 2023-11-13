@@ -102,7 +102,7 @@ public class TrailController {
     }
 
     @RequestMapping("/searchType")
-    public String searchType(@RequestParam(value="searchType", required=false, defaultValue="None")  String searchType, Model model) {
+    public String searchType(@RequestParam(value="searchType", required=false, defaultValue="None")  String searchType) {
         if (searchType.toLowerCase().contains("name")) {
             return "TrailFinder-Name";
         } else if (searchType.toLowerCase().contains("type")) {
