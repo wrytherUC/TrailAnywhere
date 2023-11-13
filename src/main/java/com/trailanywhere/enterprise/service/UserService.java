@@ -3,7 +3,6 @@ package com.trailanywhere.enterprise.service;
 import com.trailanywhere.enterprise.dao.IUserDAO;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
-import com.trailanywhere.enterprise.dto.UserFavoriteTrails;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
