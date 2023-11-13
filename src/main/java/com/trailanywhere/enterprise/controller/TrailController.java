@@ -458,4 +458,29 @@ public class TrailController {
         return trailService.fetchAllTrails();
     }
 
+    @PostMapping("/addTrailAlert")
+    @ResponseBody
+    public ModelAndView addTrailAlert(@RequestParam(value = "alert", required = false, defaultValue = "None")String alert,
+                               @RequestParam(value = "trailName", required = false, defaultValue = "None")String trailName,
+                               @RequestParam(value = "userName", required = false, defaultValue = "None")String userName
+                               ) throws Exception {
+       try {
+            Alert newAlert = new Alert();
+            newAlert.setAlertText(alert);
+
+            Trail trail = trailService.fetchByTrailName(trailName);
+            newAlert.setTrail(trail);
+
+            User user = userService.findUserByName(userName);
+            newAlert.setUser(user);
+
+            alertService.save(newAlert);
+
+            return alertsByTrailId(trail.getTrailID());
+
+        } catch (Exception e) {
+            logger.severe("Error adding trail alert: " + e);
+           return null;
+        }
+    }
 }
