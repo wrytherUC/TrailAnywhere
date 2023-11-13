@@ -131,6 +131,7 @@ public class UserService implements IUserService {
      * @param userID - User
      * @param trailID - Trail to be unfavorited
      */
+
     @Override
     public void deleteFavoriteTrail(int userID, int trailID) {
         userDAO.deleteFavoriteTrail(userID, trailID);
@@ -145,6 +146,8 @@ public class UserService implements IUserService {
     public User findUserByID(int userID) {
         return userDAO.findUserByID(userID);
     }
+
+    public User findUserByName(String name) { return userDAO.findUserByName(name); }
 
     /**
      * Check if an email already exists
