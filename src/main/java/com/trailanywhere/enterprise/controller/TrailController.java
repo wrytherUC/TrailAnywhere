@@ -23,9 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 /**
  * This controller will handle all Trail endpoints.
