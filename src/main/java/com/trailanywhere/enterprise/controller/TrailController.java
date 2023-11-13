@@ -467,7 +467,20 @@ public class TrailController {
 
             alertService.save(newAlert);
 
-            return alertsByTrailId(trail.getTrailID());
+           ModelAndView modelAndView = new ModelAndView("redirect:/alertsByTrailId/{trailID}/");
+           Map<Trail, String> trailDetails = new HashMap<>();
+
+           List<Alert> foundAlerts = alertService.findAlertsForTrail(trail.getTrailID());
+           Trail foundTrail = trailService.findTrailByID(trail.getTrailID());
+
+           JsonNode node = trailService.getCurrentWeather(foundTrail.getLatitude(), foundTrail.getLongitude());
+           trailDetails.put(foundTrail, node.at("/current_weather/temperature").asText());
+
+           modelAndView.addObject("trailID", trail.getTrailID());
+           modelAndView.addObject("foundAlerts", foundAlerts);
+           modelAndView.addObject("trailDetails", trailDetails);
+
+           return modelAndView;
 
         } catch (Exception e) {
             logger.severe("Error adding trail alert: " + e);
