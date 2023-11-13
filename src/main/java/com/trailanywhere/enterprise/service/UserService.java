@@ -3,7 +3,6 @@ package com.trailanywhere.enterprise.service;
 import com.trailanywhere.enterprise.dao.IUserDAO;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
-import com.trailanywhere.enterprise.dto.UserFavoriteTrails;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,6 +130,7 @@ public class UserService implements IUserService {
      * @param userID - User
      * @param trailID - Trail to be unfavorited
      */
+
     @Override
     public void deleteFavoriteTrail(int userID, int trailID) {
         userDAO.deleteFavoriteTrail(userID, trailID);
@@ -145,6 +145,8 @@ public class UserService implements IUserService {
     public User findUserByID(int userID) {
         return userDAO.findUserByID(userID);
     }
+
+    public User findUserByName(String name) { return userDAO.findUserByName(name); }
 
     /**
      * Check if an email already exists

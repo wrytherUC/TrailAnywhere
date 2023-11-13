@@ -2,7 +2,6 @@ package com.trailanywhere.enterprise.dao;
 
 import com.trailanywhere.enterprise.dto.Trail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

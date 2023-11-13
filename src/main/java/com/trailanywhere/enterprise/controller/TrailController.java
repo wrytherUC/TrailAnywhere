@@ -21,12 +21,8 @@ import java.util.logging.Level;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 /**
  * This controller will handle all Trail endpoints.
@@ -103,7 +99,7 @@ public class TrailController {
     }
 
     @RequestMapping("/searchType")
-    public String searchType(@RequestParam(value="searchType", required=false, defaultValue="None")  String searchType, Model model) {
+    public String searchType(@RequestParam(value="searchType", required=false, defaultValue="None")  String searchType) {
         if (searchType.toLowerCase().contains("name")) {
             return "TrailFinder-Name";
         } else if (searchType.toLowerCase().contains("type")) {
@@ -121,11 +117,6 @@ public class TrailController {
     @GetMapping("/trails")
     public String searchTrailsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
         searchTerm = searchTerm.trim();
-        
-        String regex = ".*\\d{5}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher m = pattern.matcher(searchTerm);
-        boolean b = m.matches();
 
         List<Trail> allTrails = trailService.fetchAllTrails();
         List<Trail> trails = null;
@@ -458,4 +449,42 @@ public class TrailController {
         return trailService.fetchAllTrails();
     }
 
+    @PostMapping("/addTrailAlert")
+    @ResponseBody
+    public ModelAndView addTrailAlert(@RequestParam(value = "alert", required = false, defaultValue = "None")String alert,
+                               @RequestParam(value = "trailName", required = false, defaultValue = "None")String trailName,
+                               @RequestParam(value = "userName", required = false, defaultValue = "None")String userName
+                               ) throws Exception {
+       try {
+            Alert newAlert = new Alert();
+            newAlert.setAlertText(alert);
+
+            Trail trail = trailService.fetchByTrailName(trailName);
+            newAlert.setTrail(trail);
+
+            User user = userService.findUserByName(userName);
+            newAlert.setUser(user);
+
+            alertService.save(newAlert);
+
+           ModelAndView modelAndView = new ModelAndView("redirect:/alertsByTrailId/{trailID}/");
+           Map<Trail, String> trailDetails = new HashMap<>();
+
+           List<Alert> foundAlerts = alertService.findAlertsForTrail(trail.getTrailID());
+           Trail foundTrail = trailService.findTrailByID(trail.getTrailID());
+
+           JsonNode node = trailService.getCurrentWeather(foundTrail.getLatitude(), foundTrail.getLongitude());
+           trailDetails.put(foundTrail, node.at("/current_weather/temperature").asText());
+
+           modelAndView.addObject("trailID", trail.getTrailID());
+           modelAndView.addObject("foundAlerts", foundAlerts);
+           modelAndView.addObject("trailDetails", trailDetails);
+
+           return modelAndView;
+
+        } catch (Exception e) {
+            logger.severe("Error adding trail alert: " + e);
+           return null;
+        }
+    }
 }
