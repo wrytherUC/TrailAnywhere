@@ -80,6 +80,8 @@ public interface IUserService {
      */
     User findUserByID(int userID);
 
+    User findUserByName(String name);
+
     /**
      * Check if an email already exists
      * @param email - email

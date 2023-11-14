@@ -148,6 +148,18 @@ public class UserRepository implements IUserDAO {
         }
     }
 
+    @Override
+    public User findUserByName(String name) {
+        try {
+            TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.name = :USER", User.class);
+            query.setParameter("USER", name);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            // If query fails to validate user, return an empty object
+            return new User();
+        }
+    }
+
     /**
      * Check if an email already exists
      * @param email - email

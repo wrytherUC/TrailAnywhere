@@ -73,16 +73,25 @@
 <div class="container alerts">
     <div class="add">
         <h3>Add Alert</h3>
-        <form method="POST">
+        <form method="POST" action="#" th:action="@{/addTrailAlert}">
+
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput2" name="Trail_Name" placeholder="x" required>
+                <input type="text" class="form-control" id="floatingInput3" name="alert" placeholder="x" required>
+                <label for="floatingInput3">Alert</label>
+            </div>
+
+            <div class="form-floating mb-3" th:each="trail : ${trailDetails}">
+                <!-- Write your comments here <input type="text" class="form-control" id="floatingInput2" name="Trail_Name" placeholder="x" required> Write your comments here -->
+                <input type="text" class="form-control" id="floatingInput2" name="trailName" th:value="${trail.key.name}" /> <!-- th:attr="name='quizID'" -->
                 <label for="floatingInput2">Trail Name</label>
             </div>
+
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput3" name="Alert" placeholder="x" required>
-                <label for="floatingInput3">Alert</label>
+                <input type="text" class="form-control" id="floatingInput6" name="userName" value="Jacob" required>
+                <label for="floatingInput6">User</label>
                 <input type="submit" class="btn btn-success" value="Submit">
             </div>
+
         </form>
     </div>
     <div class="end">
