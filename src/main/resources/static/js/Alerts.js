@@ -35,6 +35,7 @@ function addTrailAlert() {
             console.log(data);
             if (data.alertID !== 0 ) {
                 result = true;
+                location.reload();
             } else {
                 displayMessage(alertMessage, "Failed to add alert.");
             }
@@ -49,13 +50,15 @@ function addTrailAlert() {
  * Delete an alert
  */
 function deleteTrailAlert() {
-    // Get trail ID from page link
-    const segments = new URL(window.location.href).pathname.split('/');
-    const trailID = segments.pop() || segments.pop(); // Handle potential trailing slash
-
-    // Post data to controller
+    const dropdown = document.getElementById("deleteAlert").value;
     try {
-        
+        if (dropdown !== 0) {
+            $.post("/deleteAlert", {
+                alertID: dropdown
+            }, function() {
+                location.reload();
+            });
+        }
     } catch(e) {
         console.log(e);
     }

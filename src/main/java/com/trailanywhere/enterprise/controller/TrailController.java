@@ -498,4 +498,18 @@ public class TrailController {
         }
         return alertData;
     }
+
+    /**
+     * Endpoint for deleting an alert
+     * @param alertID - alert to be deleted
+     */
+    @PostMapping("/deleteAlert")
+    @ResponseBody
+    public void deleteAlert(int alertID) {
+        try {
+            alertService.delete(alertID);
+        } catch(Exception e) {
+            logger.severe("Error deleting alert: " + e);
+        }
+    }
 }
