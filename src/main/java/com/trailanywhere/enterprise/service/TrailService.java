@@ -59,7 +59,7 @@ public class TrailService implements ITrailService {
      * @return - list of trails
      */
     @Override
-    @Cacheable("trails")
+    // @Cacheable("trails")
     public List<Trail> fetchAllTrails() {
         return trailDAO.fetchAllTrails();
     }
