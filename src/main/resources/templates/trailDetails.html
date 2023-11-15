@@ -40,18 +40,14 @@
             <td th:text="*{trail.value + '°F'}"></td>
         </tr>
     </table>
-        <div class="text-center mt-3">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add To Favorites</button>
+    <div class="text-center mt-3">
+        <div id="addFavoriteMessage" class="alert d-none" role="alert">
+            Added trail to favorites.
         </div>
+        <button id="addFavorites" class="btn btn-outline-success my-2 my-sm-0" type="submit">Add To Favorites</button>
+    </div>
 </div>
 
-<!-- Below is the possible future logic for adding a favorite trail based on what the user clicked on using a button - as of right now it doesn't work properly
-<div class="addFav">
-    <form id="addFavoriteForm" method="POST">
-        <button type="button" class="btn btn-success" th:onclick="|addFavorite('${trail.key.name}', '${trail.key.zipCode}')|">Add to Favorites</button>
-    </form>
-</div>
--->
 <h2>Alert Details</h2>
 
 <div class="center-table">
@@ -74,37 +70,28 @@
 <div class="container alerts">
     <div class="add">
         <h3>Add Alert</h3>
-        <form method="POST" action="#" th:action="@{/addTrailAlert}">
-
+        <div id="addAlertMessage" class="alert d-none" role="alert">
+            message
+        </div>
+        <form method="POST" onsubmit="return addTrailAlert()">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput3" name="alert" placeholder="x" required>
-                <label for="floatingInput3">Alert</label>
+                <input type="text" class="form-control" id="alertText" name="alert" placeholder="x" required>
+                <label for="alertText">Alert</label>
             </div>
-
-            <div class="form-floating mb-3" th:each="trail : ${trailDetails}">
-                <!-- Write your comments here <input type="text" class="form-control" id="floatingInput2" name="Trail_Name" placeholder="x" required> Write your comments here -->
-                <input type="text" class="form-control" id="floatingInput2" name="trailName" th:value="${trail.key.name}" /> <!-- th:attr="name='quizID'" -->
-                <label for="floatingInput2">Trail Name</label>
-            </div>
-
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput6" name="userName" value="Jacob" required>
-                <label for="floatingInput6">User</label>
-                <input type="submit" class="btn btn-success" value="Submit">
-            </div>
-
         </form>
     </div>
     <div class="end">
         <h3>End Alert</h3>
-        <form method="POST">
+        <div id="deleteAlertMessage" class="alert d-none" role="alert">
+            message
+        </div>
+        <form method="POST" onsubmit="return deleteTrailAlert()">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput4" name="Trail_Name" placeholder="x" required>
+                <input type="hidden" id="trailID">
                 <label for="floatingInput4">Trail Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput5" name="Alert" placeholder="x" required>
-                <label for="floatingInput5">User</label>
                 <input type="submit" class="btn btn-success" value="Submit">
             </div>
         </form>
