@@ -7,6 +7,7 @@ import com.trailanywhere.enterprise.dto.Trail;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +60,7 @@ public class TrailService implements ITrailService {
      * @return - list of trails
      */
     @Override
-    @Cacheable("trails")
+    @CachePut(value="trails")
     public List<Trail> fetchAllTrails() {
         return trailDAO.fetchAllTrails();
     }
