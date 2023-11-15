@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // Populate dropdown menu with a user's alerts for the current trail
+    alertDropdown();
+});
+
 /**
  * Add a new alert
  */
@@ -44,16 +49,52 @@ function addTrailAlert() {
  * Delete an alert
  */
 function deleteTrailAlert() {
-    // Get trail ID
+    // Get trail ID from page link
+    const segments = new URL(window.location.href).pathname.split('/');
+    const trailID = segments.pop() || segments.pop(); // Handle potential trailing slash
 
     // Post data to controller
+    try {
+        
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 /**
  * Autocomplete a user's alerts
  */
-function alertAutocomplete() {
-    // Get a user's alerts and populate it into textboxes
+function alertDropdown() {
+    const dropdown = document.getElementById("deleteAlert");
+    let userID = 0;
+    if (sessionStorage.getItem("userID") !== null) {
+        userID = sessionStorage.getItem("userID");
+    } else {
+        // Empty dropdown menu "Login to view your alerts"
+        dropdown.options[0] = new Option("Log in to view your alerts.", "0");
+        return; // Exit function
+    }
+    // Get trail ID from page link
+    const segments = new URL(window.location.href).pathname.split('/');
+    const trailID = segments.pop() || segments.pop(); // Handle potential trailing slash
+
+    try {
+        $.post("/getUserAlerts", {
+            trailID: trailID,
+            userID: userID
+        }, function(data) {
+            if (data.length !== 0 ) {
+                // Populate dropdown menu
+                for (let i = 0; i < data.length; i++) {
+                    dropdown.options[i] = new Option(data[i].label, data[i].value);
+                }
+            } else {
+                dropdown.options[0] = new Option("You have no alerts for this trail.", "0");
+            }
+        });
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 /**

@@ -450,6 +450,13 @@ public class TrailController {
     }
 
 
+    /**
+     * Save an alert
+     * @param trailID - trail
+     * @param userID - user
+     * @param alertText - alert message
+     * @return - saved alert
+     */
     @PostMapping("/addTrailAlert")
     @ResponseBody
     public Alert addTrailAlert(int trailID, int userID, String alertText) {
@@ -468,5 +475,27 @@ public class TrailController {
             logger.severe("Error adding trail alert: " + e);
            return new Alert();
         }
+    }
+
+    /**
+     * Populate select box with a user's alerts
+     * @param trailID - trail
+     * @param userID - user
+     * @return - alerts
+     */
+    @PostMapping("/getUserAlerts")
+    @ResponseBody
+    public List<LabelValue> getUserAlerts(int trailID, int userID) {
+        List<Alert> alerts = alertService.findAlertsForTrail(trailID);
+        List<LabelValue> alertData = new ArrayList<>();
+        for (Alert alert : alerts) {
+            if (alert.getUser().getUserID() == userID) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(alert.getAlertText());
+                labelValue.setValue(alert.getAlertID());
+                alertData.add(labelValue);
+            }
+        }
+        return alertData;
     }
 }
