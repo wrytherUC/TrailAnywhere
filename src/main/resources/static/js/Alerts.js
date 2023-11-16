@@ -3,6 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
     alertDropdown();
 });
 
+const addFavoritesButton = document.getElementById("addFavorites");
+addFavoritesButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    addFavoriteTrail();
+});
+
 /**
  * Add a new alert
  */
@@ -20,6 +26,7 @@ function addTrailAlert() {
         } else {
             // Redirect to login page
             window.location.href = "/Login";
+            return result;
         }
 
         // Get form data
@@ -37,7 +44,7 @@ function addTrailAlert() {
                 result = true;
                 location.reload();
             } else {
-                displayMessage(alertMessage, "Failed to add alert.");
+                displayMessage(alertMessage, "Failed to add alert.", false);
             }
         });
     } catch(e) {
@@ -104,24 +111,67 @@ function alertDropdown() {
  * Display errors to the user
  * @param message - message element
  * @param messageText - message text
+ * @param result - error or success
  */
-function displayMessage(message, messageText) {
-    // Unhide message element
+function displayMessage(message, messageText, result) {
+    if (result) {
+        if (message.classList.contains("d-none") || message.classList.contains("alert-danger")) {
+            message.classList.remove("d-none");
+            message.classList.remove("alert-danger");
+            message.classList.add("d-block");
+            message.classList.add("alert-success");
+            message.innerText = messageText;
+        }
+    } else {
+        if (message.classList.contains("d-none") || message.classList.contains("alert-success")) {
+            message.classList.remove("d-none");
+            message.classList.remove("alert-success");
+            message.classList.add("d-block");
+            message.classList.add("alert-danger");
+            message.innerText = messageText;
+        }
+    }
 
-    // Set properties to display
-
-    // Hide after 5 seconds
+    // Hide message after 5 seconds
+    setTimeout(() => {
+        if (message.classList.contains("d-block")) {
+            message.classList.remove("d-block");
+            message.classList.add("d-none");
+        }
+    }, 5000);
 }
 
 /**
  * Add trail to favorites
  */
 function addFavoriteTrail() {
-    // Get trail ID
+    // Get trail ID from page link
+    const segments = new URL(window.location.href).pathname.split('/');
+    const trailID = segments.pop() || segments.pop(); // Handle potential trailing slash
 
     // Get user ID
+    let userID = 0;
+    if (sessionStorage.getItem("userID") !== null) {
+        userID = sessionStorage.getItem("userID");
+    } else {
+        window.location.href = "/Login";
+        return;
+    }
 
+    const message = document.getElementById("addFavoriteMessage");
     // Post data to controller
-
-    // Display success message
+    try {
+        $.post("/addFavoriteTrail", {
+            trailID: trailID,
+            userID: userID
+        }, function(data) {
+            if (data.trailID !== 0) {
+                displayMessage(message, "Successfully added this trail to favorites.", true);
+            } else {
+                displayMessage(message, "Failed to add this trail to favorites.", false);
+            }
+        });
+    } catch(e) {
+        console.log(e);
+    }
 }
