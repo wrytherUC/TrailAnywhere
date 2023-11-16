@@ -18,9 +18,16 @@
 <h2>Trail Finder</h2>
 
 <div class="container">
-    <form class="form-inline" action="#" th:action="@{/searchType}"  method="GET">
-        <input class="form-control mr-sm-2" type="search" placeholder="Find trails by name, type, difficulty, or zip code" aria-label="Search"  name="searchType">
-        <p>Type in the trail search type to narrow down results</p>
+    <form class="form-inline" action="#" th:action="@{/searchType}" method="GET">
+        <div class="form-group">
+            <select class="form-control mr-sm-2" name="searchType">
+                <option value="name">Name</option>
+                <option value="type">Type</option>
+                <option value="difficulty">Difficulty</option>
+                <option value="zipCode">Zip Code</option>
+            </select>
+        </div>
+        <p>Select a search type to narrow down results</p>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 </div>
