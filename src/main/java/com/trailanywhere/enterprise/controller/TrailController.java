@@ -449,42 +449,67 @@ public class TrailController {
         return trailService.fetchAllTrails();
     }
 
+
+    /**
+     * Save an alert
+     * @param trailID - trail
+     * @param userID - user
+     * @param alertText - alert message
+     * @return - saved alert
+     */
     @PostMapping("/addTrailAlert")
     @ResponseBody
-    public ModelAndView addTrailAlert(@RequestParam(value = "alert", required = false, defaultValue = "None")String alert,
-                               @RequestParam(value = "trailName", required = false, defaultValue = "None")String trailName,
-                               @RequestParam(value = "userName", required = false, defaultValue = "None")String userName
-                               ) throws Exception {
+    public Alert addTrailAlert(int trailID, int userID, String alertText) {
        try {
             Alert newAlert = new Alert();
-            newAlert.setAlertText(alert);
+            newAlert.setAlertText(alertText);
 
-            Trail trail = trailService.fetchByTrailName(trailName);
+            Trail trail = trailService.findTrailByID(trailID);
             newAlert.setTrail(trail);
 
-            User user = userService.findUserByName(userName);
+            User user = userService.findUserByID(userID);
             newAlert.setUser(user);
 
-            alertService.save(newAlert);
-
-           ModelAndView modelAndView = new ModelAndView("redirect:/alertsByTrailId/{trailID}/");
-           Map<Trail, String> trailDetails = new HashMap<>();
-
-           List<Alert> foundAlerts = alertService.findAlertsForTrail(trail.getTrailID());
-           Trail foundTrail = trailService.findTrailByID(trail.getTrailID());
-
-           JsonNode node = trailService.getCurrentWeather(foundTrail.getLatitude(), foundTrail.getLongitude());
-           trailDetails.put(foundTrail, node.at("/current_weather/temperature").asText());
-
-           modelAndView.addObject("trailID", trail.getTrailID());
-           modelAndView.addObject("foundAlerts", foundAlerts);
-           modelAndView.addObject("trailDetails", trailDetails);
-
-           return modelAndView;
-
+            return alertService.save(newAlert);
         } catch (Exception e) {
             logger.severe("Error adding trail alert: " + e);
-           return null;
+           return new Alert();
+        }
+    }
+
+    /**
+     * Populate select box with a user's alerts
+     * @param trailID - trail
+     * @param userID - user
+     * @return - alerts
+     */
+    @PostMapping("/getUserAlerts")
+    @ResponseBody
+    public List<LabelValue> getUserAlerts(int trailID, int userID) {
+        List<Alert> alerts = alertService.findAlertsForTrail(trailID);
+        List<LabelValue> alertData = new ArrayList<>();
+        for (Alert alert : alerts) {
+            if (alert.getUser().getUserID() == userID) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(alert.getAlertText());
+                labelValue.setValue(alert.getAlertID());
+                alertData.add(labelValue);
+            }
+        }
+        return alertData;
+    }
+
+    /**
+     * Endpoint for deleting an alert
+     * @param alertID - alert to be deleted
+     */
+    @PostMapping("/deleteAlert")
+    @ResponseBody
+    public void deleteAlert(int alertID) {
+        try {
+            alertService.delete(alertID);
+        } catch(Exception e) {
+            logger.severe("Error deleting alert: " + e);
         }
     }
 }
