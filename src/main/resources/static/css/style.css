@@ -270,3 +270,12 @@ tr {
 .btn-outline-success.my-2.my-sm-0 {
     margin-top: 1px !important;
 }
+
+/* Style for the addFavoriteMessage alert */
+#addFavoriteMessage {
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 7px;
+    padding: 10px;
+}
