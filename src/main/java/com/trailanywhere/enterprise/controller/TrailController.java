@@ -152,6 +152,19 @@ public class TrailController {
 
     }
 
+    @GetMapping("/trailsByName")
+    public String trailsByName(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+
+        searchTerm = searchTerm.trim();
+        Trail trail;
+
+        trail = trailService.fetchByTrailName(searchTerm);
+
+        model.addAttribute("trails", trail);
+        return "trails";
+
+    }
+
     @GetMapping("/trailsByType")
     public String trailsByType(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
 
