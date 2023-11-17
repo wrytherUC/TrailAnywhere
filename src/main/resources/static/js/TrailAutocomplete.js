@@ -1,6 +1,6 @@
 $(function () {
     $("#autocompleteSearch").autocomplete({
-        source: "trailAutocomplete",
+        source: "/trailAutocomplete",
         minLength: 1,
         select: function(event, ui) {
             // Display trail name
