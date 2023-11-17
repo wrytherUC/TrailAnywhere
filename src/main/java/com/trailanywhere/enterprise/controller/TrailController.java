@@ -99,12 +99,25 @@ public class TrailController {
     }
 
     @RequestMapping("/searchType")
-    public String searchType(@RequestParam(value="searchType", required=false, defaultValue="None")  String searchType) {
+    public String searchType(@RequestParam(value="searchType", required=false, defaultValue="None")  String searchType, Model model) {
+
         if (searchType.toLowerCase().contains("name")) {
             return "TrailFinder-Name";
         } else if (searchType.toLowerCase().contains("type")) {
+            Set<String> allTrailTypes;
+
+            allTrailTypes = trailService.fetchAllTrailTypes();
+
+            model.addAttribute("allTrailTypes", allTrailTypes);
+
             return "TrailFinder-Type";
         } else if (searchType.toLowerCase().contains("difficulty")) {
+            Set<String> allTrailDifficulties;
+
+            allTrailDifficulties = trailService.fetchAllDifficultyTypes();
+
+            model.addAttribute("allTrailDifficulties", allTrailDifficulties);
+
             return "TrailFinder-Difficulty";
         } else if(searchType.toLowerCase().contains("zipcode") || searchType.toLowerCase().contains("zip code")) {
             return "TrailFinder-ZipCode";
@@ -148,6 +161,7 @@ public class TrailController {
         trails = trailService.fetchByDifficulty(searchTerm);
 
         model.addAttribute("trails", trails);
+
         return "trails";
 
     }

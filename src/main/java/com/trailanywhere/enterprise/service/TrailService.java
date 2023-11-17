@@ -15,7 +15,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Contains hardcoded data for unit testing.
@@ -199,6 +201,19 @@ public class TrailService implements ITrailService {
     @Override
     public List<Trail> fetchByTrailType(String trailType) {
         return trailDAO.fetchByTrailType(trailType);
+    }
+
+    @Override
+    public Set<String> fetchAllDifficultyTypes() {
+        Set<String> allTrailDifficulties;
+        allTrailDifficulties = new HashSet<>(trailDAO.fetchAllDifficultyTypes());
+        return allTrailDifficulties;
+    }
+
+    public Set<String> fetchAllTrailTypes() {
+        Set<String> allTrailTypes;
+        allTrailTypes = new HashSet<>(trailDAO.fetchAllTrailTypes());
+        return allTrailTypes;
     }
 
 }
