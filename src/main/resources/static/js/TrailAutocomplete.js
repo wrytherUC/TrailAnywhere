@@ -1,5 +1,5 @@
 $(function () {
-    $("#floatingInput").autocomplete({
+    $("#autocompleteSearch").autocomplete({
         source: "trailAutocomplete",
         minLength: 1,
         select: function(event, ui) {
