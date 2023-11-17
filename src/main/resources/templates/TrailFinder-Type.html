@@ -19,7 +19,11 @@
 
 <div class="container">
     <form class="form-inline" action="#" th:action="@{/trailsByType}"  method="GET">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search for a trail by type" aria-label="Search"  name="searchTerm" id="floatingInput">
+        <div class="form-group">
+            <select class="form-control mr-sm-2" name="searchTerm">
+                <option th:each="types : ${allTrailTypes}" th:value="${types}" th:text="${types}"></option>
+            </select>
+        </div>
         <p>(Example: Hiking)</p>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>

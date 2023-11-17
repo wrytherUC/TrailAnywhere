@@ -3,6 +3,7 @@ package com.trailanywhere.enterprise.dao;
 import com.trailanywhere.enterprise.dto.Trail;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Contains CRUD methods for trails
@@ -64,4 +65,8 @@ public interface ITrailDAO {
     Trail findTrailByID(int trailID);
 
     List<Trail> fetchByTrailType(String trailType);
+
+    List<String> fetchAllDifficultyTypes();
+
+    List<String> fetchAllTrailTypes();
 }
