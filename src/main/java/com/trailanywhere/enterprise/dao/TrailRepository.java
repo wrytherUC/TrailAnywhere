@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Handles CRUD operations for trails
@@ -151,6 +152,12 @@ public class TrailRepository implements ITrailDAO {
     public List<Trail> fetchByTrailType(String trailType) {
         TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM Trail t WHERE t.trailType = :TRAIL_TYPE", Trail.class);
         query.setParameter("TRAIL_TYPE", trailType);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<String> fetchAllDifficultyTypes() {
+        TypedQuery<String> query = entityManager.createQuery("SELECT t.difficulty FROM Trail t", String.class);
         return query.getResultList();
     }
 }

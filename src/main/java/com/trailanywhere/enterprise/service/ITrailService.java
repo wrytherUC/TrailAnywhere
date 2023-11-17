@@ -5,6 +5,7 @@ import com.trailanywhere.enterprise.dto.Trail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public interface ITrailService {
     /**
@@ -85,4 +86,6 @@ public interface ITrailService {
     Trail findTrailByID(int trailID);
 
     List<Trail> fetchByTrailType(String trailType);
+
+    Set<String> fetchAllDifficultyTypes();
 }
