@@ -210,4 +210,10 @@ public class TrailService implements ITrailService {
         return allTrailDifficulties;
     }
 
+    public Set<String> fetchAllTrailTypes() {
+        Set<String> allTrailTypes;
+        allTrailTypes = new HashSet<>(trailDAO.fetchAllTrailTypes());
+        return allTrailTypes;
+    }
+
 }

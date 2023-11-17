@@ -160,4 +160,9 @@ public class TrailRepository implements ITrailDAO {
         TypedQuery<String> query = entityManager.createQuery("SELECT t.difficulty FROM Trail t", String.class);
         return query.getResultList();
     }
+
+    public List<String> fetchAllTrailTypes() {
+        TypedQuery<String> query = entityManager.createQuery("SELECT t.trailType FROM Trail t", String.class);
+        return query.getResultList();
+    }
 }

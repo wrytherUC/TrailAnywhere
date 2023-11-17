@@ -67,4 +67,6 @@ public interface ITrailDAO {
     List<Trail> fetchByTrailType(String trailType);
 
     List<String> fetchAllDifficultyTypes();
+
+    List<String> fetchAllTrailTypes();
 }

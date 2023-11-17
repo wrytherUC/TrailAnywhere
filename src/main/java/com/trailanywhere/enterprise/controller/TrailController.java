@@ -104,6 +104,12 @@ public class TrailController {
         if (searchType.toLowerCase().contains("name")) {
             return "TrailFinder-Name";
         } else if (searchType.toLowerCase().contains("type")) {
+            Set<String> allTrailTypes;
+
+            allTrailTypes = trailService.fetchAllTrailTypes();
+
+            model.addAttribute("allTrailTypes", allTrailTypes);
+
             return "TrailFinder-Type";
         } else if (searchType.toLowerCase().contains("difficulty")) {
             Set<String> allTrailDifficulties;

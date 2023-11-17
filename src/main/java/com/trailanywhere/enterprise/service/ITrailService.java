@@ -88,4 +88,6 @@ public interface ITrailService {
     List<Trail> fetchByTrailType(String trailType);
 
     Set<String> fetchAllDifficultyTypes();
+
+    Set<String> fetchAllTrailTypes();
 }
