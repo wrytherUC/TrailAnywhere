@@ -1,10 +1,7 @@
 package com.trailanywhere.enterprise.controller;
 
-import com.trailanywhere.enterprise.dto.Alert;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.LabelValue;
 import com.trailanywhere.enterprise.dto.Trail;
-import com.trailanywhere.enterprise.dto.User;
 import com.trailanywhere.enterprise.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.logging.Level;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -68,6 +64,10 @@ public class TrailController {
         return foundTrail;
     }
 
+    /**
+     * Endpoint to show all trails
+     * @return - JSON of all trails
+     */
     @GetMapping("/trail")
     @ResponseBody
     public List<Trail> fetchAllTrails() {
@@ -75,6 +75,11 @@ public class TrailController {
     }
 
 
+    /**
+     * Endpoint to show a trail by its name
+     * @param name - trail name
+     * @return - trail JSON
+     */
     @GetMapping("/trail/{name}/")
     public ResponseEntity fetchTrailByName (@PathVariable("name") String name) {
         Trail foundTrail = trailService.fetchByTrailName(name);
@@ -83,6 +88,11 @@ public class TrailController {
         return new ResponseEntity(foundTrail, headers, HttpStatus.OK);
     }
 
+    /**
+     * Endpoint to delete a trail
+     * @param trailID - ID of trail
+     * @return - HTTP status
+     */
     @DeleteMapping("/trail/{trailID}/")
     public ResponseEntity deleteTrail(@PathVariable("trailID") int trailID) {
         logger.log(Level.INFO,"Entering delete trail endpoint" );
@@ -96,6 +106,12 @@ public class TrailController {
         }
     }
 
+    /**
+     * Link users to corresponding search pages
+     * @param searchType - search term
+     * @param model - model
+     * @return - view
+     */
     @RequestMapping("/searchType")
     public String searchType(@RequestParam(value="searchType", required=false, defaultValue="None")  String searchType, Model model) {
 
@@ -125,6 +141,12 @@ public class TrailController {
         }
     }
 
+    /**
+     * Show search results
+     * @param searchTerm - search term
+     * @param model - model
+     * @return - view and trails
+     */
     @GetMapping("/trails")
     public String searchTrailsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
         searchTerm = searchTerm.trim();
@@ -150,6 +172,12 @@ public class TrailController {
 
     }
 
+    /**
+     * Get all trails by their difficulty
+     * @param searchTerm - search term
+     * @param model - model
+     * @return - view and trails
+     */
     @GetMapping("/trailsByDifficulty")
     public String trailsByDifficulty(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
 
@@ -164,6 +192,12 @@ public class TrailController {
 
     }
 
+    /**
+     * Get all trails by their name
+     * @param searchTerm - search term
+     * @param model - model
+     * @return - view and trails
+     */
     @GetMapping("/trailsByName")
     public String trailsByName(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
 
@@ -177,6 +211,12 @@ public class TrailController {
 
     }
 
+    /**
+     * Get all trails by the same type
+     * @param searchTerm - search term
+     * @param model - model
+     * @return - view and trails
+     */
     @GetMapping("/trailsByType")
     public String trailsByType(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
 
@@ -190,6 +230,12 @@ public class TrailController {
 
     }
 
+    /**
+     * Get all trails with the same zip code
+     * @param searchTerm - search term
+     * @param model - model
+     * @return - view and trails
+     */
     @GetMapping("/trailsByZipCode")
     public String trailsByZipCode(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
 
@@ -201,91 +247,6 @@ public class TrailController {
         model.addAttribute("trails", trails);
         return "trails";
 
-    }
-
-
-    @GetMapping("/alert")
-    @ResponseBody
-    public List<Alert> fetchAllAlerts() {
-        return alertService.fetchAllAlerts();
-    }
-
-    @GetMapping("/alert/{trailID}/")
-    public ResponseEntity fetchAlertByTrailId (@PathVariable("trailID") int trailID) {
-        List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(foundAlerts, headers, HttpStatus.OK);
-    }
-
-    @GetMapping("/alertsByTrailId/{trailID}/")
-    public ModelAndView alertsByTrailId (@PathVariable("trailID") int trailID) {
-        ModelAndView modelAndView = new ModelAndView();
-        Map<Trail, String> trailDetails = new HashMap<>();
-
-        modelAndView.setViewName("trailDetails");
-        List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
-        Trail foundTrail = trailService.findTrailByID(trailID);
-
-        JsonNode node = trailService.getCurrentWeather(foundTrail.getLatitude(), foundTrail.getLongitude());
-        trailDetails.put(foundTrail, node.at("/current_weather/temperature").asText());
-
-        modelAndView.addObject("foundAlerts", foundAlerts);
-        modelAndView.addObject("trailDetails", trailDetails);
-        return modelAndView;
-    }
-
-    /**
-     * Handle the favorites endpoint and return a page.
-     * @return favorites page
-     */
-    @RequestMapping("/Favorites")
-    public String favorites() {
-        return "Favorites";
-    }
-
-    /**
-     * Get a user's favorite trails
-     * @param userID - user ID passed in from the client
-     * @return - list of favorite trails
-     */
-    @PostMapping("/getFavoriteTrails")
-    @ResponseBody
-    public List<Trail> getFavoriteTrails(int userID) {
-        return userService.fetchFavoriteTrails(userID);
-    }
-
-    /**
-     * Add a favorite trail
-     * @param trailID - trail
-     * @param userID - user
-     */
-    @PostMapping("/addFavoriteTrail")
-    @ResponseBody
-    public Trail addFavoriteTrail(int trailID, int userID) {
-        try {
-            Trail foundTrail = trailService.findTrailByID(trailID);
-            User foundUser = userService.findUserByID(userID);
-            userService.addFavoriteTrail(foundUser, foundTrail);
-            return foundTrail;
-        } catch(Exception e) {
-            logger.severe("Error adding favorite trail: " + e);
-            return new Trail();
-        }
-    }
-
-    /**
-     * Delete a trail
-     * @param trailID - trail
-     */
-    @PostMapping("/deleteFavoriteTrail")
-    @ResponseBody
-    public void deleteFavoriteTrail(int userID, int trailID) {
-        try {
-            userService.deleteFavoriteTrail(userID, trailID);
-        } catch(Exception e) {
-           logger.severe("Error deleting trail: " + e);
-        }
     }
 
     /**
@@ -309,6 +270,11 @@ public class TrailController {
         return trailData;
     }
 
+    /**
+     * Get all trail difficulties
+     * @param term - search term
+     * @return - all difficulties
+     */
     @GetMapping("/autocompleteTrailDifficulty")
     @ResponseBody
     public Set<LabelValue> autocompleteTrailDifficulty(@RequestParam(value="term", required = false, defaultValue="") String term) {
@@ -324,6 +290,11 @@ public class TrailController {
         return trailData;
     }
 
+    /**
+     * Get all trail types
+     * @param term - search term
+     * @return - all trail types
+     */
     @GetMapping("/autocompleteTrailType")
     @ResponseBody
     public Set<LabelValue> autocompleteTrailType(@RequestParam(value="term", required = false, defaultValue="") String term) {
@@ -331,7 +302,7 @@ public class TrailController {
         Set<LabelValue> trailData = new HashSet<>();
         for (Trail trail : allTrails) {
             LabelValue labelValue = new LabelValue();
-            if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
+            if (trail.getTrailType().toLowerCase().contains(term.toLowerCase())) {
                 labelValue.setLabel(trail.getTrailType());
                 trailData.add(labelValue);
             }
@@ -339,6 +310,11 @@ public class TrailController {
         return trailData;
     }
 
+    /**
+     * Get all zip codes from trails
+     * @param term - search term
+     * @return - Hashset containing all zip codes
+     */
     @GetMapping("/autocompleteZipCode")
     @ResponseBody
     public Set<LabelValue> autocompleteZipCode(@RequestParam(value="term", required = false, defaultValue="") String term) {
@@ -346,76 +322,12 @@ public class TrailController {
         Set<LabelValue> trailData = new HashSet<>();
         for (Trail trail : allTrails) {
             LabelValue labelValue = new LabelValue();
-            if (trail.getDifficulty().toLowerCase().contains(term.toLowerCase())) {
+            if (trail.getZipCode().toLowerCase().contains(term.toLowerCase())) {
                 labelValue.setLabel(trail.getZipCode());
                 trailData.add(labelValue);
             }
         }
         return trailData;
-    }
-
-    /**
-     * Autocomplete for favorite trails
-     * @param userID - user ID
-     * @param term - search term
-     * @return - autocomplete
-     */
-    @PostMapping("/autocompleteFavoriteTrails")
-    @ResponseBody
-    public List<LabelValue> autocompleteFavoriteTrails(int userID, String term) {
-        List<Trail> allTrails = userService.fetchFavoriteTrails(userID);
-        List<LabelValue> trailData = new ArrayList<>();
-        for (Trail trail : allTrails) {
-            LabelValue labelValue = new LabelValue();
-            if (trail.getName().toLowerCase().contains(term.toLowerCase())) {
-                labelValue.setLabel(trail.getName());
-                labelValue.setValue(trail.getTrailID());
-                trailData.add(labelValue);
-            }
-        }
-        return trailData;
-    }
-
-    /**
-     * Handle the login endpoint and return a page.
-     * @return login page
-     */
-    @RequestMapping("/Login")
-    public String login(Model model) {
-        User user = new User();
-        model.addAttribute("User", user);
-        return "Login";
-    }
-
-    /**
-     * Check if a user exists and output result in JSON
-     * @param email - user email
-     * @param password - user password
-     * @return - found user
-     */
-    @PostMapping("/loginUser")
-    @ResponseBody
-    public User loginUser(String email, String password) {
-        return userService.findUser(email, password);
-    }
-
-    /**
-     * Create a new user
-     * @param user - user
-     * @return - newly created user
-     * @throws Exception - handle errors
-     */
-    @PostMapping("/createUser")
-    @ResponseBody
-    public User createUser(User user) throws Exception {
-        User foundUser = userService.findExistingEmail(user.getEmail());
-        if (foundUser.getUserID() == 0) {
-            // Email doesn't exist, we can create this new user
-            return userService.save(user);
-        } else {
-            // Email already exists, return blank user
-            return new User();
-        }
     }
 
     /**
@@ -472,69 +384,5 @@ public class TrailController {
     @ResponseBody
     public List<Trail> getTrailJSON() {
         return trailService.fetchAllTrails();
-    }
-
-
-    /**
-     * Save an alert
-     * @param trailID - trail
-     * @param userID - user
-     * @param alertText - alert message
-     * @return - saved alert
-     */
-    @PostMapping("/addTrailAlert")
-    @ResponseBody
-    public Alert addTrailAlert(int trailID, int userID, String alertText) {
-       try {
-            Alert newAlert = new Alert();
-            newAlert.setAlertText(alertText);
-
-            Trail trail = trailService.findTrailByID(trailID);
-            newAlert.setTrail(trail);
-
-            User user = userService.findUserByID(userID);
-            newAlert.setUser(user);
-
-            return alertService.save(newAlert);
-        } catch (Exception e) {
-            logger.severe("Error adding trail alert: " + e);
-           return new Alert();
-        }
-    }
-
-    /**
-     * Populate select box with a user's alerts
-     * @param trailID - trail
-     * @param userID - user
-     * @return - alerts
-     */
-    @PostMapping("/getUserAlerts")
-    @ResponseBody
-    public List<LabelValue> getUserAlerts(int trailID, int userID) {
-        List<Alert> alerts = alertService.findAlertsForTrail(trailID);
-        List<LabelValue> alertData = new ArrayList<>();
-        for (Alert alert : alerts) {
-            if (alert.getUser().getUserID() == userID) {
-                LabelValue labelValue = new LabelValue();
-                labelValue.setLabel(alert.getAlertText());
-                labelValue.setValue(alert.getAlertID());
-                alertData.add(labelValue);
-            }
-        }
-        return alertData;
-    }
-
-    /**
-     * Endpoint for deleting an alert
-     * @param alertID - alert to be deleted
-     */
-    @PostMapping("/deleteAlert")
-    @ResponseBody
-    public void deleteAlert(int alertID) {
-        try {
-            alertService.delete(alertID);
-        } catch(Exception e) {
-            logger.severe("Error deleting alert: " + e);
-        }
     }
 }
