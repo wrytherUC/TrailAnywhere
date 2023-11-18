@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.LabelValue;
 import com.trailanywhere.enterprise.dto.Trail;
 import com.trailanywhere.enterprise.dto.User;
-import com.trailanywhere.enterprise.service.IAlertService;
-import com.trailanywhere.enterprise.service.ITrailService;
-import com.trailanywhere.enterprise.service.IUserService;
+import com.trailanywhere.enterprise.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,13 +29,13 @@ import java.util.logging.Logger;
 public class TrailController {
 
     @Autowired
-    ITrailService trailService;
+    TrailService trailService;
 
     @Autowired
-    IAlertService alertService;
+    AlertService alertService;
 
     @Autowired
-    IUserService userService;
+    UserService userService;
 
     private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
