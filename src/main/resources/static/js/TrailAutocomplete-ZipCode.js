@@ -1,6 +1,6 @@
 $(function () {
     $("#floatingInput").autocomplete({
-        source: "trailAutocomplete",
+        source: "/autocompleteZipCode",
         minLength: 1,
         select: function(event, ui) {
             // Display trail name
