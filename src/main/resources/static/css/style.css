@@ -279,3 +279,23 @@ tr {
     margin-bottom: 7px;
     padding: 10px;
 }
+
+/* Position search bar in the navbar */
+#searchBar {
+    z-index: 10;
+    position: fixed;
+    top: 10px;
+    right: 100px;
+}
+
+/* Remove round edges when bordering search button */
+#searchBar input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Remove round edges when bordering search bar */
+#searchBar button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
