@@ -18,11 +18,11 @@ public interface IAlertService {
 
     /**
      * Create a new alert
-     * @param alert - alert data
+     * @param trailID -
      * @return - new alert
      * @throws Exception - handle errors
      */
-    Alert save(Alert alert) throws Exception;
+    Alert save(int trailID, int userID, String alertText) throws Exception;
 
     /**
      * Delete an alert
