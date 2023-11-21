@@ -90,16 +90,7 @@ public class AlertController {
     @ResponseBody
     public Alert addTrailAlert(int trailID, int userID, String alertText) {
         try {
-            Alert newAlert = new Alert();
-            newAlert.setAlertText(alertText);
-
-            Trail trail = trailService.findTrailByID(trailID);
-            newAlert.setTrail(trail);
-
-            User user = userService.findUserByID(userID);
-            newAlert.setUser(user);
-
-            return alertService.save(newAlert);
+            return alertService.save(trailID, userID, alertText);
         } catch (Exception e) {
             logger.severe("Error adding trail alert: " + e);
             return new Alert();
