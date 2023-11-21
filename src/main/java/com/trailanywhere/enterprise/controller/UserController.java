@@ -53,6 +53,13 @@ public class UserController {
     @ResponseBody
     public Trail addFavoriteTrail(int trailID, int userID) {
         try {
+            List<Trail> existingTrails = userService.fetchFavoriteTrails(userID);
+            for (Trail trail : existingTrails) {
+                if (trail.getTrailID() == trailID) {
+                    // If a trail has been added already, return empty trail
+                    return new Trail();
+                }
+            }
             Trail foundTrail = trailService.findTrailByID(trailID);
             User foundUser = userService.findUserByID(userID);
             userService.addFavoriteTrail(foundUser, foundTrail);
