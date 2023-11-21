@@ -7,7 +7,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name="Users") // "user" is a reserved keyword in SQL
