@@ -57,7 +57,7 @@ public class TrailRepository implements ITrailDAO {
     @Override
     @Transactional
     public void delete(int trailID) throws Exception {
-        Query query = entityManager.createQuery("DELETE FROM Trail t WHERE t.trailID = :TRAIL");
+        Query query = entityManager.createQuery("DELETE FROM Trail trail WHERE trail.trailID = :TRAIL");
         query.setParameter("TRAIL", trailID);
         query.executeUpdate();
     }
@@ -68,7 +68,7 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public List<Trail> fetchAllTrails() {
-        TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM Trail t", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT trail FROM Trail trail", Trail.class);
         return query.getResultList();
     }
 
@@ -80,7 +80,7 @@ public class TrailRepository implements ITrailDAO {
     @Override
     public Trail fetchByTrail(String trailName) {
         try {
-            TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.name = :NAME", Trail.class);
+            TypedQuery<Trail> query = entityManager.createQuery("SELECT trail from Trail trail WHERE trail.name = :NAME", Trail.class);
             query.setParameter("NAME", trailName);
             return query.getSingleResult();
         } catch(Exception e) {
@@ -97,7 +97,7 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public List<Trail> fetchByDifficulty(String difficulty) {
-        TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM Trail t WHERE t.difficulty = :DIFFICULTY", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT trail FROM Trail trail WHERE trail.difficulty = :DIFFICULTY", Trail.class);
         query.setParameter("DIFFICULTY", difficulty);
         return query.getResultList();
     }
@@ -109,7 +109,7 @@ public class TrailRepository implements ITrailDAO {
      */
     @Override
     public List<Trail> fetchByZipCode(String zipCode) {
-        TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM Trail t WHERE t.zipCode = :ZIP_CODE", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT trail FROM Trail trail WHERE trail.zipCode = :ZIP_CODE", Trail.class);
         query.setParameter("ZIP_CODE", zipCode);
         return query.getResultList();
     }
@@ -123,7 +123,7 @@ public class TrailRepository implements ITrailDAO {
     @Override
     public Trail fetchByCoordinates(String latitude, String longitude) {
         try {
-            TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.latitude = :LATITUDE AND t.longitude = :LONGITUDE", Trail.class);
+            TypedQuery<Trail> query = entityManager.createQuery("SELECT trail from Trail trail WHERE trail.latitude = :LATITUDE AND trail.longitude = :LONGITUDE", Trail.class);
             query.setParameter("LATITUDE", latitude);
             query.setParameter("LONGITUDE", longitude);
             return query.getSingleResult();
@@ -140,7 +140,7 @@ public class TrailRepository implements ITrailDAO {
     @Override
     public Trail findTrailByID(int trailID) {
         try {
-            TypedQuery<Trail> query = entityManager.createQuery("SELECT t from Trail t WHERE t.trailID = :TRAIL", Trail.class);
+            TypedQuery<Trail> query = entityManager.createQuery("SELECT trail from Trail trail WHERE trail.trailID = :TRAIL", Trail.class);
             query.setParameter("TRAIL", trailID);
             return query.getSingleResult();
         } catch(Exception e) {
@@ -150,19 +150,19 @@ public class TrailRepository implements ITrailDAO {
 
     @Override
     public List<Trail> fetchByTrailType(String trailType) {
-        TypedQuery<Trail> query = entityManager.createQuery("SELECT t FROM Trail t WHERE t.trailType = :TRAIL_TYPE", Trail.class);
+        TypedQuery<Trail> query = entityManager.createQuery("SELECT trail FROM Trail trail WHERE trail.trailType = :TRAIL_TYPE", Trail.class);
         query.setParameter("TRAIL_TYPE", trailType);
         return query.getResultList();
     }
 
     @Override
     public List<String> fetchAllDifficultyTypes() {
-        TypedQuery<String> query = entityManager.createQuery("SELECT t.difficulty FROM Trail t", String.class);
+        TypedQuery<String> query = entityManager.createQuery("SELECT trail.difficulty FROM Trail trail", String.class);
         return query.getResultList();
     }
 
     public List<String> fetchAllTrailTypes() {
-        TypedQuery<String> query = entityManager.createQuery("SELECT t.trailType FROM Trail t", String.class);
+        TypedQuery<String> query = entityManager.createQuery("SELECT trail.trailType FROM Trail trail", String.class);
         return query.getResultList();
     }
 }
