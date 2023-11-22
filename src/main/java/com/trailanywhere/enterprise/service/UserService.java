@@ -19,13 +19,13 @@ import java.util.Objects;
 public class UserService implements IUserService {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<User> loggedInUsers = new ArrayList<>();
-    @Autowired
     private IUserDAO userDAO;
 
     /**
      * Constructor using DAO
      * @param userDAO - Handle CRUD operations
      */
+    @Autowired
     public UserService(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }

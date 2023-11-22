@@ -16,13 +16,13 @@ import java.util.List;
 @NoArgsConstructor
 public class AlertService implements IAlertService {
     ArrayList<Alert> allAlerts = new ArrayList<>();
-    @Autowired
     private IAlertDAO alertDAO;
 
     /**
      * Constructor using DAO
      * @param alertDAO - DAO
      */
+    @Autowired
     public AlertService(IAlertDAO alertDAO) {
         this.alertDAO = alertDAO;
     }

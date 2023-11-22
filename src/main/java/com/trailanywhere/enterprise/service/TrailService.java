@@ -26,13 +26,13 @@ import java.util.Set;
 @NoArgsConstructor
 public class TrailService implements ITrailService {
 
-    @Autowired
     private ITrailDAO trailDAO;
 
     /**
      * Constructor for unit testing with Mockito
      * @param trailDAO
      */
+    @Autowired
     public TrailService(ITrailDAO trailDAO) {
         this.trailDAO = trailDAO;
     }

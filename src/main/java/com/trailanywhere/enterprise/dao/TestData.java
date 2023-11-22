@@ -14,12 +14,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestData {
 
-    @Autowired
     private ITrailDAO trailDAO;
-    @Autowired
     private IUserDAO userDAO;
-    @Autowired
     private IAlertDAO alertDAO;
+
+    @Autowired
+    public TestData(ITrailDAO trailDAO, IUserDAO userDAO, IAlertDAO alertDAO) {
+        this.trailDAO = trailDAO;
+        this.userDAO = userDAO;
+        this.alertDAO = alertDAO;
+    }
 
     /**
      * Insert user test data

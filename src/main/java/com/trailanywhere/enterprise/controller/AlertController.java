@@ -26,12 +26,17 @@ import java.util.logging.Logger;
  */
 @Controller
 public class AlertController {
-    @Autowired
     AlertService alertService;
-    @Autowired
     TrailService trailService;
-    @Autowired
     UserService userService;
+
+    @Autowired
+    public AlertController(AlertService alertService, TrailService trailService, UserService userService) {
+        this.alertService = alertService;
+        this.trailService = trailService;
+        this.userService = userService;
+    }
+
     private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
     /**
