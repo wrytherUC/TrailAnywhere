@@ -3,7 +3,6 @@ package com.trailanywhere.enterprise.dao;
 import com.trailanywhere.enterprise.dto.Trail;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Contains CRUD methods for trails

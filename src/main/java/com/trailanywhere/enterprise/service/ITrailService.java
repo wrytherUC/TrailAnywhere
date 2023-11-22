@@ -3,7 +3,6 @@ package com.trailanywhere.enterprise.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.trailanywhere.enterprise.dto.Trail;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
