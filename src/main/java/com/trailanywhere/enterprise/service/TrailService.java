@@ -17,6 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * Contains hardcoded data for unit testing.
@@ -27,6 +28,9 @@ public class TrailService implements ITrailService {
 
     @Autowired
     private ITrailDAO trailDAO;
+
+    // Initialize Logger
+    private static final Logger logger = Logger.getLogger(TrailService.class.getName());
 
     /**
      * Constructor for unit testing with Mockito
@@ -116,7 +120,7 @@ public class TrailService implements ITrailService {
             trailOne.setLatitude(node.at("/results/0/latitude").asText());
             trailOne.setLongitude(node.at("/results/0/longitude").asText());
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.severe("Exception occurred while fetching weather by zip code: " + e.getMessage());
         }
 
         return getCurrentWeather(trailOne.getLatitude(), trailOne.getLongitude());
@@ -150,7 +154,7 @@ public class TrailService implements ITrailService {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readTree(response.body());
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.severe("Exception occurred while fetching current weather: " + e.getMessage());
         }
         return null;
     }
