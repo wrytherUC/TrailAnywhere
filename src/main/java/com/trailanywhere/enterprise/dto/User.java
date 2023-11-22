@@ -33,6 +33,12 @@ public class User {
     @ToString.Exclude
     private List<Alert> alerts;
 
+    /**
+     * Implementation of the equals method for proper comparison of User instances.
+     *
+     * @param o The object to compare.
+     * @return true if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
