@@ -40,7 +40,7 @@ public class TrailController {
      * @return homepage
      */
     @RequestMapping("/")
-    public String index(Model model) {
+    public String index() {
         return "TrailFinder";
     }
 
@@ -81,11 +81,11 @@ public class TrailController {
      * @return - trail JSON
      */
     @GetMapping("/trail/{name}/")
-    public ResponseEntity fetchTrailByName (@PathVariable("name") String name) {
+    public ResponseEntity<Trail> fetchTrailByName (@PathVariable("name") String name) {
         Trail foundTrail = trailService.fetchByTrailName(name);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(foundTrail, headers, HttpStatus.OK);
+        return new ResponseEntity<>(foundTrail, headers, HttpStatus.OK);
     }
 
     /**
@@ -94,15 +94,15 @@ public class TrailController {
      * @return - HTTP status
      */
     @DeleteMapping("/trail/{trailID}/")
-    public ResponseEntity deleteTrail(@PathVariable("trailID") int trailID) {
+    public ResponseEntity<Trail> deleteTrail(@PathVariable("trailID") int trailID) {
         logger.log(Level.INFO,"Entering delete trail endpoint" );
         try {
             trailService.delete(trailID);
             logger.log(Level.INFO,"Trail with ID " + trailID + " was deleted." );
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             logger.log(Level.WARNING, "Unable to delete trail with name: " + trailID + ". Message: " + e.getMessage(), e);
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
