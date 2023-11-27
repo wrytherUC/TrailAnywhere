@@ -50,7 +50,7 @@ public class AlertController {
      * @return - alerts JSON
      */
     @GetMapping("/alert/{trailID}/")
-    public ResponseEntity fetchAlertByTrailId (@PathVariable("trailID") int trailID) {
+    public ResponseEntity<List<Alert>> fetchAlertByTrailId (@PathVariable("trailID") int trailID) {
         List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
