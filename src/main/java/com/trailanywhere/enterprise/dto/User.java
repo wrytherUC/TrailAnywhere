@@ -7,7 +7,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name="Users") // "user" is a reserved keyword in SQL
@@ -33,11 +32,17 @@ public class User {
     @ToString.Exclude
     private List<Alert> alerts;
 
+    /**
+     * Implementation of the equals method for proper comparison of User instances.
+     *
+     * @param o The object to compare.
+     * @return true if the objects are equal, false otherwise.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        User user = (User) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || Hibernate.getClass(this) != Hibernate.getClass(object)) return false;
+        User user = (User) object;
         return userID == user.userID;
     }
 

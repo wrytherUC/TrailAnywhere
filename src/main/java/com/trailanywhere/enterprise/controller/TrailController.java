@@ -42,7 +42,7 @@ public class TrailController {
      * @return homepage
      */
     @RequestMapping("/")
-    public String index(Model model) {
+    public String index() {
         return "TrailFinder";
     }
 
@@ -87,7 +87,11 @@ public class TrailController {
         Trail foundTrail = trailService.fetchByTrailName(name);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(foundTrail, headers, HttpStatus.OK);
+        if (foundTrail != null) {
+            return new ResponseEntity(foundTrail, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Trail not found", headers, HttpStatus.NOT_FOUND);
+        }
     }
 
     /**

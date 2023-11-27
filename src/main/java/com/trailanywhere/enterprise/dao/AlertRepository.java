@@ -67,7 +67,7 @@ public class AlertRepository implements IAlertDAO {
     @Override
     @Transactional
     public void delete(int alertID) throws Exception {
-        Query query = entityManager.createQuery("DELETE FROM Alert a WHERE a.alertID = :ALERT");
+        Query query = entityManager.createQuery("DELETE FROM Alert alert WHERE alert.alertID = :ALERT");
         query.setParameter("ALERT", alertID);
         query.executeUpdate();
     }
@@ -78,7 +78,7 @@ public class AlertRepository implements IAlertDAO {
      */
     @Override
     public List<Alert> fetchAllAlerts() {
-        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a", Alert.class);
+        TypedQuery<Alert> query = entityManager.createQuery("SELECT alert FROM Alert alert", Alert.class);
         return query.getResultList();
     }
 
@@ -90,7 +90,7 @@ public class AlertRepository implements IAlertDAO {
     @Override
     public Alert findAlertByID(int alertID) {
         try {
-            TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.alertID = :ALERT", Alert.class);
+            TypedQuery<Alert> query = entityManager.createQuery("SELECT alert FROM Alert alert WHERE alert.alertID = :ALERT", Alert.class);
             query.setParameter("ALERT", alertID);
             return query.getSingleResult();
         } catch(Exception e) {
@@ -105,7 +105,7 @@ public class AlertRepository implements IAlertDAO {
      */
     @Override
     public List<Alert> findAlertsForTrail(int trailID) {
-        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.trail.trailID = :TRAIL", Alert.class);
+        TypedQuery<Alert> query = entityManager.createQuery("SELECT alert FROM Alert alert WHERE alert.trail.trailID = :TRAIL", Alert.class);
         query.setParameter("TRAIL", trailID);
         return query.getResultList();
     }
@@ -117,7 +117,7 @@ public class AlertRepository implements IAlertDAO {
      */
     @Override
     public List<Alert> findAlertsForUser(int userID) {
-        TypedQuery<Alert> query = entityManager.createQuery("SELECT a FROM Alert a WHERE a.user.userID = :USER", Alert.class);
+        TypedQuery<Alert> query = entityManager.createQuery("SELECT alert FROM Alert alert WHERE alert.user.userID = :USER", Alert.class);
         query.setParameter("USER", userID);
         return query.getResultList();
     }

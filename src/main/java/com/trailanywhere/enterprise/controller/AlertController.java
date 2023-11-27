@@ -59,7 +59,11 @@ public class AlertController {
         List<Alert> foundAlerts = alertService.findAlertsForTrail(trailID);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(foundAlerts, headers, HttpStatus.OK);
+        if (foundAlerts != null) {
+            return new ResponseEntity(foundAlerts, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity("No Alerts found for provided trail ID", headers, HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
