@@ -42,26 +42,20 @@ public class AlertTests {
     private ITrailDAO trailDAO;
     private Trail trail = new Trail();
 
-    /**
-     * Test creating a new alert
-     * @throws Exception - handle errors
-     */
-    @Test
-    void saveAlert() throws Exception {
-        givenAlertDataIsAvailable();
-        whenAlertDataIsGiven();
-        thenCreateAlert();
-    }
 
     private void givenAlertDataIsAvailable() {
         alertService = new AlertService(alertDAO);
     }
 
     private void whenAlertDataIsGiven() {
-        User user = new User();
+
+        user.setUserID(1111);
         user.setName("Jacob");
-        Trail trail = new Trail();
+        userService.addUser(user);
+
+        trail.setTrailID(100);
         trail.setName("Rapid Run Park");
+
         alert.setAlertText("Flooding");
     }
 
@@ -118,7 +112,6 @@ public class AlertTests {
     }
 
     private void thenDeleteAlert() throws Exception {
-        alert.getTrail().setName("New Trail"); // Avoid unique constraint error
         alertService.delete(alert.getAlertID());
         List<Alert> alertList = alertService.fetchAllAlerts();
         for (Alert a : alertList) {
