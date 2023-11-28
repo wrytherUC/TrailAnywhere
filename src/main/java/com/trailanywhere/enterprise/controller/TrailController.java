@@ -24,14 +24,16 @@ import java.util.logging.Logger;
 @Controller
 public class TrailController {
 
-    @Autowired
     TrailService trailService;
-
-    @Autowired
     AlertService alertService;
+    UserService userService;
 
     @Autowired
-    UserService userService;
+    public TrailController(TrailService trailService, AlertService alertService, UserService userService) {
+        this.trailService = trailService;
+        this.alertService = alertService;
+        this.userService = userService;
+    }
 
     private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
@@ -85,7 +87,6 @@ public class TrailController {
         Trail foundTrail = trailService.fetchByTrailName(name);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
         if (foundTrail != null) {
             return new ResponseEntity(foundTrail, headers, HttpStatus.OK);
         } else {
@@ -99,7 +100,7 @@ public class TrailController {
      * @return - HTTP status
      */
     @DeleteMapping("/trail/{trailID}/")
-    public ResponseEntity<Trail> deleteTrail(@PathVariable("trailID") int trailID) {
+    public ResponseEntity<Void> deleteTrail(@PathVariable("trailID") int trailID) {
         logger.log(Level.INFO,"Entering delete trail endpoint" );
         try {
             trailService.delete(trailID);

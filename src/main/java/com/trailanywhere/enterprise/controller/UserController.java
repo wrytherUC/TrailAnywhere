@@ -18,10 +18,16 @@ import java.util.logging.Logger;
  */
 @Controller
 public class UserController {
-    @Autowired
+
     UserService userService;
-    @Autowired
     TrailService trailService;
+
+    @Autowired
+    public UserController(UserService userService, TrailService trailService) {
+        this.userService = userService;
+        this.trailService = trailService;
+    }
+
     private static final Logger logger = Logger.getLogger(TrailController.class.getName());
 
     /**

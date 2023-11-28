@@ -24,16 +24,22 @@ import static org.mockito.Mockito.atLeastOnce;
 
 @SpringBootTest
 public class UserTests {
-    @Autowired
     private IUserService userService;
-    @Autowired
-    private IUserDAO userDAO;
-    private User user = new User();
-    @Autowired
+    private final IUserDAO userDAO;
+    private User user;
     private ITrailService trailService;
+    private final ITrailDAO trailDAO;
+    private Trail trail;
+
     @Autowired
-    private ITrailDAO trailDAO;
-    private Trail trail = new Trail();
+    public UserTests(IUserService userService, IUserDAO userDAO, ITrailService trailService, ITrailDAO trailDAO) {
+        this.userService = userService;
+        this.userDAO = userDAO;
+        this.trailService = trailService;
+        this.trailDAO = trailDAO;
+        this.user = new User();
+        this.trail = new Trail();
+    }
 
     /**
      * Test creating a new user

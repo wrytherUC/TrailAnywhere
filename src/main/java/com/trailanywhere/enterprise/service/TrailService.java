@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 @NoArgsConstructor
 public class TrailService implements ITrailService {
 
-    @Autowired
     private ITrailDAO trailDAO;
 
     // Initialize Logger
@@ -36,6 +35,7 @@ public class TrailService implements ITrailService {
      * Constructor for unit testing with Mockito
      * @param trailDAO
      */
+    @Autowired
     public TrailService(ITrailDAO trailDAO) {
         this.trailDAO = trailDAO;
     }

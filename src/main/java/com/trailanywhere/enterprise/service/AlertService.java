@@ -25,7 +25,6 @@ import java.util.Map;
 @NoArgsConstructor
 public class AlertService implements IAlertService {
     ArrayList<Alert> allAlerts = new ArrayList<>();
-
     @Autowired
     private IAlertDAO alertDAO;
 
@@ -42,6 +41,7 @@ public class AlertService implements IAlertService {
      * Constructor using DAO
      * @param alertDAO - DAO
      */
+    @Autowired
     public AlertService(IAlertDAO alertDAO) {
         this.alertDAO = alertDAO;
     }

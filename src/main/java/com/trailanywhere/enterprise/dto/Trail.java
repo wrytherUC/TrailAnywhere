@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
