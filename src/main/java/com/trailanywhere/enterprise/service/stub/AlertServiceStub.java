@@ -2,6 +2,11 @@ package com.trailanywhere.enterprise.service.stub;
 
 import com.trailanywhere.enterprise.dao.IAlertDAO;
 import com.trailanywhere.enterprise.dto.Alert;
+import com.trailanywhere.enterprise.dto.Trail;
+import com.trailanywhere.enterprise.dto.User;
+import com.trailanywhere.enterprise.service.TrailService;
+import com.trailanywhere.enterprise.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.trailanywhere.enterprise.service.IAlertService;
 
@@ -15,6 +20,11 @@ import java.util.List;
 public class AlertServiceStub implements IAlertService {
     ArrayList<Alert> allAlerts = new ArrayList<>();
     private IAlertDAO alertDAO;
+
+    @Autowired
+    TrailService trailService;
+    @Autowired
+    UserService userService;
 
     /**
      * Default constructor
@@ -51,12 +61,25 @@ public class AlertServiceStub implements IAlertService {
 
     /**
      * Create a new alert
-     * @param alert - alert data
+     * @param trailID - trail ID to associate the alert with
+     * @param userID - user ID to associate the alert with
+     * @param alertText - Describes what the alert is
      * @return - alert
      * @throws Exception - handle errors
      */
     @Override
-    public Alert save(Alert alert) throws Exception {
+    public Alert save(int trailID, int userID, String alertText) throws Exception {
+
+        Alert alert = new Alert();
+
+        alert.setAlertText(alertText);
+
+        Trail trail = trailService.findTrailByID(trailID);
+        alert.setTrail(trail);
+
+        User user = userService.findUserByID(userID);
+        alert.setUser(user);
+
         return alertDAO.save(alert);
     }
 
