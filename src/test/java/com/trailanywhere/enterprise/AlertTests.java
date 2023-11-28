@@ -32,6 +32,7 @@ public class AlertTests {
     private IAlertDAO alertDAO;
     private Alert alert = new Alert();
     private User user = new User();
+    private String alertText = "";
     @Autowired
     private IUserService userService;
     ArrayList<User> userList = new ArrayList<>();
@@ -61,12 +62,11 @@ public class AlertTests {
         user.setName("Jacob");
         Trail trail = new Trail();
         trail.setName("Rapid Run Park");
-        alert.setUser(user);
-        alert.setTrail(trail);
+        alert.setAlertText("Flooding");
     }
 
     private void thenCreateAlert() throws Exception {
-        Alert newAlert = alertService.save(alert);
+        Alert newAlert = alertService.save(trail.getTrailID(), user.getUserID(), alertText);
         assertEquals(alert, newAlert);
     }
 
@@ -100,7 +100,6 @@ public class AlertTests {
         alert.setUser(user);
         alert.setTrail(trail);
         alertService.addAlert(alert);
-        alertService.save(alert);
         List<Alert> alertList = alertService.fetchAllAlerts();
 
         // Test conditions
@@ -120,8 +119,7 @@ public class AlertTests {
 
     private void thenDeleteAlert() throws Exception {
         alert.getTrail().setName("New Trail"); // Avoid unique constraint error
-        Alert alertDelete = alertService.save(alert);
-        alertService.delete(alertDelete.getAlertID());
+        alertService.delete(alert.getAlertID());
         List<Alert> alertList = alertService.fetchAllAlerts();
         for (Alert a : alertList) {
             if (a.equals(alert)) {
@@ -144,7 +142,6 @@ public class AlertTests {
     private void thenFindAlertByID() {
         try {
             alert.getTrail().setName("findByID");
-            alertService.save(alert);
             int alertID = alert.getAlertID();
             Alert foundAlert = alertService.findAlertByID(alertID);
             assertEquals(alertID, foundAlert.getAlertID());
@@ -167,7 +164,6 @@ public class AlertTests {
     private void thenFindAlertsForTrail() {
         try {
             alert.getTrail().setName("findAlertsForThisTrail");
-            alertService.save(alert);
             List<Alert> foundAlert = alertService.findAlertsForTrail(alert.getTrail().getTrailID());
             assertEquals(1, foundAlert.size());
         } catch(Exception e) {
@@ -190,7 +186,6 @@ public class AlertTests {
         try {
             alert.getTrail().setName("findAlertsForThisTrail2");
             alert.getUser().setEmail("alertEmail@gmail.com");
-            alertService.save(alert);
             List<Alert> foundAlert = alertService.findAlertsForUser(alert.getUser().getUserID());
             assertEquals(1, foundAlert.size());
         } catch(Exception e) {
