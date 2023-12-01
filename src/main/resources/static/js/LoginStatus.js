@@ -64,6 +64,11 @@ function loginUser() {
 
             // Update 'log in' button to 'log out'
             isLoggedIn();
+
+            // Redirect back to previous page
+            setTimeout(() => {
+                window.history.back();
+            }, 2000);
         }
     });
 
@@ -100,6 +105,11 @@ function createUser() {
 
             // Update 'log in' button to 'log out'
             isLoggedIn();
+
+            // Redirect back to previous page
+            setTimeout(() => {
+                window.history.back();
+            }, 2000);
         }
     });
 
