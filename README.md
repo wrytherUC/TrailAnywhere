@@ -115,25 +115,19 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 ## JSON Schema
 
 - This JSON schema is from our Trail class and what we plan to export for another app.
-- The JSON schema generated using this [repo](https://github.com/victools/jsonschema-generator).
+- The JSON schema generated using this [link](https://github.com/victools/jsonschema-generator) and this [link](https://app.quicktype.io/).
+- The example trails JSON data can be used at this [link](https://app-trailanywhere-231203221916.azurewebsites.net/trail)
 
-
-> {
+> "Trail": {
 >  "type" : "object",
 >  "properties" : {
->    "address" : {
+>    "name" : {
 >      "type" : "string"
+>    },
+>    "trailid" : {
+>      "type" : "integer"
 >    },
 >    "difficulty" : {
->      "type" : "string"
->    },
->    "latitude" : {
->      "type" : "string"
->    },
->    "longitude" : {
->      "type" : "string"
->    },
->    "name" : {
 >      "type" : "string"
 >    },
 >    "terrain" : {
@@ -142,14 +136,68 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 >    "trailType" : {
 >      "type" : "string"
 >    },
->    "trailid" : {
->      "type" : "integer"
+>    "address" : {
+>      "type" : "string"
+>    },
+>    "latitude" : {
+>      "type" : "string"
+>    },
+>    "longitude" : {
+>      "type" : "string"
 >    },
 >    "zipCode" : {
 >      "type" : "integer"
+>    },
+>    "alerts": {
+>      "type" : "array"
 >    }
 >  }
+>},
+> "User": {
+>  "type" : "object",
+>  "properties" : {
+>    "alertid" : {
+>      "type" : "integer"
+>    },
+>    "trail": {
+>      "type": "integer"
+>    },
+>    "alertText": {
+>      "type": "string"
+>    },
+>    "user": {
+>       "type": "array"
+>    }
+>  }
+>},
+> "User": {
+>  "type" : "object",
+>  "properties" : {
+>    "userid" : {
+>      "type" : "integer"
+>    },
+>    "name": {
+>      "type": "string"
+>    },
+>    "email": {
+>      "type": "string"
+>    },
+>    "password": {
+>      "type": "string"
+>    },
+>    "userFavoriteTrails": {
+>      "type": "array",
+>      "items": {}
+>    },
+>    "alerts": {
+>      "type": "array",
+>      "items": {
+>        "type": "integer"
+>      }
+>    }
 >}
+
+
 
 ## Team Members and Roles
 
