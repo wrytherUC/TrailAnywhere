@@ -280,7 +280,7 @@ public class TrailController {
     }
 
     /**
-     * Get all trail difficulties
+     * Get all trail difficulties and return for users to select from
      * @param term - search term
      * @return - all difficulties
      */
@@ -300,7 +300,7 @@ public class TrailController {
     }
 
     /**
-     * Get all trail types
+     * Get all trail types and return for users to select from
      * @param term - search term
      * @return - all trail types
      */
@@ -320,7 +320,7 @@ public class TrailController {
     }
 
     /**
-     * Get all zip codes from trails
+     * Get all zip codes from trails and return for users to select from
      * @param term - search term
      * @return - Hashset containing all zip codes
      */
@@ -386,7 +386,6 @@ public class TrailController {
 
     /**
      * getTrailJSON endpoint returns all current trails in JSON format
-     *
      * @return - JSON of all trails
      */
     @RequestMapping(value="/getTrailJSON", method=RequestMethod.GET)
