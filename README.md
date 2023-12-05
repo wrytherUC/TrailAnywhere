@@ -161,6 +161,10 @@ DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
 [TrailAnywhere Repository](https://github.com/wrytherUC/TrailAnywhere)
 
+## Azure App Service
+
+[TrailAnywhere in Azure](https://app-trailanywhere-231203221916.azurewebsites.net/)
+
 ## Milestones
 
 [Milestone 1](https://github.com/wrytherUC/TrailAnywhere/milestone/1)
