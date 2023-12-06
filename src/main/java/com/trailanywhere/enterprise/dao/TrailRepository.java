@@ -86,7 +86,6 @@ public class TrailRepository implements ITrailDAO {
             // If no trail is found, return empty trail
             return new Trail();
         }
-
     }
 
     /**
@@ -147,6 +146,11 @@ public class TrailRepository implements ITrailDAO {
         }
     }
 
+    /**
+     * Find a trail based on the provided trail type
+     * @param trailType provided string, base search of off trailType
+     * @return list of trails that match the trailType search
+     */
     @Override
     public List<Trail> fetchByTrailType(String trailType) {
         TypedQuery<Trail> query = entityManager.createQuery("SELECT trail FROM Trail trail WHERE trail.trailType = :TRAIL_TYPE", Trail.class);
@@ -154,12 +158,20 @@ public class TrailRepository implements ITrailDAO {
         return query.getResultList();
     }
 
+    /**
+     * Provide all trail difficulty types found in database
+     * @return list of trail difficulty types from all trails
+     */
     @Override
     public List<String> fetchAllDifficultyTypes() {
         TypedQuery<String> query = entityManager.createQuery("SELECT trail.difficulty FROM Trail trail", String.class);
         return query.getResultList();
     }
 
+    /**
+     * Provide all trail types found in database
+     * @return list of trail types from all trails
+     */
     public List<String> fetchAllTrailTypes() {
         TypedQuery<String> query = entityManager.createQuery("SELECT trail.trailType FROM Trail trail", String.class);
         return query.getResultList();
