@@ -59,6 +59,11 @@ public interface IUserDAO {
      */
     User findUserByID(int userID);
 
+    /**
+     * Find a user based on their name
+     * @param name - user
+     * @return - user
+     */
     User findUserByName(String name);
 
     /**
