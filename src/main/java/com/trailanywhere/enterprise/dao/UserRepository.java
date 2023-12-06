@@ -58,7 +58,6 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Fetch a user's favorite trails
-     *
      * @param userID - user
      * @return - list of trails
      */
@@ -71,13 +70,14 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Add a trail to a user's favorites list
+     * If else statements - If user/trail does not exist, insert them into the DB first
+     * entity manager query - Add a favorite trail
      * @param user - user who's adding the trail
      * @param trail - trail to be added
      */
     @Override
     @Transactional
     public void addFavoriteTrail(User user, Trail trail) {
-        // If user/trail does not exist, insert them into the DB first
         if (user.getUserID() == 0 && trail.getTrailID() == 0) {
             entityManager.persist(user);
             entityManager.persist(trail);
@@ -90,7 +90,6 @@ public class UserRepository implements IUserDAO {
             entityManager.flush();
         }
 
-        // Add a favorite trail
         Query query = entityManager.createNativeQuery("INSERT INTO USER_FAVORITE_TRAILS (TRAILID, USERID) SELECT t.TRAILID, u.USERID FROM TRAIL t, USERS u WHERE t.TRAILID = ?1 AND u.USERID = ?2");// "
         query.setParameter(1, trail.getTrailID());
         query.setParameter(2, user.getUserID());
@@ -113,6 +112,7 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Find a user based on their credentials
+     * Catch block - If query fails to validate user, return an empty object
      * @param email - email address
      * @param password - user password
      * @return - User
@@ -125,7 +125,6 @@ public class UserRepository implements IUserDAO {
             query.setParameter("PASSWORD", password);
             return query.getSingleResult();
         } catch (Exception e) {
-            // If query fails to validate user, return an empty object
             return new User();
         }
 
@@ -133,6 +132,7 @@ public class UserRepository implements IUserDAO {
 
     /**
      * Find a user based on their ID
+     * Catch block - If query fails to validate user, return an empty object
      * @param userID - user ID
      * @return - user
      */
@@ -143,11 +143,16 @@ public class UserRepository implements IUserDAO {
             query.setParameter("USER", userID);
             return query.getSingleResult();
         } catch (Exception e) {
-            // If query fails to validate user, return an empty object
             return new User();
         }
     }
 
+    /**
+     * Find a user based on name
+     * Catch block - If query fails to validate user, return an empty object
+     * @param name - provided username search is based on
+     * @return user object
+     */
     @Override
     public User findUserByName(String name) {
         try {
@@ -155,7 +160,6 @@ public class UserRepository implements IUserDAO {
             query.setParameter("USER", name);
             return query.getSingleResult();
         } catch (Exception e) {
-            // If query fails to validate user, return an empty object
             return new User();
         }
     }
