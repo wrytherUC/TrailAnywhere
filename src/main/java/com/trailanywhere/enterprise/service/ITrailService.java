@@ -84,9 +84,22 @@ public interface ITrailService {
      */
     Trail findTrailByID(int trailID);
 
+    /**
+     * Find a trail based on the provided trail type
+     * @param trailType - provided string, base search of off trailType
+     * @return - list of trails that match the trailType search
+     */
     List<Trail> fetchByTrailType(String trailType);
 
+    /**
+     * Provide all trail difficulty types found in database
+     * @return set of trail difficulty types from all trails
+     */
     Set<String> fetchAllDifficultyTypes();
 
+    /**
+     * Provide all trail types found in database
+     * @return set of trail types from all trails
+     */
     Set<String> fetchAllTrailTypes();
 }
