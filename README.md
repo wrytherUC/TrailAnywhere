@@ -12,7 +12,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ## Storyboard
 
-![TrailAnywhere Invision Storyboard](src/main/resources/static/images/TrailAnywhere-InvisionStoryboard.png)
+![TrailAnywhere Invision Storyboard](src/main/resources/static/images/UpdatedStoryboard.png)
 
 [TrailAnywhere Storyboard in Invision](https://nate965053.invisionapp.com/freehand/TrailAnywhere-BAHo9RwnD)
 
