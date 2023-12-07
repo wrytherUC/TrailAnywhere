@@ -119,86 +119,94 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 - The JSON schema generated using this [link](https://github.com/victools/jsonschema-generator) and this [link](https://app.quicktype.io/).
 - The example trails JSON data can be used at this [link](https://app-trailanywhere-231203221916.azurewebsites.net/trail)
 
-> "Trail": {
->  "type" : "object",
->  "properties" : {
->    "name" : {
->      "type" : "string"
->    },
->    "trailid" : {
->      "type" : "integer"
->    },
->    "difficulty" : {
->      "type" : "string"
->    },
->    "terrain" : {
->      "type" : "string"
->    },
->    "trailType" : {
->      "type" : "string"
->    },
->    "address" : {
->      "type" : "string"
->    },
->    "latitude" : {
->      "type" : "string"
->    },
->    "longitude" : {
->      "type" : "string"
->    },
->    "zipCode" : {
->      "type" : "integer"
->    },
->    "alerts": {
->      "type" : "array"
->    }
->  }
->},
-> "User": {
->  "type" : "object",
->  "properties" : {
->    "alertid" : {
->      "type" : "integer"
->    },
->    "trail": {
->      "type": "integer"
->    },
->    "alertText": {
->      "type": "string"
->    },
->    "user": {
->       "type": "array"
->    }
->  }
->},
-> "User": {
->  "type" : "object",
->  "properties" : {
->    "userid" : {
->      "type" : "integer"
->    },
->    "name": {
->      "type": "string"
->    },
->    "email": {
->      "type": "string"
->    },
->    "password": {
->      "type": "string"
->    },
->    "userFavoriteTrails": {
->      "type": "array",
->      "items": {}
->    },
->    "alerts": {
->      "type": "array",
->      "items": {
->        "type": "integer"
->      }
->    }
->}
-
-
+```
+{
+    "Trail": {
+        "type": "object",
+        "properties": {
+            "trailID": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "string"
+            },
+            "difficulty": {
+                "type": "string"
+            },
+            "terrain": {
+                "type": "string"
+            },
+            "trailType": {
+                "type": "string"
+            },
+            "address": {
+                "type": "string"
+            },
+            "latitude": {
+                "type": "string"
+            },
+            "longitude": {
+                "type": "string"
+            },
+            "zipCode": {
+                "type": "string"
+            }
+        }
+    }
+}
+```
+```
+{
+    "Alert": {
+        "type" : "object",
+        "properties": {
+            "alertID": {
+                "type": "integer"
+            },
+            "trail": {
+                "type": "integer"
+            },
+            "alertText": {
+                "type": "string"
+            },
+            "user": {
+                "type": "integer"
+            }
+        }
+    }
+}
+```
+```
+{
+    "User": {
+        "type" : "object",
+        "properties" : {
+            "userid" : {
+                "type": "integer"
+            },
+            "name": {
+                "type": "string"
+            },
+            "email": {
+                "type": "string"
+            },
+            "password": {
+                "type": "string"
+            },
+            "userFavoriteTrails": {
+                "type": "array",
+                "items": {}
+            },
+            "alerts": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
+```
 
 ## Team Members and Roles
 
@@ -213,7 +221,7 @@ DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 ## Azure App Service
 
 Find TrailAnywhere hosted [here in Azure](https://app-trailanywhere-231203221916.azurewebsites.net/). 
-To retrieve our JSON data, access the /getTrailJSON endpoint.
+To retrieve our JSON data, access the /trail endpoint.
 
 ## Milestones
 
