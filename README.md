@@ -212,7 +212,8 @@ DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
 ## Azure App Service
 
-[TrailAnywhere in Azure](https://app-trailanywhere-231203221916.azurewebsites.net/)
+Find TrailAnywhere hosted [here in Azure](https://app-trailanywhere-231203221916.azurewebsites.net/). 
+To retrieve our JSON data, access the /getTrailJSON endpoint.
 
 ## Milestones
 
