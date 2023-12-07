@@ -94,7 +94,8 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ## Class Diagram
 
-![TrailAnywhere UML Diagram](src/main/resources/static/images/Class-Diagram.png)
+![TrailAnywhere UML Diagram 01](src/main/resources/static/images/ClassDiagram01.png)
+![TrailAnywhere UML Diagram 02](src/main/resources/static/images/ClassDiagram02.png)
 
 [TrailAnywhere Diagram](https://mailuc-my.sharepoint.com/:u:/g/personal/oterokh_mail_uc_edu/EWVWzCi2ScVNl_gkUfbfb9gBpNXzSorhuGdV_UclySsCHw?e=8GpgNy)
 
