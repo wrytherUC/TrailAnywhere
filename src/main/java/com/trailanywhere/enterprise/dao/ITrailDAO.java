@@ -63,9 +63,22 @@ public interface ITrailDAO {
      */
     Trail findTrailByID(int trailID);
 
+    /**
+     * Find a trail based on the provided trail type
+     * @param trailType - provided string, base search of off trailType
+     * @return - list of trails that match the trailType search
+     */
     List<Trail> fetchByTrailType(String trailType);
 
+    /**
+     * Provide all trail difficulty types found in database
+     * @return list of trail difficulty types from all trails
+     */
     List<String> fetchAllDifficultyTypes();
 
+    /**
+     * Provide all trail types found in database
+     * @return list of trail types from all trails
+     */
     List<String> fetchAllTrailTypes();
 }
