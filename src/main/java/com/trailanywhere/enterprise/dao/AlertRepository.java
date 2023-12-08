@@ -34,6 +34,7 @@ public class AlertRepository implements IAlertDAO {
 
     /**
      * Save an alert to the DB
+     * If else statements - handle alert saves if a user or trail already exists, else insert a new record of both
      * @param alert - alert object
      * @return - alert
      * @throws Exception - handle errors
@@ -41,7 +42,6 @@ public class AlertRepository implements IAlertDAO {
     @Override
     @Transactional
     public Alert save(Alert alert) throws Exception {
-        // Handle alert saves if a user or trail already exists, else insert a new record of both
         if (alert.getUser().getUserID() != 0 && alert.getTrail().getTrailID() != 0) {
             entityManager.persist(alert);
         } else if (alert.getUser().getUserID() != 0) {

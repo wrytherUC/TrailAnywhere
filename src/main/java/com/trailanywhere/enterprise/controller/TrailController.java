@@ -11,11 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Collections;
+import java.util.Set;
 import java.util.logging.Level;
 import org.springframework.ui.Model;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -277,7 +280,7 @@ public class TrailController {
     }
 
     /**
-     * Get all trail difficulties
+     * Get all trail difficulties and return for users to select from
      * @param term - search term
      * @return - all difficulties
      */
@@ -297,7 +300,7 @@ public class TrailController {
     }
 
     /**
-     * Get all trail types
+     * Get all trail types and return for users to select from
      * @param term - search term
      * @return - all trail types
      */
@@ -317,7 +320,7 @@ public class TrailController {
     }
 
     /**
-     * Get all zip codes from trails
+     * Get all zip codes from trails and return for users to select from
      * @param term - search term
      * @return - Hashset containing all zip codes
      */
@@ -383,7 +386,6 @@ public class TrailController {
 
     /**
      * getTrailJSON endpoint returns all current trails in JSON format
-     *
      * @return - JSON of all trails
      */
     @RequestMapping(value="/getTrailJSON", method=RequestMethod.GET)

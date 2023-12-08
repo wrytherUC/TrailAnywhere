@@ -12,7 +12,7 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ## Storyboard
 
-![TrailAnywhere Invision Storyboard](src/main/resources/static/images/TrailAnywhere-InvisionStoryboard.png)
+![TrailAnywhere Invision Storyboard](src/main/resources/static/images/UpdatedStoryboard.png)
 
 [TrailAnywhere Storyboard in Invision](https://nate965053.invisionapp.com/freehand/TrailAnywhere-BAHo9RwnD)
 
@@ -94,7 +94,8 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 
 ## Class Diagram
 
-![TrailAnywhere UML Diagram](src/main/resources/static/images/Class-Diagram.png)
+![TrailAnywhere UML Diagram 01](src/main/resources/static/images/ClassDiagram01.png)
+![TrailAnywhere UML Diagram 02](src/main/resources/static/images/ClassDiagram02.png)
 
 [TrailAnywhere Diagram](https://mailuc-my.sharepoint.com/:u:/g/personal/oterokh_mail_uc_edu/EWVWzCi2ScVNl_gkUfbfb9gBpNXzSorhuGdV_UclySsCHw?e=8GpgNy)
 
@@ -115,51 +116,102 @@ Because TrailAnywhere is a microservice, users can interact with this applicatio
 ## JSON Schema
 
 - This JSON schema is from our Trail class and what we plan to export for another app.
-- The JSON schema generated using this [repo](https://github.com/victools/jsonschema-generator).
+- The JSON schema generated using this [link](https://github.com/victools/jsonschema-generator) and this [link](https://app.quicktype.io/).
+- The example trails JSON data can be used at this [link](https://app-trailanywhere-231203221916.azurewebsites.net/trail)
 
-
-> {
->  "type" : "object",
->  "properties" : {
->    "address" : {
->      "type" : "string"
->    },
->    "difficulty" : {
->      "type" : "string"
->    },
->    "latitude" : {
->      "type" : "string"
->    },
->    "longitude" : {
->      "type" : "string"
->    },
->    "name" : {
->      "type" : "string"
->    },
->    "terrain" : {
->      "type" : "string"
->    },
->    "trailType" : {
->      "type" : "string"
->    },
->    "trailid" : {
->      "type" : "integer"
->    },
->    "zipCode" : {
->      "type" : "integer"
->    }
->  }
->}
+```
+{
+    "Trail": {
+        "type": "object",
+        "properties": {
+            "trailID": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "string"
+            },
+            "difficulty": {
+                "type": "string"
+            },
+            "terrain": {
+                "type": "string"
+            },
+            "trailType": {
+                "type": "string"
+            },
+            "address": {
+                "type": "string"
+            },
+            "latitude": {
+                "type": "string"
+            },
+            "longitude": {
+                "type": "string"
+            },
+            "zipCode": {
+                "type": "string"
+            }
+        }
+    }
+}
+```
+```
+{
+    "Alert": {
+        "type" : "object",
+        "properties": {
+            "alertID": {
+                "type": "integer"
+            },
+            "trail": {
+                "type": "integer"
+            },
+            "alertText": {
+                "type": "string"
+            },
+            "user": {
+                "type": "integer"
+            }
+        }
+    }
+}
+```
+```
+{
+    "User": {
+        "type" : "object",
+        "properties" : {
+            "userid" : {
+                "type": "integer"
+            },
+            "name": {
+                "type": "string"
+            },
+            "email": {
+                "type": "string"
+            },
+            "password": {
+                "type": "string"
+            }
+        }
+    }
+}
+```
 
 ## Team Members and Roles
 
 UI Specialist: Nate Virgin  
-Business Logic/Persistence: Kenneth Otero
+Business Logic/Persistence: Kenneth Otero  
 DevOps/Product Owner/Scrum Master/GitHub Admin: Wesley Ryther
 
 ## GitHub Project
 
 [TrailAnywhere Repository](https://github.com/wrytherUC/TrailAnywhere)
+
+## Azure App Service
+
+Find TrailAnywhere hosted [here in Azure](https://app-trailanywhere-231203221916.azurewebsites.net/). 
+To retrieve our JSON data, access the /trail endpoint.
 
 ## Milestones
 

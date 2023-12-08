@@ -130,6 +130,11 @@ public class AlertService implements IAlertService {
         return alertDAO.findAlertsForUser(userID);
     }
 
+    /**
+     * Used by badWordsFound static
+     * Loads bad words to check against
+     * Copied from <a href="https://gist.github.com/PimDeWitte/c04cc17bc5fa9d7e3aee6670d4105941">...</a>
+     */
     public static void loadConfigs() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("https://docs.google.com/spreadsheets/d/1hIEi2YG3ydav1E06Bzf2mQbGZ12kh2fe4ISgLg_UBuM/export?format=csv").openConnection().getInputStream()));
@@ -168,11 +173,11 @@ public class AlertService implements IAlertService {
 
 
     /**
+     * Copied from <a href="https://gist.github.com/PimDeWitte/c04cc17bc5fa9d7e3aee6670d4105941">...</a>
      * Iterates over a String input and checks whether a cuss word was found in a list, then checks if the word should be ignored (e.g. bass contains the word *ss).
-     * @param input
-     * @return
+     * @param input - Will be alert description entered by user when creating a new alert
+     * @return - any bad words found, passed to filterText
      */
-
     public static ArrayList<String> badWordsFound(String input) {
         if(input == null) {
             return new ArrayList<>();
@@ -224,6 +229,12 @@ public class AlertService implements IAlertService {
 
     }
 
+    /**
+     * Copied from <a href="https://gist.github.com/PimDeWitte/c04cc17bc5fa9d7e3aee6670d4105941">...</a>
+     * @param input - from badWordsFound, if bad word is found, return the specified message
+     * @param username - not used
+     * @return - Either filtered message or input, which is the alert description
+     */
     public static String filterText(String input, String username) {
         ArrayList<String> badWords = badWordsFound(input);
         if(badWords.size() > 0) {

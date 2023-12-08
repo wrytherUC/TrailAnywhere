@@ -80,6 +80,11 @@ public interface IUserService {
      */
     User findUserByID(int userID);
 
+    /**
+     * Find a user based on their username
+     * @param name - username
+     * @return - user
+     */
     User findUserByName(String name);
 
     /**
